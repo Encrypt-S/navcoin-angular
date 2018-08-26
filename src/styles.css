@@ -1,0 +1,12 @@
+body {
+  background-color: white;
+}
+
+.nav-bar {
+  background-color: #7d59b5;
+}
+
+.site-logo {
+  font-size: 2rem;
+  margin-left: 1rem;
+}

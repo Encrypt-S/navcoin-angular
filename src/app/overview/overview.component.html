@@ -8,7 +8,9 @@
           Overview
         </mz-card-title>
         <mz-card-content>
-          I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.
+          <p>NAV / USD: <span *ngIf=explorer>{{explorer.tickerUSD}}</span></p>
+          <p>NAV / BTC: <span *ngIf=explorer>{{explorer.tickerBTC}}</span></p>
+          <p>Balance: <span *ngIf=wallet>{{wallet.balance}}</span> NAV</p>
         </mz-card-content>
       </mz-card>
       </div>

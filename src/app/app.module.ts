@@ -11,6 +11,9 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { WalletComponent } from './wallet/wallet.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { SettingsComponent } from './settings/settings.component';
+import { ExplorerService } from './explorer/explorer.service';
+import { WalletService } from './wallet/wallet.service';
+
 
 @NgModule({
   declarations: [
@@ -28,8 +31,12 @@ import { SettingsComponent } from './settings/settings.component';
     MzCardModule,
     MzNavbarModule,
     AppRoutingModule,
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    ExplorerService,
+    WalletService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

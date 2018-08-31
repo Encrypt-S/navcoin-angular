@@ -7,7 +7,7 @@ export class WalletService {
 
   rpcEndpoint = 'http://localhost:3000/api/rpc';
 
-  const httpOptions = {
+  httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
     })

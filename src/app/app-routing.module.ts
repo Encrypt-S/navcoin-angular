@@ -5,20 +5,34 @@ import { Routes, RouterModule } from '@angular/router';
 import { WalletComponent }      from './wallet/wallet.component';
 import { OverviewComponent }      from './overview/overview.component';
 import { SettingsComponent }      from './settings/settings.component';
+import { LoginComponent }      from './login/login.component';
+import { PageNotFoundComponent }      from './not-found/not-found.component';
+
+import { AuthGuardService as AuthGuard } from './auth/auth-guard.service';
 
 const routes: Routes = [
   {
     path: '',
-    component: OverviewComponent
-
+    component: OverviewComponent,
+    //canActivate: [AuthGuard]
   },
   {
     path: 'wallet',
-    component: WalletComponent
+    component: WalletComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'settings',
-    component: SettingsComponent
+    component: SettingsComponent,
+    //canActivate: [AuthGuard]
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: '**',
+    component: PageNotFoundComponent
   }
 ];
 

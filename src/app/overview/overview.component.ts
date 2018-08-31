@@ -5,7 +5,8 @@ import { ExplorerService } from '../explorer/explorer.service';
 
 import { WalletModel } from '../wallet/wallet.model';
 import { WalletService } from '../wallet/wallet.service';
-import { RpcModel } from '../rpc/rpc.model';
+import { RpcSend } from '../rpc/rpc-send.model';
+import { RpcReceive } from '../rpc/rpc-receive.model';
 
 @Component({
   selector: 'app-overview',
@@ -16,7 +17,8 @@ export class OverviewComponent implements OnInit {
 
   explorer: ExplorerModel;
   wallet: WalletModel;
-  rpcData: RpcModel;
+  rpcSend: RpcSend;
+  rpcReceive: RpcReceive;
 
   constructor(
     private explorerService: ExplorerService,
@@ -30,21 +32,22 @@ export class OverviewComponent implements OnInit {
   }
 
   showBalance() {
-    this.rpcData = {
+    this.rpcSend = {
       command: 'getbalance'
     }
-    this.walletService.getBalance(this.rpcData)
+    this.walletService.getBalance(this.rpcSend)
       .subscribe(
-        (data: object) => {
-          if (data.type == 'SUCCESS') {
+        (receive: RpcReceive) => {
+          if (receive.type == 'SUCCESS') {
+            console.log('receive: ', typeof receive.data)
             this.wallet = {
               ...this.wallet,
-              balance: data.data
+              balance: receive['data']
             };
           } else {
-            console.log('error: ', data);
+            console.log('error: ', receive);
           }
-        error => {
+        }, error => {
           console.log('error: ', error);
         }
       );
@@ -58,7 +61,7 @@ export class OverviewComponent implements OnInit {
             ...this.explorer,
             tickerUSD: data
           };
-        error => {
+        }, error => {
           console.log('error: ', error);
         }
       );

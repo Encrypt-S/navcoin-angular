@@ -1,19 +1,38 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule }    from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
+//app
 import { AppComponent } from './app.component';
-import { OverviewComponent } from './overview/overview.component';
+import { AppRoutingModule } from './/app-routing.module';
 
+//auth
+import { AuthGuardService as AuthGuard } from './auth/auth-guard.service';
+import { JwtModule } from '@auth0/angular-jwt';
+
+//pages
+import { OverviewComponent } from './overview/overview.component';
+import { LoginComponent } from './login/login.component';
+import { WalletComponent } from './wallet/wallet.component';
+import { SettingsComponent } from './settings/settings.component';
+import { PageNotFoundComponent }      from './not-found/not-found.component';
+
+//materialize
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MzSidenavModule, MzButtonModule, MzCardModule, MzNavbarModule } from 'ngx-materialize';
-import { NavbarComponent } from './navbar/navbar.component';
-import { WalletComponent } from './wallet/wallet.component';
-import { AppRoutingModule } from './/app-routing.module';
-import { SettingsComponent } from './settings/settings.component';
+
+//services
 import { ExplorerService } from './explorer/explorer.service';
 import { WalletService } from './wallet/wallet.service';
+import { AuthService } from './auth/auth.service';
 
+//partials
+import { NavbarComponent } from './navbar/navbar.component';
+
+export function tokenGetter() {
+  return localStorage.getItem('access_token');
+}
 
 @NgModule({
   declarations: [
@@ -22,6 +41,8 @@ import { WalletService } from './wallet/wallet.service';
     NavbarComponent,
     WalletComponent,
     SettingsComponent,
+    LoginComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,10 +53,20 @@ import { WalletService } from './wallet/wallet.service';
     MzNavbarModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        whitelistedDomains: ['localhost:3001'],
+        blacklistedRoutes: ['localhost:3001/auth/']
+      }
+    })
   ],
   providers: [
     ExplorerService,
-    WalletService
+    WalletService,
+    AuthGuard,
+    AuthService,
   ],
   bootstrap: [AppComponent]
 })

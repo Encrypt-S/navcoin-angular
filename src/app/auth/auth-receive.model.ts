@@ -3,4 +3,5 @@ export class AuthReceive {
   code: string;
   message: string;
   data: any;
+  token: string;
 }

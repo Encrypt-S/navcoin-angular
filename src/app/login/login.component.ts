@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoginModel } from '../login/login.model';
 import { AuthService } from '../auth/auth.service';
 import { AuthReceive } from '../auth/auth-receive.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +19,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private authService: AuthService
+    public router: Router
   ) {}
 
   ngOnInit() {
@@ -30,12 +32,8 @@ export class LoginComponent implements OnInit {
       .subscribe(
         (receive: AuthReceive) => {
           if (receive.type == 'SUCCESS') {
-            console.log('receive: ', receive.data.jwt)
-            this.login = {
-              ...this.login,
-              token: receive.data.jwt
-            };
-            console.log(this.login)
+            localStorage.setItem ('token', receive.token);
+            this.router.navigate(['/']);
           } else {
             console.log('error: ', receive);
           }

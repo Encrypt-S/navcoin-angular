@@ -14,7 +14,7 @@ const routes: Routes = [
   {
     path: '',
     component: OverviewComponent,
-    //canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: 'wallet',
@@ -24,7 +24,7 @@ const routes: Routes = [
   {
     path: 'settings',
     component: SettingsComponent,
-    //canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: 'login',

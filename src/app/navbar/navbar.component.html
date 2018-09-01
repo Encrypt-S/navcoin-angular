@@ -1,8 +1,9 @@
 <mz-navbar navbarClass="nav-bar">
   <a href="/" class="site-logo">NavPi Lite</a>
-  <mz-navbar-item-container [align]="'right'">
+  <mz-navbar-item-container  *ngIf="authed" [align]="'right'">
     <mz-navbar-item><a href="/">Overview</a></mz-navbar-item>
     <mz-navbar-item><a href="/wallet">Wallet</a></mz-navbar-item>
     <mz-navbar-item><a href="/settings">Settings</a></mz-navbar-item>
+    <mz-navbar-item><a href="/#/" (click)="logOut()">Logout</a></mz-navbar-item>
   </mz-navbar-item-container>
 </mz-navbar>

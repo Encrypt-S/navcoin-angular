@@ -7,13 +7,17 @@ export class WalletService {
 
   rpcEndpoint = 'http://localhost:3000/api/rpc';
 
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type':  'application/json',
-    })
-  };
-
   getBalance(rpcData){
-    return this.http.post(this.rpcEndpoint, rpcData, this.httpOptions);
+
+    const token = localStorage.getItem('token');
+
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'x-access-token': token,
+      })
+    };
+
+    return this.http.post(this.rpcEndpoint, rpcData, httpOptions);
   }
 }

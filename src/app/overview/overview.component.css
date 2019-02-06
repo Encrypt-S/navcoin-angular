@@ -1,0 +1,17 @@
+.overview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 100px);
+  grid-gap: 20px;
+  justify-content: center;
+  max-width: 90vw;
+  min-width: 300px;
+  margin: 0 auto;
+}
+
+.wallet-overview {
+  grid-column: span 3;
+}
+.qr-code {
+  width: 100%;
+  grid-column: span 3;
+}

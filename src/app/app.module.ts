@@ -30,6 +30,8 @@ import { AuthService } from './auth/auth.service';
 //partials
 import { NavbarComponent } from './navbar/navbar.component';
 
+import { QRCodeModule } from 'angularx-qrcode';
+
 export function tokenGetter() {
   return localStorage.getItem('access_token');
 }
@@ -54,6 +56,7 @@ export function tokenGetter() {
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    QRCodeModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,

@@ -1,30 +1,76 @@
-<div>
-  <div class="row">
-      <div class="col m6">
-        <mz-card
-        class="grey lighten-5"
-        [horizontal]="true">
-        <mz-card-title>
-          Overview
-        </mz-card-title>
-        <mz-card-content>
-          <p>NAV / USD: <span *ngIf=explorer>{{explorer.tickerUSD}}</span></p>
-          <p>NAV / BTC: <span *ngIf=explorer>{{explorer.tickerBTC}}</span></p>
-          <p>Balance: <span *ngIf=wallet>{{wallet.balance}}</span> NAV</p>
-        </mz-card-content>
-      </mz-card>
-      </div>
-      <div class="col m6">
-        <mz-card
-        class="grey lighten-5"
-        [horizontal]="true">
-        <mz-card-title>
-          Overview
-        </mz-card-title>
-        <mz-card-content>
-          I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.
-        </mz-card-content>
-      </mz-card>
-      </div>
-    </div>
+<div class="overview-grid">
+  <mz-card
+  class="wallet-overview grey lighten-5"
+  [horizontal]="true">
+    <mz-card-title>
+      Wallet Overview
+    </mz-card-title>
+    <mz-card-content>
+      <p>Reg. Balance: <span *ngIf=wallet>{{wallet.balance}}</span> NAV</p>
+      <p>Cold Staking: <span *ngIf=wallet>{{wallet.balance}}</span> NAV</p>
+      <p>Total Balance: <span *ngIf=wallet>{{wallet.balance}}</span> NAV</p>
+      <p>Est. USD Value: <span *ngIf="wallet && explorer">{{ (wallet.balance * explorer.tickerUSD) | number:'1.2-2' }}</span> USD</p>
+      <p>NAV / USD: <span *ngIf=explorer>{{explorer.tickerUSD}}</span></p>
+      <p>NAV / BTC: <span *ngIf=explorer>{{explorer.tickerBTC}}</span></p>
+      <hr>
+      <h6>
+        Staking Overview
+      </h6>
+      <p>Today: <span *ngIf=wallet>{{wallet.staking.today}}</span> NAV</p>
+      <p>Last 7 days: <span *ngIf=wallet>{{wallet.staking.week}}</span> NAV</p>
+      <p>Last 30 days: <span *ngIf=wallet>{{wallet.staking.month}}</span> NAV</p>
+      <p>Last 365 days: <span *ngIf=wallet>{{wallet.staking.year}}</span> NAV</p>
+    </mz-card-content>
+  </mz-card>
+  <mz-card
+    class="qr-code grey lighten-5"
+    [horizontal]="true">
+    <mz-card-title>
+      Latest Transactions
+    </mz-card-title>
+    <mz-card-content>
+
+    </mz-card-content>
+  </mz-card>
+  <mz-card
+    class="qr-code grey lighten-5"
+    [horizontal]="true">
+    <mz-card-title>
+      Wallet Address
+    </mz-card-title>
+    <mz-card-content>
+      <qrcode *ngIf=wallet [qrdata]="'navcoin:' + wallet.address + '?label=NavPi'" [size]="292" [level]="'M'"></qrcode>
+    </mz-card-content>
+  </mz-card>
+  <mz-card
+    class="qr-code grey lighten-5"
+    [horizontal]="true">
+    <mz-card-title>
+      Send to address
+    </mz-card-title>
+    <mz-card-content>
+
+    </mz-card-content>
+  </mz-card>
+  <mz-card
+    class="qr-code grey lighten-5"
+    [horizontal]="true">
+    <mz-card-title>
+      C.Fund Proposals
+    </mz-card-title>
+    <mz-card-content>
+
+    </mz-card-content>
+  </mz-card>
+  <mz-card
+    class="qr-code grey lighten-5"
+    [horizontal]="true">
+    <mz-card-title>
+      C.Fund Payment Requests
+    </mz-card-title>
+    <mz-card-content>
+
+    </mz-card-content>
+  </mz-card>
+  
 </div>

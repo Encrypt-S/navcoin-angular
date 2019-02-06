@@ -29,20 +29,23 @@ export class OverviewComponent implements OnInit {
     this.showUSD();
     this.showBTC();
     this.showBalance();
+    // this.getStakes();
   }
 
   showBalance() {
     this.rpcSend = {
-      command: 'getbalance'
-    }
+      command: 'getwalletinfo'
+    };
     this.walletService.getBalance(this.rpcSend)
       .subscribe(
         (receive: RpcReceive) => {
-          if (receive.type == 'SUCCESS') {
-            console.log('receive: ', typeof receive.data)
+          if (receive.type === 'SUCCESS') {
+            console.log('receive: ', typeof receive.data);
+            console.log(receive.data);
             this.wallet = {
               ...this.wallet,
-              balance: receive['data']
+              balance: receive['data'],
+              address: 'n4Li1jNYkCy82wKrrbwyFRkEtixG2WV678'
             };
           } else {
             console.log('error: ', receive);
@@ -81,5 +84,4 @@ export class OverviewComponent implements OnInit {
         }
       );
   }
-
 }

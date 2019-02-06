@@ -1,0 +1,199 @@
+@import url('https://fonts.googleapis.com/css?family=Inconsolata');
+@import url('https://use.fontawesome.com/releases/v5.7.0/css/all.css');
+
+.main-body {
+    display: flex;
+    justify-content: center;
+}
+
+body {
+    margin: 0;
+    width: 1920px;
+    height: 1080px;
+    display: flex;
+    justify-content: center;
+}
+
+.create-new-body {
+    background: #2d2d2d;    
+    width: 768px;
+    height: 1024px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.nav-bar-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background: linear-gradient(0.6turn, #9B53C4, #74C0FF);
+    width: 10%
+}
+
+.nav-bar-div a{
+    color: inherit;
+}
+.wallet-icon-container {
+}
+
+.side-bar-link {
+    
+}
+
+/* two fields will be inside the main container */
+.main-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+
+}
+
+.balance {
+    border-radius: 50px;
+    width: 500px;
+    height: 300px;
+    background: #515151;
+    transition-duration: 0.15s;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+}
+
+.balance:hover {
+    box-shadow: 12px 20px;
+}
+
+.nav-svg {
+    width: 100px;
+    margin: 25px;
+    color: linear-gradient(0.6turn,#9B53C4, #74C0FF);
+
+}
+
+.amount-input {
+    border-radius: 30px;
+    background: #515151;
+    width: 450px;
+    height: 80px;
+    border: solid 4px;
+    border-color: #3f3f3f; 
+    outline: none;
+    text-align: center;
+}
+
+.amount-input, select {
+    font-family: "Inconsolata", monospace;
+    font-size: 25px;
+}
+
+.amount-input p {
+    font-family: "Inconsolata", monospace;
+    font-size: 30px;
+    color: #000;
+    opacity: 0.6;
+}
+.middle-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 60px;
+    width: 500px;
+}
+
+.middle-container a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.request-div {
+    display: flex;
+    justify-content: center;
+    background: linear-gradient(0.6turn, #9B53C4, #8F75D6);
+    border-radius: 30px;
+    width: 180px;
+    height: 80px;
+    transition-duration: 0.15s;
+}
+
+.request-div:hover {
+    border: 1px solid;
+    color: #fff;
+}
+
+.request-div p {
+    font-family: "Inconsolata", monospace;
+    font-size: 30px;
+    opacity: 0.7;
+}
+
+.send-div {
+    display: flex;
+    justify-content: center;
+    background: linear-gradient(0.6turn, #8F75D6, #9B53C4);
+    border-radius: 30px;
+    width: 180px;
+    height: 80px;
+}
+
+.send-div p {
+    font-family: "Inconsolata", monospace;
+    font-size: 30px;
+    opacity: 0.7;
+    transition-duration: 0.15s;
+}
+
+.send-div:hover {
+    border: 1px solid;
+    color: #fff;
+}
+
+.send-to {
+    border-radius: 50px;
+    width: 500px;
+    height: 300px;
+    background: #515151;
+    transition-duration: 0.15s;
+}
+
+.send-to:hover {
+    box-shadow: 12px 20px;
+}
+
+.fa-wallet {
+    transition-duration: 0.15s;
+}
+.fa-wallet:hover {
+    font-size: 60px;
+}
+
+.fa-address-book {
+    transition-duration: 0.15s;
+}
+
+.fa-address-book:hover {
+    font-size: 60px;
+}
+
+.fa-university {
+    transition-duration: 0.15s;
+}
+
+.fa-university:hover {
+    font-size: 60px;
+}
+
+.fa-user-secret {
+    transition-duration: 0.15s;
+}
+
+.fa-user-secret:hover {
+    font-size: 60px;
+}
+
+

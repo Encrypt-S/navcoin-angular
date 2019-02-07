@@ -28,7 +28,7 @@ body {
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    background: linear-gradient(0.6turn, #9B53C4, #74C0FF);
+    background: linear-gradient(0.6turn, #CB12C0, rgb(95, 212, 255));
     width: 10%
 }
 
@@ -60,13 +60,23 @@ body {
     background: #515151;
     transition-duration: 0.15s;
     display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
 
 }
 
 .balance:hover {
     box-shadow: 12px 20px;
+}
+
+.balance h1 {
+    margin: 25px;
+    font-family: "Inconsolata", monospace;
+    font-size: 40px;
+    background: linear-gradient(0.6turn,#9B53C4, #74C0FF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .nav-svg {
@@ -90,6 +100,7 @@ body {
 .amount-input, select {
     font-family: "Inconsolata", monospace;
     font-size: 25px;
+    color: rgb(192, 192, 192);
 }
 
 .amount-input p {
@@ -113,7 +124,9 @@ body {
 
 .request-div {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
     background: linear-gradient(0.6turn, #9B53C4, #8F75D6);
     border-radius: 30px;
     width: 180px;
@@ -121,20 +134,25 @@ body {
     transition-duration: 0.15s;
 }
 
+.fa-qrcode {
+    margin: 0px;
+}
 .request-div:hover {
-    border: 1px solid;
-    color: #fff;
+    box-shadow: 10px 10px;
 }
 
 .request-div p {
     font-family: "Inconsolata", monospace;
     font-size: 30px;
     opacity: 0.7;
+    margin: 0;
 }
 
 .send-div {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
     background: linear-gradient(0.6turn, #8F75D6, #9B53C4);
     border-radius: 30px;
     width: 180px;
@@ -146,14 +164,17 @@ body {
     font-size: 30px;
     opacity: 0.7;
     transition-duration: 0.15s;
+    margin: 0;
 }
 
 .send-div:hover {
-    border: 1px solid;
-    color: #fff;
+    box-shadow: 10px 10px;
 }
 
-.send-to {
+.statements {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
     border-radius: 50px;
     width: 500px;
     height: 300px;
@@ -161,8 +182,38 @@ body {
     transition-duration: 0.15s;
 }
 
-.send-to:hover {
+.statements:hover {
     box-shadow: 12px 20px;
+}
+
+.transaction-one {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+}
+
+.amount-address {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.amount-address h1 {
+    font-family: "Inconsolata", monospace;
+    font-size: 30px;
+    margin: 0;
+}
+
+.amount-address p {
+    font-family: "Inconsolata", monospace;
+    color: rgb(192, 192, 192);
+}
+
+.transaction-one p {
+    font-family: "Inconsolata", monospace;
+    font-size: 50px;
+    opacity: 0.7;
 }
 
 .fa-wallet {

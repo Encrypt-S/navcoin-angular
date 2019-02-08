@@ -1,6 +1,6 @@
 <div class="overview-grid">
   <mz-card
-  class="wallet-overview grey lighten-5"
+  class="overview-card grey lighten-5"
   [horizontal]="true">
     <mz-card-title>
       Wallet Overview
@@ -16,14 +16,14 @@
       <h6>
         Staking Overview
       </h6>
-      <p>Today: <span *ngIf=wallet>{{wallet.staking.today}}</span> NAV</p>
-      <p>Last 7 days: <span *ngIf=wallet>{{wallet.staking.week}}</span> NAV</p>
-      <p>Last 30 days: <span *ngIf=wallet>{{wallet.staking.month}}</span> NAV</p>
-      <p>Last 365 days: <span *ngIf=wallet>{{wallet.staking.year}}</span> NAV</p>
+      <p>Today: <span *ngIf=wallet>{{wallet.balance}}</span> NAV</p>
+      <p>Last 7 days: <span *ngIf=wallet>{{wallet.balance}}</span> NAV</p>
+      <p>Last 30 days: <span *ngIf=wallet>{{wallet.balance}}</span> NAV</p>
+      <p>Last 365 days: <span *ngIf=wallet>{{wallet.balance}}</span> NAV</p>
     </mz-card-content>
   </mz-card>
   <mz-card
-    class="grey lighten-5"
+    class="overview-card grey lighten-5"
     [horizontal]="true">
     <mz-card-title>
       Latest Transactions
@@ -33,17 +33,19 @@
     </mz-card-content>
   </mz-card>
   <mz-card
-    class="grey lighten-5"
-    [horizontal]="true">
+  class="overview-card deposit-card grey lighten-5"
+  [horizontal]="true">
     <mz-card-title>
-      Wallet Address
+      Deposit
     </mz-card-title>
     <mz-card-content>
-      <qrcode *ngIf=wallet [qrdata]="'navcoin:' + wallet.address + '?label=NavPi'" [size]="292" [level]="'M'"></qrcode>
+      <qr-code [value]="qrMainAddress" [size]="300" class="qr-code"></qr-code>
+      <p class="address-string">{{wallet.mainAddress}}</p>
+      <button class="waves-effect waves-light btn" ngxClipboard [cbContent]="wallet.mainAddress">Copy</button>
     </mz-card-content>
   </mz-card>
   <mz-card
-    class="grey lighten-5"
+    class="overview-card grey lighten-5"
     [horizontal]="true">
     <mz-card-title>
       Send to address
@@ -53,7 +55,7 @@
     </mz-card-content>
   </mz-card>
   <mz-card
-    class="grey lighten-5"
+    class="overview-card grey lighten-5"
     [horizontal]="true">
     <mz-card-title>
       C.Fund Proposals
@@ -63,25 +65,13 @@
     </mz-card-content>
   </mz-card>
   <mz-card
-    class="grey lighten-5"
+    class="overview-card grey lighten-5"
     [horizontal]="true">
     <mz-card-title>
       C.Fund Payment Requests
     </mz-card-title>
     <mz-card-content>
 
-    </mz-card-content>
-  </mz-card>
-  <mz-card
-    class="qr-code grey lighten-5"
-    [horizontal]="true">
-    <mz-card-title>
-      Deposit
-    </mz-card-title>
-    <mz-card-content>
-      <qr-code [value]="qrMainAddress" [size]="300" class="qr-code"></qr-code>
-      <p class="address-string">{{wallet.mainAddress}}</p>
-      <button class="waves-effect waves-light btn" ngxClipboard [cbContent]="wallet.mainAddress">Copy</button>
     </mz-card-content>
   </mz-card>
 </div>

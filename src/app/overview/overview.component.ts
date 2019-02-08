@@ -35,7 +35,7 @@ export class OverviewComponent implements OnInit {
       ...this.wallet,
       mainAddress: 'NaSdzJ64o8DQo5DMPexVrL4PYFCBZqcmsW'
     };
-    this.qrMainAddress = 'navcoin:' + this.wallet.mainAddress;
+    this.qrMainAddress = 'navcoin:' + this.wallet.mainAddress + '?label=NavPi';
   }
 
   showBalance() {

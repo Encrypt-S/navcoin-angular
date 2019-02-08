@@ -8,12 +8,12 @@
   margin: 0 auto;
 }
 
-.wallet-overview {
+.overview-card {
   grid-column: span 3;
-}
-.qr-code {
   width: 100%;
-  grid-column: span 3;
+}
+.deposit-card {
+  grid-column:  span 4;
 }
 .overview .address-string {
   margin: 10px 0;

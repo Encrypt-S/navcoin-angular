@@ -1,36 +1,43 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule }    from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
-//app
+// app
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './/app-routing.module';
 
-//auth
+// auth
 import { AuthGuardService as AuthGuard } from './auth/auth-guard.service';
 import { JwtModule } from '@auth0/angular-jwt';
 
-//pages
+// pages
 import { OverviewComponent } from './overview/overview.component';
 import { LoginComponent } from './login/login.component';
 import { WalletComponent } from './wallet/wallet.component';
 import { SettingsComponent } from './settings/settings.component';
-import { PageNotFoundComponent }      from './not-found/not-found.component';
+import { PageNotFoundComponent } from './not-found/not-found.component';
 
-//materialize
+// materialize
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MzSidenavModule, MzButtonModule, MzCardModule, MzNavbarModule } from 'ngx-materialize';
+import {
+  MzSidenavModule,
+  MzButtonModule,
+  MzCardModule,
+  MzNavbarModule
+} from 'ngx-materialize';
 
-//services
+// services
 import { ExplorerService } from './explorer/explorer.service';
 import { WalletService } from './wallet/wallet.service';
 import { AuthService } from './auth/auth.service';
 
-//partials
-import { NavbarComponent } from './navbar/navbar.component';
+// tools
+import { QRCodeModule } from 'angular2-qrcode';
+import { ClipboardModule } from 'ngx-clipboard';
 
-import { QRCodeModule } from 'angularx-qrcode';
+// partials
+import { NavbarComponent } from './navbar/navbar.component';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -44,7 +51,7 @@ export function tokenGetter() {
     WalletComponent,
     SettingsComponent,
     LoginComponent,
-    PageNotFoundComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -57,6 +64,7 @@ export function tokenGetter() {
     HttpClientModule,
     FormsModule,
     QRCodeModule,
+    ClipboardModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
@@ -65,12 +73,7 @@ export function tokenGetter() {
       }
     })
   ],
-  providers: [
-    ExplorerService,
-    WalletService,
-    AuthGuard,
-    AuthService,
-  ],
+  providers: [ExplorerService, WalletService, AuthGuard, AuthService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

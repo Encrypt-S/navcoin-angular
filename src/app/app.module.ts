@@ -27,6 +27,10 @@ import { ExplorerService } from './explorer/explorer.service';
 import { WalletService } from './wallet/wallet.service';
 import { AuthService } from './auth/auth.service';
 
+//tools
+import { QRCodeModule } from 'angular2-qrcode';
+import { ClipboardModule } from 'ngx-clipboard';
+
 //partials
 import { NavbarComponent } from './navbar/navbar.component';
 
@@ -54,6 +58,8 @@ export function tokenGetter() {
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    QRCodeModule,
+    ClipboardModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,

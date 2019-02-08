@@ -19,6 +19,7 @@ export class OverviewComponent implements OnInit {
   wallet: WalletModel;
   rpcSend: RpcSend;
   rpcReceive: RpcReceive;
+  qrMainAddress: string;
 
   constructor(
     private explorerService: ExplorerService,
@@ -29,6 +30,11 @@ export class OverviewComponent implements OnInit {
     this.showUSD();
     this.showBTC();
     this.showBalance();
+    this.wallet = {
+      ...this.wallet,
+      mainAddress: 'NaSdzJ64o8DQo5DMPexVrL4PYFCBZqcmsW'
+    }
+    this.qrMainAddress = 'navcoin:' + this.wallet.mainAddress;
   }
 
   showBalance() {

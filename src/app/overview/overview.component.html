@@ -1,6 +1,6 @@
-<div>
+<div class="overview">
   <div class="row">
-      <div class="col m6">
+      <div class="col m6 s12">
         <mz-card
         class="grey lighten-5"
         [horizontal]="true">
@@ -13,16 +13,45 @@
           <p>Balance: <span *ngIf=wallet>{{wallet.balance}}</span> NAV</p>
         </mz-card-content>
       </mz-card>
+      <mz-card
+      class="grey lighten-5"
+      [horizontal]="true">
+      <mz-card-title>
+        Stake Report
+      </mz-card-title>
+      <mz-card-content>
+        <table>
+          <tr>
+            <td>1 Day</td>
+            <td><span *ngIf=explorer>{{explorer.tickerUSD}}</span></td>
+          </tr>
+          <tr>
+            <td>7 Days</td>
+            <td><span *ngIf=explorer>{{explorer.tickerUSD}}</span></td>
+          </tr>
+          <tr>
+            <td>30 Days</td>
+            <td><span *ngIf=explorer>{{explorer.tickerUSD}}</span></td>
+          </tr>
+          <tr>
+            <td>1 Year</td>
+            <td><span *ngIf=explorer>{{explorer.tickerUSD}}</span></td>
+          </tr>
+        </table>
+      </mz-card-content>
+    </mz-card>
       </div>
-      <div class="col m6">
+      <div class="col m6 s12 center">
         <mz-card
         class="grey lighten-5"
         [horizontal]="true">
         <mz-card-title>
-          Overview
+          Deposit
         </mz-card-title>
         <mz-card-content>
-          I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.
+          <qr-code [value]="qrMainAddress" [size]="300" class="qr-code"></qr-code>
+          <p class="address-string">{{wallet.mainAddress}}</p>
+          <button class="waves-effect waves-light btn" ngxClipboard [cbContent]="wallet.mainAddress">Copy</button>
         </mz-card-content>
       </mz-card>
       </div>

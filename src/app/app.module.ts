@@ -18,19 +18,24 @@ import { WalletComponent } from './wallet/wallet.component';
 import { SettingsComponent } from './settings/settings.component';
 import { PageNotFoundComponent } from './not-found/not-found.component';
 
+// modules
+import { UiPasswordComponent } from './settings/ui-password/ui-password.component';
+
 // materialize
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MzSidenavModule,
   MzButtonModule,
   MzCardModule,
-  MzNavbarModule
+  MzNavbarModule,
+  MzModalModule
 } from 'ngx-materialize';
 
 // services
 import { ExplorerService } from './explorer/explorer.service';
 import { WalletService } from './wallet/wallet.service';
 import { AuthService } from './auth/auth.service';
+import { UiPasswordService } from './settings/ui-password/ui-password.service';
 
 // tools
 import { QRCodeModule } from 'angular2-qrcode';
@@ -51,6 +56,7 @@ export function tokenGetter() {
     WalletComponent,
     SettingsComponent,
     LoginComponent,
+    UiPasswordComponent,
     PageNotFoundComponent
   ],
   imports: [
@@ -59,6 +65,7 @@ export function tokenGetter() {
     MzSidenavModule,
     MzButtonModule,
     MzCardModule,
+    MzModalModule,
     MzNavbarModule,
     AppRoutingModule,
     HttpClientModule,
@@ -73,7 +80,7 @@ export function tokenGetter() {
       }
     })
   ],
-  providers: [ExplorerService, WalletService, AuthGuard, AuthService],
+  providers: [ExplorerService, WalletService, AuthGuard, AuthService, UiPasswordService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

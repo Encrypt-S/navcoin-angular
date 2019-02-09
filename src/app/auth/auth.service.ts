@@ -9,7 +9,7 @@ export class AuthService {
     private http: HttpClient
   ) {}
 
-  authEndpoint = 'http://localhost:3000/api/auth';
+  authEndpoint = 'https://localhost/api/auth';
 
   // ...
   public isAuthenticated(): boolean {

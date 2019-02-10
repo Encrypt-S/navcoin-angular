@@ -32,8 +32,17 @@ export class WalletService {
     return true;
   }
 
-  sendToAddress() {
-    return true;
+  sendToAddress(rpcData) {
+    const token = localStorage.getItem('token');
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'x-access-token': token,
+      })
+    };
+
+    return this.http.post(this.rpcEndpoint, rpcData, httpOptions);
   }
 
   getNewAddress() {

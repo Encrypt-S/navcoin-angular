@@ -61,8 +61,9 @@ body {
     background-image: url('https://i.imgur.com/GAYyvp3.png');
     transition-duration: 0.15s;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
     align-items: flex-start;
 
 }
@@ -71,7 +72,15 @@ body {
     box-shadow: 12px 20px;
 }
 
-.balance h1 {
+.card-header {
+    width: 500px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+}
+
+.card-header h1 {
     margin: 25px;
     font-family: "Inconsolata", monospace;
     font-size: 40px;
@@ -80,11 +89,20 @@ body {
     -webkit-text-fill-color: transparent;
 }
 
-.nav-svg {
+.card-header .nav-svg {
     width: 100px;
     margin: 25px;
-    color: linear-gradient(0.6turn,#9B53C4, #74C0FF);
+    height: 54.20px;
 
+
+}
+
+.chip-crop {
+    height: 50.75px;
+    width: 62.5px;
+    filter: grayscale(100%);
+    margin-top: 20px;
+    margin-left: 35px;
 }
 
 .amount-input {

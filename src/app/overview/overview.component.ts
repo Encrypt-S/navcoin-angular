@@ -41,7 +41,7 @@ export class OverviewComponent implements OnInit {
     this.showUSD();
     this.showBTC();
     this.showBalance();
-    // this.getStakes();
+    this.getStakeReport();
     this.wallet = {
       ...this.wallet,
       mainAddress: 'NaSdzJ64o8DQo5DMPexVrL4PYFCBZqcmsW'
@@ -53,16 +53,16 @@ export class OverviewComponent implements OnInit {
     this.rpcSend = {
       command: 'getwalletinfo'
     };
-    this.walletService.getBalance(this.rpcSend)
+    this.walletService.sendRPC(this.rpcSend)
       .subscribe(
         (receive: RpcReceive) => {
           if (receive.type === 'SUCCESS') {
-            console.log('receive: ', typeof receive.data);
-            console.log(receive.data);
             this.wallet = {
               ...this.wallet,
-              balance: receive['data'],
-              address: 'n4Li1jNYkCy82wKrrbwyFRkEtixG2WV678'
+              balance: receive.data.balance,
+              coldStakingBalance: receive.data.coldstaking_balance,
+              unconfirmedBalance: receive.data.unconfirmed_balance,
+              immatureBalance: receive.data.immature_balance,
             };
           } else {
             console.log('error: ', receive);
@@ -73,16 +73,49 @@ export class OverviewComponent implements OnInit {
       );
   }
 
+  walletLoading() {
+    if (this.wallet.balance && this.wallet.staking) {
+      return true;
+    }
+    return false;
+  }
+
   sendToAddress(destinationAddress, amount, feeIncluded) {
     this.rpcSend = {
       command: 'sendtoaddress',
       params: [destinationAddress, amount.toString(), feeIncluded.toString()]
     };
-    this.walletService.sendToAddress(this.rpcSend)
+    this.walletService.sendRPC(this.rpcSend)
       .subscribe(
         (receive: RpcReceive) => {
           if (receive.type === 'SUCCESS') {
             console.log('receive: ', typeof receive.data);
+          } else {
+            console.log('error: ', receive);
+          }
+        }, error => {
+          console.log('error: ', error);
+        }
+      );
+  }
+
+  getStakeReport() {
+    this.rpcSend = {
+      command: 'getstakereport',
+    };
+    this.walletService.sendRPC(this.rpcSend)
+      .subscribe(
+        (receive: RpcReceive) => {
+          if (receive.type === 'SUCCESS') {
+            this.wallet = {
+              ...this.wallet,
+              staking: {
+                today: receive.data['Last 24H'],
+                week: receive.data['Last 7 Days'],
+                month: receive.data['Last 30 Days'],
+                year: receive.data['Last 365 Days'],
+              },
+            };
           } else {
             console.log('error: ', receive);
           }

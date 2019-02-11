@@ -7,7 +7,7 @@ export class WalletService {
 
   rpcEndpoint = 'http://localhost:3000/api/rpc';
 
-  getBalance(rpcData) {
+  sendRPC(rpcData) {
 
     const token = localStorage.getItem('token');
 
@@ -30,19 +30,6 @@ export class WalletService {
 
   listProposals() {
     return true;
-  }
-
-  sendToAddress(rpcData) {
-    const token = localStorage.getItem('token');
-
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        'x-access-token': token,
-      })
-    };
-
-    return this.http.post(this.rpcEndpoint, rpcData, httpOptions);
   }
 
   getNewAddress() {

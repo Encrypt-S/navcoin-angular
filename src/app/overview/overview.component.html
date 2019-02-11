@@ -5,21 +5,26 @@
     <mz-card-title>
       Wallet Overview
     </mz-card-title>
-    <mz-card-content>
+    <mz-card-content *ngIf="!walletLoading()">
+      <p>Wallet loading...</p>
+    </mz-card-content>
+    <mz-card-content *ngIf="walletLoading()">
       <p>Reg. Balance: <span *ngIf=wallet>{{wallet.balance}}</span> NAV</p>
-      <p>Cold Staking: <span *ngIf=wallet>{{wallet.balance}}</span> NAV</p>
-      <p>Total Balance: <span *ngIf=wallet>{{wallet.balance}}</span> NAV</p>
+      <p>Unconfirmed Balance: <span *ngIf=wallet>{{wallet.unconfirmedBalance}}</span> NAV</p>
+      <p>Immature Balance: <span *ngIf=wallet>{{wallet.immatureBalance}}</span> NAV</p>
+      <p>Cold Staking: <span *ngIf=wallet>{{wallet.coldStakingBalance}}</span> NAV</p>
+      <p>Total Balance: <span *ngIf=wallet>{{wallet.balance + wallet.unconfirmedBalance + wallet.immatureBalance + wallet.coldStakingBalance }}</span> NAV</p>
       <p>Est. USD Value: <span *ngIf="wallet && explorer">{{ (wallet.balance * explorer.tickerUSD) | number:'1.2-2' }}</span> USD</p>
-      <p>NAV / USD: <span *ngIf=explorer>{{explorer.tickerUSD}}</span></p>
-      <p>NAV / BTC: <span *ngIf=explorer>{{explorer.tickerBTC}}</span></p>
+      <p>NAV / USD: <span *ngIf=explorer>{{explorer.tickerUSD}} USD</span></p>
+      <p>NAV / BTC: <span *ngIf=explorer>{{explorer.tickerBTC}} BTC</span></p>
       <hr>
       <h6>
         Staking Overview
       </h6>
-      <p>Today: <span *ngIf=wallet>{{wallet.balance}}</span> NAV</p>
-      <p>Last 7 days: <span *ngIf=wallet>{{wallet.balance}}</span> NAV</p>
-      <p>Last 30 days: <span *ngIf=wallet>{{wallet.balance}}</span> NAV</p>
-      <p>Last 365 days: <span *ngIf=wallet>{{wallet.balance}}</span> NAV</p>
+      <p>Today: <span *ngIf=wallet>{{ wallet.staking.today }}</span> NAV</p>
+      <p>Last 7 days: <span *ngIf=wallet>{{ wallet.staking.week }}</span> NAV</p>
+      <p>Last 30 days: <span *ngIf=wallet>{{ wallet.staking.month }}</span> NAV</p>
+      <p>Last 365 days: <span *ngIf=wallet>{{ wallet.staking.year }}</span> NAV</p>
     </mz-card-content>
   </mz-card>
   <mz-card

@@ -1,9 +1,9 @@
 {
-  "name": "navpi-angular",
+  "name": "navcoin-angular",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --ssl true --proxy-config proxy.config.json",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -26,8 +26,8 @@
     "core-js": "^2.5.4",
     "express": "^4.16.3",
     "hammerjs": "^2.0.8",
-    "jquery": "^2.2.4",
-    "materialize-css": "^1.0.0-rc.2",
+    "jquery": "^3.3.1",
+    "materialize-css": "^0.100.2",
     "ngx-clipboard": "^11.1.6",
     "ngx-materialize": "^6.1.3",
     "rxjs": "^6.0.0",

@@ -6,7 +6,13 @@ export class WalletModel {
   addresses: Array<String>;
   walletVersion: String;
   mainAddress: String;
-  staking: StakeReportData;
+  stakeData: StakeReportData;
+  isSyncing: Boolean;
+  isStaking: Boolean;
+  isLocked: Boolean;
+  currentBlock: number;
+  highestKnownBlock: number;
+  walletChain: String;
 }
 class StakeReportData {
   today: number;

@@ -1,4 +1,27 @@
 <div class="overview-grid">
+    <mz-card
+    class="overview-card grey lighten-5"
+    [horizontal]="true">
+    <mz-card-title>
+      Wallet Status
+    </mz-card-title>
+    <mz-card-content *ngIf="!wallet.currentBlock">
+      Fetching Wallet Status...
+    </mz-card-content>
+    <mz-card-content *ngIf="wallet.currentBlock">
+      <p>Wallet Network: {{ wallet.walletChain }}</p>
+      <p>Wallet Version: {{ wallet.walletVersion }}</p>
+      <p>Staking: {{ wallet.isStaking }}</p>
+      <p>Wallet Locked: {{ wallet.isLocked }}</p>
+      <p>Wallet Syncing: {{ wallet.isSyncing }}</p>
+      <p>Current Block Count: {{ wallet.currentBlock }}</p>
+      <p>Highest Known Block Height: {{ wallet.highestKnownBlock }}</p>
+      <button class="waves-effect waves-light btn" *ngIf="!wallet.isLocked">Lock Wallet</button>
+      <button class="waves-effect waves-light btn" *ngIf="wallet.isLocked">Unlock Wallet</button>
+      <button class="waves-effect waves-light btn">Encrypt Wallet</button>
+    </mz-card-content>
+  </mz-card>
+
   <mz-card
   class="overview-card grey lighten-5"
   [horizontal]="true">
@@ -21,10 +44,10 @@
       <h6>
         Staking Overview
       </h6>
-      <p>Today: <span *ngIf=wallet>{{ wallet.staking.today }}</span> NAV</p>
-      <p>Last 7 days: <span *ngIf=wallet>{{ wallet.staking.week }}</span> NAV</p>
-      <p>Last 30 days: <span *ngIf=wallet>{{ wallet.staking.month }}</span> NAV</p>
-      <p>Last 365 days: <span *ngIf=wallet>{{ wallet.staking.year }}</span> NAV</p>
+      <p>Today: <span *ngIf=wallet>{{ wallet.stakeData.today }}</span> NAV</p>
+      <p>Last 7 days: <span *ngIf=wallet>{{ wallet.stakeData.week }}</span> NAV</p>
+      <p>Last 30 days: <span *ngIf=wallet>{{ wallet.stakeData.month }}</span> NAV</p>
+      <p>Last 365 days: <span *ngIf=wallet>{{ wallet.stakeData.year }}</span> NAV</p>
     </mz-card-content>
   </mz-card>
   <mz-card

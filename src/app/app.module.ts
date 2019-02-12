@@ -28,7 +28,9 @@ import {
   MzButtonModule,
   MzCardModule,
   MzNavbarModule,
-  MzModalModule
+  MzModalModule,
+  MzToastModule,
+  MzToastService
 } from 'ngx-materialize';
 
 // services
@@ -67,6 +69,7 @@ export function tokenGetter() {
     MzCardModule,
     MzModalModule,
     MzNavbarModule,
+    MzToastModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,

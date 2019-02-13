@@ -5,7 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class WalletService {
   constructor(private http: HttpClient) { }
 
-  apiEndpoint = 'http://localhost:3000/api/';
+  apiEndpoint = 'https://localhost:3000/api/';
   rpcEndpoint = this.apiEndpoint + 'rpc';
 
   sendRPC(rpcData) {
@@ -64,4 +64,3 @@ interface CFProposal {
 interface CFPaymentRequest extends CFProposal {
   paymentRequestHash: String;
 }
-

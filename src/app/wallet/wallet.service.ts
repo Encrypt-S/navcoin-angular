@@ -5,9 +5,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class WalletService {
   constructor(private http: HttpClient) { }
 
-  rpcEndpoint = 'https://localhost/api/rpc';
+  apiEndpoint = 'https://localhost:3000/api/';
+  rpcEndpoint = this.apiEndpoint + 'rpc';
 
-  getBalance(rpcData) {
+  sendRPC(rpcData) {
 
     const token = localStorage.getItem('token');
 
@@ -20,34 +21,23 @@ export class WalletService {
 
     return this.http.post(this.rpcEndpoint, rpcData, httpOptions);
   }
-  listTransactions() {
-    return true;
-  }
-
-  getStakeReport() {
-    return true;
-  }
-
-  listProposals() {
-    return true;
-  }
-
-  sendToAddress() {
-    return true;
-  }
 
   getNewAddress() {
     return 'n4Li1jNYkCy82wKrrbwyFRkEtixG2WV678';
   }
 
-  getWalletReport() {
-    return {
-      'wallet_version': 130000,
-      'balance': 38320718.47534246,
-      'coldstaking_balance': 0.00000000,
-      'unconfirmed_balance': 0.00000000,
-      'immature_balance': 21494998.04000000,
+  sendAPI(endpoint, params) {
+
+    const token = localStorage.getItem('token');
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'x-access-token': token,
+      })
     };
+
+    return this.http.post(this.apiEndpoint + endpoint, params, httpOptions);
   }
 }
 

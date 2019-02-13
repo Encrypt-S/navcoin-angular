@@ -21,6 +21,7 @@ import { PageNotFoundComponent } from './not-found/not-found.component';
 // modules
 import { UiPasswordComponent } from './settings/ui-password/ui-password.component';
 
+
 // materialize
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
@@ -45,6 +46,7 @@ import { ClipboardModule } from 'ngx-clipboard';
 
 // partials
 import { NavbarComponent } from './navbar/navbar.component';
+import { CFundPaymentRequestListComponent } from './overview/cfund-payment-req/cfund-payment-req-list.component';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -59,7 +61,8 @@ export function tokenGetter() {
     SettingsComponent,
     LoginComponent,
     UiPasswordComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    CFundPaymentRequestListComponent,
   ],
   imports: [
     BrowserModule,

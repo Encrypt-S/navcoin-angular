@@ -1,25 +1,53 @@
 <div class="overview-grid">
+    <mz-card
+    class="overview-card grey lighten-5"
+    [horizontal]="true">
+    <mz-card-title>
+      Wallet Status
+    </mz-card-title>
+    <mz-card-content *ngIf="!wallet.currentBlock">
+      Fetching Wallet Status...
+    </mz-card-content>
+    <mz-card-content *ngIf="wallet.currentBlock">
+      <p>Wallet Network: {{ wallet.walletChain }}</p>
+      <p>Wallet Version: {{ wallet.walletVersion }}</p>
+      <p>Staking: {{ wallet.isStaking }}</p>
+      <p>Wallet Locked: {{ wallet.isLocked }}</p>
+      <p>Wallet Syncing: {{ wallet.isSyncing }}</p>
+      <p>Current Block Count: {{ wallet.currentBlock }}</p>
+      <p>Highest Known Block Height: {{ wallet.highestKnownBlock }}</p>
+      <button class="waves-effect waves-light btn" *ngIf="!wallet.isLocked">Lock Wallet</button>
+      <button class="waves-effect waves-light btn" *ngIf="wallet.isLocked">Unlock Wallet</button>
+      <button class="waves-effect waves-light btn">Encrypt Wallet</button>
+    </mz-card-content>
+  </mz-card>
+
   <mz-card
   class="overview-card grey lighten-5"
   [horizontal]="true">
     <mz-card-title>
       Wallet Overview
     </mz-card-title>
-    <mz-card-content>
+    <mz-card-content *ngIf="!walletLoading()">
+      <p>Wallet loading...</p>
+    </mz-card-content>
+    <mz-card-content *ngIf="walletLoading()">
       <p>Reg. Balance: <span *ngIf=wallet>{{wallet.balance}}</span> NAV</p>
-      <p>Cold Staking: <span *ngIf=wallet>{{wallet.balance}}</span> NAV</p>
-      <p>Total Balance: <span *ngIf=wallet>{{wallet.balance}}</span> NAV</p>
+      <p>Unconfirmed Balance: <span *ngIf=wallet>{{wallet.unconfirmedBalance}}</span> NAV</p>
+      <p>Immature Balance: <span *ngIf=wallet>{{wallet.immatureBalance}}</span> NAV</p>
+      <p>Cold Staking: <span *ngIf=wallet>{{wallet.coldStakingBalance}}</span> NAV</p>
+      <p>Total Balance: <span *ngIf=wallet>{{wallet.balance + wallet.unconfirmedBalance + wallet.immatureBalance + wallet.coldStakingBalance }}</span> NAV</p>
       <p>Est. USD Value: <span *ngIf="wallet && explorer">{{ (wallet.balance * explorer.tickerUSD) | number:'1.2-2' }}</span> USD</p>
-      <p>NAV / USD: <span *ngIf=explorer>{{explorer.tickerUSD}}</span></p>
-      <p>NAV / BTC: <span *ngIf=explorer>{{explorer.tickerBTC}}</span></p>
+      <p>NAV / USD: <span *ngIf=explorer>{{explorer.tickerUSD}} USD</span></p>
+      <p>NAV / BTC: <span *ngIf=explorer>{{explorer.tickerBTC}} BTC</span></p>
       <hr>
       <h6>
         Staking Overview
       </h6>
-      <p>Today: <span *ngIf=wallet>{{wallet.balance}}</span> NAV</p>
-      <p>Last 7 days: <span *ngIf=wallet>{{wallet.balance}}</span> NAV</p>
-      <p>Last 30 days: <span *ngIf=wallet>{{wallet.balance}}</span> NAV</p>
-      <p>Last 365 days: <span *ngIf=wallet>{{wallet.balance}}</span> NAV</p>
+      <p>Today: <span *ngIf=wallet>{{ wallet.stakeData.today }}</span> NAV</p>
+      <p>Last 7 days: <span *ngIf=wallet>{{ wallet.stakeData.week }}</span> NAV</p>
+      <p>Last 30 days: <span *ngIf=wallet>{{ wallet.stakeData.month }}</span> NAV</p>
+      <p>Last 365 days: <span *ngIf=wallet>{{ wallet.stakeData.year }}</span> NAV</p>
     </mz-card-content>
   </mz-card>
   <mz-card
@@ -51,7 +79,26 @@
       Send to address
     </mz-card-title>
     <mz-card-content>
-
+      <form (ngSubmit)="sendToAddress(transaction.destinationAddress, transaction.amount, transaction.feeIncluded)" #loginForm="ngForm">
+        <div class="input-field">
+          <input id="address" type="text" class="validate"
+            [(ngModel)]="transaction.destinationAddress" name="address">
+          <label for="username">Address</label>
+        </div>
+        <div class="input-field">
+          <input id="amount" type="number" class="validate"
+            [(ngModel)]="transaction.amount" name="amount">
+          <label for="amount">Amount</label>
+        </div>
+          <label>
+            <input type="checkbox" id="fee-included" class="filled-in validate"
+            [(ngModel)]="transaction.feeIncluded" name="fee-included" />
+            <span>Fee included in amount</span>
+          </label>
+        <div class="input-field">
+          <button class="waves-effect waves-light btn right" type="submit" [disabled]="!transaction.amount || !transaction.destinationAddress" >Send</button>
+        </div>
+      </form>
     </mz-card-content>
   </mz-card>
   <mz-card
@@ -64,14 +111,6 @@
 
     </mz-card-content>
   </mz-card>
-  <mz-card
-    class="overview-card grey lighten-5"
-    [horizontal]="true">
-    <mz-card-title>
-      C.Fund Payment Requests
-    </mz-card-title>
-    <mz-card-content>
-
-    </mz-card-content>
-  </mz-card>
+  
+  <cfund-payment-req-list class="overview-card"></cfund-payment-req-list>
 </div>

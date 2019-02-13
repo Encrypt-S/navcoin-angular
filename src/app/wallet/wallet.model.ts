@@ -1,13 +1,18 @@
 export class WalletModel {
   balance: number;
-  address: String;
-  mainAddress: string;
-  staking: StakeReportData = {
-    today: 1,
-    week: 10,
-    month: 100,
-    year: 1000
-  };
+  coldStakingBalance: number;
+  unconfirmedBalance: number;
+  immatureBalance: number;
+  addresses: Array<String>;
+  walletVersion: String;
+  mainAddress: String;
+  stakeData: StakeReportData;
+  isSyncing: Boolean;
+  isStaking: Boolean;
+  isLocked: Boolean;
+  currentBlock: number;
+  highestKnownBlock: number;
+  walletChain: String;
 }
 class StakeReportData {
   today: number;

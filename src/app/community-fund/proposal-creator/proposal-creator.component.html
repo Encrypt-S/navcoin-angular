@@ -1,0 +1,34 @@
+<mz-card class="overview-card grey lighten-5" [horizontal]="true">
+  <mz-card-title>
+    Create a Proposal
+  </mz-card-title>
+  <mz-card-content>
+    <form [formGroup]="proposalForm" (ngSubmit)="onSubmit()">
+      <label>
+        Proposal Description:
+        <input type="text" formControlName="proposalDesc" required />
+      </label>
+
+      <label>
+        Payment Address:
+        <input type="text" formControlName="paymentAddress" required />
+      </label>
+
+      <label>
+        Proposal Amount:
+        <input type="number" formControlName="requestedAmount" required />
+      </label>
+
+      <label>
+        Duration (in seconds):
+        <input type="number" formControlName="duration" required />
+      </label>
+
+      <label>
+        Fee amount (optional):
+        <input type="number" formControlName="optionalFee" />
+      </label>
+      <button type="submit" [disabled]="!proposalForm.valid">Submit</button>
+    </form>
+  </mz-card-content>
+</mz-card>

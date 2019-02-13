@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { RpcSend } from '../rpc/rpc-send.model';
 
 @Injectable()
 export class WalletService {
   constructor(private http: HttpClient) { }
 
-  apiEndpoint = 'https://localhost:3000/api/';
+  apiEndpoint = 'https://localhost/api/';
   rpcEndpoint = this.apiEndpoint + 'rpc';
 
-  sendRPC(rpcData) {
+  sendRPC(rpcData: RpcSend) {
 
     const token = localStorage.getItem('token');
 
@@ -26,7 +27,7 @@ export class WalletService {
     return 'n4Li1jNYkCy82wKrrbwyFRkEtixG2WV678';
   }
 
-  sendAPI(endpoint, params) {
+  sendAPI(endpoint: String, params?: any) {
 
     const token = localStorage.getItem('token');
 
@@ -53,14 +54,4 @@ interface CommunityFundReport {
   CFundBalance: number;
   proposals: Array<CFProposal>;
   paymentRequests: Array<CFPaymentRequest>;
-}
-
-interface CFProposal {
-  amount: number;
-  yesVotes: number;
-  noVotes: number;
-  proposalHash: String;
-}
-interface CFPaymentRequest extends CFProposal {
-  paymentRequestHash: String;
 }

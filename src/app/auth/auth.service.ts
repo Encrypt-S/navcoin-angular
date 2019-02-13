@@ -11,17 +11,17 @@ export class AuthService {
 
   authEndpoint = 'https://localhost/api/auth';
 
-  // ...
-  public isAuthenticated(): boolean {
-    const token = localStorage.getItem('token');
-    return !this.jwtHelper.isTokenExpired(token);
-  }
-
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
     })
   };
+
+  public isAuthenticated(): boolean {
+    const token = localStorage.getItem('token');
+    return !this.jwtHelper.isTokenExpired(token);
+  }
+
 
   login(loginForm){
     return this.http.post(this.authEndpoint, loginForm, this.httpOptions);

@@ -47,6 +47,11 @@ import { ClipboardModule } from 'ngx-clipboard';
 // partials
 import { NavbarComponent } from './navbar/navbar.component';
 import { CFundPaymentRequestListComponent } from './overview/cfund-payment-req/cfund-payment-req-list.component';
+import { CommunityFundComponent } from './community-fund/community-fund.component';
+import { ProposalListComponent } from './community-fund/proposal-list/proposal-list.component';
+import { PaymentRequestListComponent } from './community-fund/payment-request-list/payment-request-list.component';
+import { ProposalCreatorComponent } from './community-fund/proposal-creator/proposal-creator.component';
+import { CfundStatsComponent } from './community-fund/cfund-stats/cfund-stats.component';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -63,6 +68,11 @@ export function tokenGetter() {
     UiPasswordComponent,
     PageNotFoundComponent,
     CFundPaymentRequestListComponent,
+    CommunityFundComponent,
+    ProposalListComponent,
+    PaymentRequestListComponent,
+    ProposalCreatorComponent,
+    CfundStatsComponent,
   ],
   imports: [
     BrowserModule,

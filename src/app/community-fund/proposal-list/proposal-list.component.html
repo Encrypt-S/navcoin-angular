@@ -4,7 +4,23 @@ class="overview-card grey lighten-5"
   <mz-card-title>
     Community Fund Proposals
   </mz-card-title>
-  <mz-card-content>
-
+  <mz-card-content class="proposal-container">
+    <div *ngFor="let proposal of proposalList" class="proposal-info">
+      <div>
+        <div class="description-text"><span>Description: </span>{{ proposal.description }}. </div>
+        <div>
+          <span>Amount: {{proposal.requestedAmount }}. </span>
+          <span>Duration: {{proposal.proposalDuration }}. </span>
+        </div>
+        <div>Hash: {{ proposal.blockHash }}. </div>
+      </div>  
+      <div>
+        Voting:
+        <div class="button-container">
+          <button>Yes</button>
+          <button>No</button>
+        </div>
+      </div>
+    </div>
   </mz-card-content>
 </mz-card>

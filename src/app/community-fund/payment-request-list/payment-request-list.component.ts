@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { WalletService } from 'src/app/wallet/wallet.service';
 import { RpcSend } from 'src/app/rpc/rpc-send.model';
 import { RpcReceive } from 'src/app/rpc/rpc-receive.model';
+import { Observable, Subscription } from 'rxjs';
+import 'rxjs/add/observable/interval';
 
 @Component({
   selector: 'app-payment-request-list',
@@ -13,10 +15,16 @@ export class PaymentRequestListComponent implements OnInit {
   paymentRequestList: Array<CFPaymentRequest>;
   paymentRequestVotes: any;
   buttonDebounce: Boolean = false;
+  dataRefresher: Subscription;
 
   ngOnInit() {
     this.fetchPaymentRequests();
     this.fetchPaymentRequestVotes();
+    this.dataRefresher = Observable.interval(30000).subscribe(val => {
+      console.log('Fetching new PReq data');
+      this.fetchPaymentRequests();
+      this.fetchPaymentRequestVotes();
+    });
   }
 
   fetchPaymentRequests() {

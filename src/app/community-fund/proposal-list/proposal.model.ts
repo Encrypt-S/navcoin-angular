@@ -43,9 +43,35 @@ interface CFVote {
 }
 
 class CFVote implements CFVote {
-
-  getHash( voteString: string): string {
+  getHash(voteString: string): string {
     const split = voteString.split(',');
     return split[0].split('=')[0];
   }
+}
+
+class CFundStats {
+  funds: {
+    available: number;
+    locked: number;
+  };
+
+  consensus: {
+    blocksPerVotingCycle: number;
+    minSumVotesPerVotingCycle: number;
+    maxCountVotingCycleProposals: number;
+    maxCountVotingCyclePaymentRequests: number;
+    votesAcceptProposalPercentage: number;
+    votesRejectProposalPercentage: number;
+    votesAcceptPaymentRequestPercentage: number;
+    votesRejectPaymentRequestPercentage: number;
+    proposalMinimalFee: number;
+  };
+
+  votingPeriod: {
+    starting: number;
+    ending: number;
+    current: number;
+    votedProposals: [];
+    votedPaymentrequests: [];
+  };
 }

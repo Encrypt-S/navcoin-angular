@@ -1,10 +1,12 @@
-<mz-card
-class="overview-card grey lighten-5"
-[horizontal]="true">
+<mz-card class="overview-card grey lighten-5" [horizontal]="true">
   <mz-card-title>
     Community Fund Statistics
   </mz-card-title>
   <mz-card-content>
-
+    <p>Funds available: {{ cfundStats.funds.available }}</p>
+    <p>Funds Locked: {{ cfundStats.funds.locked }}</p>
+    <p>Voting period start: {{ cfundStats.votingPeriod.starting }}</p>
+    <p>Voting period end: {{ cfundStats.votingPeriod.ending }}</p>
+    <p>Voting period current: {{ cfundStats.votingPeriod.current }}</p>
   </mz-card-content>
 </mz-card>

@@ -1,0 +1,84 @@
+.payment-request-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+.payment-request-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  color: white;
+  background: #7d59b5;
+  border-radius: 30px;
+  padding: 15px 30px;
+  margin: 10px;
+  max-width: calc(700px + 60px);
+
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+    0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+}
+
+.description-text {
+  color: #fcfcfc;
+  font-size: 1.2em;
+}
+
+.voting-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  max-width: 150px;
+  width: 100%;
+}
+
+.button-container {
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+button {
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 6px 6px;
+  border: none;
+  margin: 5px;
+  min-width: 60px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+    0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+}
+button.selected {
+  cursor: pointer;
+}
+button.yes-btn.selected,
+button.yes-btn:hover {
+  background: lightgreen;
+}
+
+button.no-btn.selected,
+button.no-btn:hover {
+  background: lightcoral;
+}
+
+.status {
+  padding: 3px 6px;
+  border-radius: 5px;
+  text-transform: capitalize;
+}
+.pending {
+  background: gray;
+}
+
+.accepted {
+  background: darkgreen;
+}
+
+.expired {
+  background: palevioletred;
+}
+
+.rejected {
+  background: crimson;
+}

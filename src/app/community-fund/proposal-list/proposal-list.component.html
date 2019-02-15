@@ -13,6 +13,11 @@
           <div>
             <span>Amount: {{ proposal.requestedAmount }}. </span>
             <span>Duration: {{ proposal.proposalDuration }}. </span>
+          </div>
+          <div>
+            Votes
+            <span><b>Yes:</b> {{ proposal.votesYes }} - </span>
+            <span><b>No:</b> {{ proposal.votesNo }} </span>
             <span
               [ngClass]="{
                 status: true,

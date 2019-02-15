@@ -35,3 +35,17 @@ interface CFPaymentRequest {
   stateChangedOnBlock?: string;
   parentProposalHash: string;
 }
+
+interface CFVote {
+  yes: Array<string>;
+  no: Array<string>;
+  null: Array<string>;
+}
+
+class CFVote implements CFVote {
+
+  getHash( voteString: string): string {
+    const split = voteString.split(',');
+    return split[0].split('=')[0];
+  }
+}

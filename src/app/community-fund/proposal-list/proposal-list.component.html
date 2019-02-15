@@ -1,24 +1,58 @@
-<mz-card
-class="overview-card grey lighten-5"
-[horizontal]="true">
+<mz-card class="overview-card grey lighten-5" [horizontal]="true">
   <mz-card-title>
     Community Fund Proposals
   </mz-card-title>
   <mz-card-content class="proposal-container">
-    <div *ngFor="let proposal of proposalList" class="proposal-info">
-      <div>
-        <div class="description-text"><span>Description: </span>{{ proposal.description }}. </div>
+    <div *ngIf="!proposalList || !proposalVotes">Loading...</div>
+    <div *ngIf="proposalList && proposalVotes">
+      <div *ngFor="let proposal of proposalList" class="proposal-info">
         <div>
-          <span>Amount: {{proposal.requestedAmount }}. </span>
-          <span>Duration: {{proposal.proposalDuration }}. </span>
+          <div class="description-text">
+            <span>Description: </span>{{ proposal.description }}.
+          </div>
+          <div>
+            <span>Amount: {{ proposal.requestedAmount }}. </span>
+            <span>Duration: {{ proposal.proposalDuration }}. </span>
+            <span
+              [ngClass]="{
+                status: true,
+                pending: proposal.status === 'pending',
+                accepted:
+                  proposal.status === 'accepted' ||
+                  proposal.status ===
+                    'accepted waiting for enough coins in fund',
+                rejected: proposal.status === 'rejected',
+                expired:
+                  proposal.status === 'expired' ||
+                  proposal.status === 'expired waiting for end of voting period'
+              }"
+            >
+              Status: {{ proposal.status }}
+            </span>
+          </div>
+          <div>Hash: {{ proposal.hash }}.</div>
         </div>
-        <div>Hash: {{ proposal.blockHash }}. </div>
-      </div>  
-      <div>
-        Voting:
-        <div class="button-container">
-          <button>Yes</button>
-          <button>No</button>
+        <div *ngIf="proposal.status === 'pending'" class="voting-container">
+          Voting:
+          <div class="button-container">
+            <button
+              [ngClass]="{
+                'yes-btn': true,
+                selected: votingYes(proposal.hash)
+              }"
+              [disabled]="buttonDebounce"
+              (click)="proposalVote(proposal.hash, 'yes')"
+            >
+              Yes
+            </button>
+            <button
+              [ngClass]="{ 'no-btn': true, selected: votingNo(proposal.hash) }"
+              [disabled]="buttonDebounce"
+              (click)="proposalVote(proposal.hash, 'no')"
+            >
+              No
+            </button>
+          </div>
         </div>
       </div>
     </div>

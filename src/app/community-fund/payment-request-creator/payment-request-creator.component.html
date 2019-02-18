@@ -1,0 +1,25 @@
+<mz-card class="overview-card grey lighten-5" [horizontal]="true">
+  <mz-card-title>
+    Create a Payment Request
+  </mz-card-title>
+  <mz-card-content>
+    <form [formGroup]="paymentReqForm" (ngSubmit)="onSubmit()">
+      <label>
+        Proposal Hash:
+        <input type="text" formControlName="proposalHash" required />
+      </label>
+
+      <label>
+        Description:
+        <input type="text" formControlName="uniqueID" required />
+      </label>
+
+      <label>
+        Payment Request Amount:
+        <input type="text" formControlName="requestedAmount" required />
+      </label>
+
+      <button type="submit" [disabled]="!paymentReqForm.valid">Submit</button>
+    </form>
+  </mz-card-content>
+</mz-card>

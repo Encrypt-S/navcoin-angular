@@ -2,7 +2,10 @@
   <mz-card-title>
     Community Fund Statistics
   </mz-card-title>
-  <mz-card-content>
+  <mz-card-content *ngIf="!cfundStats">
+    Loading...
+  </mz-card-content>
+  <mz-card-content *ngIf="cfundStats">
     <p>Funds available: {{ cfundStats.funds.available }}</p>
     <p>Funds Locked: {{ cfundStats.funds.locked }}</p>
     <p>Voting period start: {{ cfundStats.votingPeriod.starting }}</p>

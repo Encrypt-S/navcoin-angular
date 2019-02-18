@@ -71,7 +71,7 @@ class CFundStats {
     starting: number;
     ending: number;
     current: number;
-    votedProposals: [];
-    votedPaymentrequests: [];
+    votedProposals: Array<any>;
+    votedPaymentrequests: Array<any>;
   };
 }

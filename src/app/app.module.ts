@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // app
 import { AppComponent } from './app.component';
@@ -21,12 +21,12 @@ import { PageNotFoundComponent } from './not-found/not-found.component';
 // modules
 import { UiPasswordComponent } from './settings/ui-password/ui-password.component';
 
-
 // materialize
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MzSidenavModule,
   MzButtonModule,
+  MzSelectModule,
   MzCardModule,
   MzNavbarModule,
   MzModalModule,
@@ -52,6 +52,7 @@ import { ProposalListComponent } from './community-fund/proposal-list/proposal-l
 import { PaymentRequestListComponent } from './community-fund/payment-request-list/payment-request-list.component';
 import { ProposalCreatorComponent } from './community-fund/proposal-creator/proposal-creator.component';
 import { CfundStatsComponent } from './community-fund/cfund-stats/cfund-stats.component';
+import { PaymentRequestCreatorComponent } from './community-fund/payment-request-creator/payment-request-creator.component';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -73,13 +74,16 @@ export function tokenGetter() {
     PaymentRequestListComponent,
     ProposalCreatorComponent,
     CfundStatsComponent,
+    PaymentRequestCreatorComponent
   ],
   imports: [
+    ReactiveFormsModule,
     BrowserModule,
     BrowserAnimationsModule,
     MzSidenavModule,
     MzButtonModule,
     MzCardModule,
+    MzSelectModule,
     MzModalModule,
     MzNavbarModule,
     MzToastModule,
@@ -96,7 +100,13 @@ export function tokenGetter() {
       }
     })
   ],
-  providers: [ExplorerService, WalletService, AuthGuard, AuthService, UiPasswordService],
+  providers: [
+    ExplorerService,
+    WalletService,
+    AuthGuard,
+    AuthService,
+    UiPasswordService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

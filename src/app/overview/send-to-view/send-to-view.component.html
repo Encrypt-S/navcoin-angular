@@ -1,0 +1,29 @@
+<mz-card
+class="overview-card grey lighten-5"
+[horizontal]="true">
+<mz-card-title>
+  Send to address
+</mz-card-title>
+<mz-card-content>
+  <form (ngSubmit)="sendToAddress(transaction.destinationAddress, transaction.amount, transaction.feeIncluded)" #loginForm="ngForm">
+    <div class="input-field">
+      <input id="address" type="text" class="validate"
+        [(ngModel)]="transaction.destinationAddress" name="address">
+      <label for="username">Address</label>
+    </div>
+    <div class="input-field">
+      <input id="amount" type="number" class="validate"
+        [(ngModel)]="transaction.amount" name="amount">
+      <label for="amount">Amount</label>
+    </div>
+      <label>
+        <input type="checkbox" id="fee-included" class="filled-in validate"
+        [(ngModel)]="transaction.feeIncluded" name="fee-included" />
+        <span>Fee included in amount</span>
+      </label>
+    <div class="input-field">
+      <button class="waves-effect waves-light btn right" type="submit" [disabled]="!transaction.amount || !transaction.destinationAddress" >Send</button>
+    </div>
+  </form>
+</mz-card-content>
+</mz-card>

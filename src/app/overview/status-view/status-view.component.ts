@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ExplorerModel } from '../../explorer/explorer.model';
 import { ExplorerService } from '../../explorer/explorer.service';
 import { WalletModel } from '../../wallet/wallet.model';
 import { WalletService } from '../../wallet/wallet.service';

@@ -41,7 +41,6 @@ export class WalletOverviewComponent implements OnInit {
     this.showBTC();
     this.showBalance();
     this.getStakeReport();
-    this.getWalletOverview();
     this.wallet = {
       ...this.wallet,
       mainAddress: 'NaSdzJ64o8DQo5DMPexVrL4PYFCBZqcmsW'
@@ -78,21 +77,6 @@ export class WalletOverviewComponent implements OnInit {
     return false;
   }
 
-  sendToAddress(destinationAddress, amount, feeIncluded) {
-    const rpcData = new RpcSend('sendtoaddress', [destinationAddress, amount.toString(), feeIncluded.toString()]);
-    this.walletService.sendRPC(rpcData)
-      .subscribe(
-        (receive: RpcReceive) => {
-          if (receive.type === 'SUCCESS') {
-            console.log('receive: ', typeof receive.data);
-          } else {
-            console.log('error: ', receive);
-          }
-        }, error => {
-          console.log('error: ', error);
-        }
-      );
-  }
 
   getStakeReport() {
     const rpcData = new RpcSend('getstakereport');
@@ -110,31 +94,6 @@ export class WalletOverviewComponent implements OnInit {
               },
             };
             console.log('Stake data set');
-          } else {
-            console.log('error: ', receive);
-          }
-        }, error => {
-          console.log('error: ', error);
-        }
-      );
-  }
-
-  getWalletOverview() {
-      this.walletService.sendAPI('walletoverview', {})
-      .subscribe(
-        (receive: RpcReceive) => {
-          if (receive.type === 'SUCCESS') {
-            console.log('SUCCESS: ', receive);
-            this.wallet = {
-              ...this.wallet,
-              currentBlock: receive.data.currentBlock,
-              highestKnownBlock: receive.data.highestKnownBlock,
-              isLocked: receive.data.isLocked,
-              isStaking: receive.data.isStaking,
-              isSyncing: receive.data.isSyncing,
-              walletChain: receive.data.walletChain,
-              walletVersion: receive.data.walletVersion,
-            };
           } else {
             console.log('error: ', receive);
           }

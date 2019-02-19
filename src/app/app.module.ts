@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // app
 import { AppComponent } from './app.component';
@@ -21,12 +21,12 @@ import { PageNotFoundComponent } from './not-found/not-found.component';
 // modules
 import { UiPasswordComponent } from './settings/ui-password/ui-password.component';
 
-
 // materialize
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MzSidenavModule,
   MzButtonModule,
+  MzSelectModule,
   MzCardModule,
   MzNavbarModule,
   MzModalModule,
@@ -58,6 +58,8 @@ import { DepositViewComponent } from './overview/deposit-view/deposit-view.compo
 import { TransactionsViewComponent } from './overview/transactions-view/transactions-view.component';
 import { WalletOverviewComponent } from './overview/wallet-overview/wallet-overview.component';
 import { StatusViewComponent } from './overview/status-view/status-view.component';
+import { PaymentRequestCreatorComponent } from './community-fund/payment-request-creator/payment-request-creator.component';
+
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -87,11 +89,13 @@ export function tokenGetter() {
     StatusViewComponent,
   ],
   imports: [
+    ReactiveFormsModule,
     BrowserModule,
     BrowserAnimationsModule,
     MzSidenavModule,
     MzButtonModule,
     MzCardModule,
+    MzSelectModule,
     MzModalModule,
     MzNavbarModule,
     MzToastModule,
@@ -108,7 +112,13 @@ export function tokenGetter() {
       }
     })
   ],
-  providers: [ExplorerService, WalletService, AuthGuard, AuthService, UiPasswordService],
+  providers: [
+    ExplorerService,
+    WalletService,
+    AuthGuard,
+    AuthService,
+    UiPasswordService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

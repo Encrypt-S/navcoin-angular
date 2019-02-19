@@ -71,7 +71,7 @@ class CFundStats {
     starting: number;
     ending: number;
     current: number;
-    votedProposals: any; //was a list before, throwing err change back to [] later @matt
-    votedPaymentrequests: any; //was a list before, throwing err change back to [] later @matt
+    votedProposals: Array<any>;
+    votedPaymentrequests: Array<any>;
   };
 }

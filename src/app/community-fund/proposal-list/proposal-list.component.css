@@ -1,0 +1,117 @@
+.overview-card {
+  height: 100%;
+}
+
+.proposal-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+  grid-gap: 15px;
+  justify-content: space-between;
+}
+.proposal-info {
+  line-height: 30px;
+  color: white;
+  background: #7d59b5;
+  border-radius: 30px;
+  padding: 15px 30px;
+  margin: 10px 0;
+
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+    0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+  color: #fcfcfc;
+  font-size: 1.4em;
+  margin: 0;
+}
+h2 {
+  color: #fcfcfc;
+  font-size: 1.2em;
+  margin: 5px 0 0 0;
+}
+
+.voting-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  max-width: 150px;
+  width: 100%;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.flex-center h2 {
+  margin: 0 auto;
+}
+
+button,
+.button {
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 6px 6px;
+  border: none;
+  margin: 5px;
+  min-width: 70px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+    0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+}
+
+a.button {
+  background: #f0f0f0;
+  color: black;
+  line-height: initial;
+  width: 152px;
+  text-align: center;
+  text-decoration: underline;
+}
+
+.proposal-hash {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+button.selected {
+  cursor: pointer;
+}
+button.yes-btn.selected,
+button.yes-btn:hover {
+  background: lightgreen;
+}
+
+button.no-btn.selected,
+button.no-btn:hover {
+  background: lightcoral;
+}
+
+.status {
+  padding: 3px 6px;
+  border-radius: 5px;
+  text-transform: capitalize;
+}
+.pending {
+  background: gray;
+}
+
+.accepted {
+  background: darkgreen;
+}
+
+.expired {
+  background: palevioletred;
+}
+
+.rejected {
+  background: crimson;
+}

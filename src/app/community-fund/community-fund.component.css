@@ -1,0 +1,17 @@
+h1 {
+  margin: 0 5vw;
+}
+main.container-grid {
+  margin: 0 5vw;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-gap: 25px;
+}
+
+main .small-item {
+  grid-column: span 2;
+}
+
+main .large-item {
+  grid-column: span 3;
+}

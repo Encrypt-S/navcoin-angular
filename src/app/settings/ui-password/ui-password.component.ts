@@ -31,6 +31,10 @@ export class UiPasswordComponent implements OnInit {
         (response: UiPasswordResponse) => {
 
           if (response.type != 'SUCCESS') {
+            if (response.code == 'AUTH_002') {
+              this.toastService.show('The current username or password you entered is invalid', 4000, 'red');
+              return
+            }
             this.toastService.show('Something went wrong, try again', 4000, 'red');
             return
           }

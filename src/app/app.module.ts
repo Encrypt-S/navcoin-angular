@@ -87,6 +87,7 @@ export function tokenGetter() {
     TransactionsViewComponent,
     WalletOverviewComponent,
     StatusViewComponent,
+    PaymentRequestCreatorComponent
   ],
   imports: [
     ReactiveFormsModule,

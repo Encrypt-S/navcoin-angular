@@ -11,61 +11,78 @@
       >
         <div>
           <div class="description-text">
-            <span>Description: </span>{{ paymentRequest.description }}.
+            <h1>{{ paymentRequest.description }}</h1>
           </div>
+          <div>Amount: {{ paymentRequest.requestedAmount }} NAV</div>
+          <div>Duration: {{ paymentRequest.proposalDuration }} Seconds</div>
           <div>
-            <span>Amount: {{ paymentRequest.requestedAmount }}. </span>
+            <h2>Votes:</h2>
             <div>
-              Votes
-              <span><b>Yes:</b> {{ paymentRequest.votesYes }} - </span>
-              <span><b>No:</b> {{ paymentRequest.votesNo }} </span>
-              <span
-                [ngClass]="{
-                  status: true,
-                  pending: paymentRequest.status === 'pending',
-                  accepted:
-                    paymentRequest.status === 'accepted' ||
-                    paymentRequest.status ===
-                      'accepted waiting for enough coins in fund',
-                  rejected: paymentRequest.status === 'rejected',
-                  expired:
-                    paymentRequest.status === 'expired' ||
-                    paymentRequest.status ===
-                      'expired waiting for end of voting period'
-                }"
-              >
-                Status: {{ paymentRequest.status }}
-              </span>
+              Yes: {{ paymentRequest.votesYes }} - No:
+              {{ paymentRequest.votesNo }}
             </div>
+            <span
+              [ngClass]="{
+                status: true,
+                pending: paymentRequest.status === 'pending',
+                accepted:
+                  paymentRequest.status === 'accepted' ||
+                  paymentRequest.status ===
+                    'accepted waiting for enough coins in fund',
+                rejected: paymentRequest.status === 'rejected',
+                expired:
+                  paymentRequest.status === 'expired' ||
+                  paymentRequest.status ===
+                    'expired waiting for end of voting period'
+              }"
+            >
+              Status: {{ paymentRequest.status }}
+            </span>
           </div>
-          <div>Hash: {{ paymentRequest.hash }}.</div>
-        </div>
-        <div
-          *ngIf="paymentRequest.status === 'pending'"
-          class="voting-container"
-        >
-          Voting:
-          <div class="button-container">
-            <button
-              [ngClass]="{
-                'yes-btn': true,
-                selected: votingYes(paymentRequest.hash)
-              }"
-              [disabled]="buttonDebounce"
-              (click)="paymentRequestVote(paymentRequest.hash, 'yes')"
+          <h2>Hash:</h2>
+          <div class="payment-request-hash">
+            <span>{{ paymentRequest.hash.slice(0, 16) }}</span
+            ><span>{{ paymentRequest.hash.slice(16, 32) }}</span
+            ><span>{{ paymentRequest.hash.slice(32, 48) }}</span
+            ><span>{{ paymentRequest.hash.slice(48) }}</span>
+          </div>
+          <div class="flex-center">
+            <div
+              *ngIf="paymentRequest.status === 'pending'"
+              class="flex-center"
             >
-              Yes
-            </button>
-            <button
-              [ngClass]="{
-                'no-btn': true,
-                selected: votingNo(paymentRequest.hash)
-              }"
-              [disabled]="buttonDebounce"
-              (click)="paymentRequestVote(paymentRequest.hash, 'no')"
+              <h2>Voting:</h2>
+              <div class="button-container">
+                <button
+                  [ngClass]="{
+                    'yes-btn': true,
+                    selected: votingYes(paymentRequest.hash)
+                  }"
+                  [disabled]="buttonDebounce"
+                  (click)="paymentRequestVote(paymentRequest.hash, 'yes')"
+                >
+                  Yes
+                </button>
+                <button
+                  [ngClass]="{
+                    'no-btn': true,
+                    selected: votingNo(paymentRequest.hash)
+                  }"
+                  [disabled]="buttonDebounce"
+                  (click)="paymentRequestVote(paymentRequest.hash, 'no')"
+                >
+                  No
+                </button>
+              </div>
+            </div>
+            <a
+              [href]="
+                'https://www.navexplorer.com/community-fund/paymentRequest/' +
+                paymentRequest.hash
+              "
+              class="button"
+              >View Proposal on NavExplorer.com</a
             >
-              No
-            </button>
           </div>
         </div>
       </div>

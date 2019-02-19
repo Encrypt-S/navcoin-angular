@@ -2,22 +2,22 @@
   <mz-card-title>
     Community Fund Proposals
   </mz-card-title>
-  <mz-card-content class="proposal-container">
+  <mz-card-content>
     <div *ngIf="!proposalList || !proposalVotes">Loading...</div>
-    <div *ngIf="proposalList && proposalVotes">
+    <div *ngIf="proposalList && proposalVotes" class="proposal-container">
       <div *ngFor="let proposal of proposalList" class="proposal-info">
         <div>
           <div class="description-text">
-            <span>Description: </span>{{ proposal.description }}.
+            <h1>{{ proposal.description }}</h1>
           </div>
+          <div>Amount: {{ proposal.requestedAmount }} NAV</div>
+          <div>Duration: {{ proposal.proposalDuration }} Seconds</div>
           <div>
-            <span>Amount: {{ proposal.requestedAmount }}. </span>
-            <span>Duration: {{ proposal.proposalDuration }}. </span>
-          </div>
-          <div>
-            Votes
-            <span><b>Yes:</b> {{ proposal.votesYes }} - </span>
-            <span><b>No:</b> {{ proposal.votesNo }} </span>
+            <h2>Votes:</h2>
+            <div>
+              Yes: {{ proposal.votesYes }} - No:
+              {{ proposal.votesNo }}
+            </div>
             <span
               [ngClass]="{
                 status: true,
@@ -35,28 +35,47 @@
               Status: {{ proposal.status }}
             </span>
           </div>
-          <div>Hash: {{ proposal.hash }}.</div>
-        </div>
-        <div *ngIf="proposal.status === 'pending'" class="voting-container">
-          Voting:
-          <div class="button-container">
-            <button
-              [ngClass]="{
-                'yes-btn': true,
-                selected: votingYes(proposal.hash)
-              }"
-              [disabled]="buttonDebounce"
-              (click)="proposalVote(proposal.hash, 'yes')"
+          <h2>Hash:</h2>
+          <div class="proposal-hash">
+            <span>{{ proposal.hash.slice(0, 16) }}</span
+            ><span>{{ proposal.hash.slice(16, 32) }}</span
+            ><span>{{ proposal.hash.slice(32, 48) }}</span
+            ><span>{{ proposal.hash.slice(48) }}</span>
+          </div>
+          <div class="flex-center">
+            <div *ngIf="proposal.status === 'pending'" class="flex-center">
+              <h2>Voting:</h2>
+              <div class="button-container">
+                <button
+                  [ngClass]="{
+                    'yes-btn': true,
+                    selected: votingYes(proposal.hash)
+                  }"
+                  [disabled]="buttonDebounce"
+                  (click)="proposalVote(proposal.hash, 'yes')"
+                >
+                  Yes
+                </button>
+                <button
+                  [ngClass]="{
+                    'no-btn': true,
+                    selected: votingNo(proposal.hash)
+                  }"
+                  [disabled]="buttonDebounce"
+                  (click)="proposalVote(proposal.hash, 'no')"
+                >
+                  No
+                </button>
+              </div>
+            </div>
+            <a
+              [href]="
+                'https://www.navexplorer.com/community-fund/proposal/' +
+                proposal.hash
+              "
+              class="button"
+              >View Proposal on NavExplorer.com</a
             >
-              Yes
-            </button>
-            <button
-              [ngClass]="{ 'no-btn': true, selected: votingNo(proposal.hash) }"
-              [disabled]="buttonDebounce"
-              (click)="proposalVote(proposal.hash, 'no')"
-            >
-              No
-            </button>
           </div>
         </div>
       </div>

@@ -53,6 +53,7 @@ import { PaymentRequestListComponent } from './community-fund/payment-request-li
 import { ProposalCreatorComponent } from './community-fund/proposal-creator/proposal-creator.component';
 import { CfundStatsComponent } from './community-fund/cfund-stats/cfund-stats.component';
 import { PaymentRequestCreatorComponent } from './community-fund/payment-request-creator/payment-request-creator.component';
+import { GenericRpcFormComponent } from './generic-rpc-form/generic-rpc-form.component';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -74,7 +75,8 @@ export function tokenGetter() {
     PaymentRequestListComponent,
     ProposalCreatorComponent,
     CfundStatsComponent,
-    PaymentRequestCreatorComponent
+    PaymentRequestCreatorComponent,
+    GenericRpcFormComponent
   ],
   imports: [
     ReactiveFormsModule,

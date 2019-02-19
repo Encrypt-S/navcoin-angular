@@ -20,7 +20,6 @@ export interface SendToAddressModel {
 })
 export class StatusViewComponent implements OnInit {
 
-  explorer: ExplorerModel;
   wallet: WalletModel;
   transaction: SendToAddressModel = {
     amount: undefined,

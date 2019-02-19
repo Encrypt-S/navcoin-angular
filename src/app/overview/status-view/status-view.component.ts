@@ -31,7 +31,6 @@ export class StatusViewComponent implements OnInit {
   qrMainAddress: string;
 
   constructor(
-    private explorerService: ExplorerService,
     private walletService: WalletService
   ) {}
 

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ExplorerModel } from '../../explorer/explorer.model';
 import { ExplorerService } from '../../explorer/explorer.service';
 import { WalletModel } from '../../wallet/wallet.model';
 import { WalletService } from '../../wallet/wallet.service';
@@ -20,8 +19,6 @@ export interface SendToAddressModel {
 })
 export class SendToViewComponent implements OnInit {
 
-
-  explorer: ExplorerModel;
   wallet: WalletModel;
   transaction: SendToAddressModel = {
     amount: undefined,
@@ -29,7 +26,6 @@ export class SendToViewComponent implements OnInit {
     feeIncluded: false,
   };
   rpcReceive: RpcReceive;
-  qrMainAddress: string;
 
   constructor(
     private explorerService: ExplorerService,
@@ -37,10 +33,6 @@ export class SendToViewComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.wallet = {
-      ...this.wallet,
-      mainAddress: 'NaSdzJ64o8DQo5DMPexVrL4PYFCBZqcmsW'
-    };
   }
 
   sendToAddress(destinationAddress, amount, feeIncluded) {

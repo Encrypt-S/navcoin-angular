@@ -6,12 +6,6 @@ import { WalletService } from '../../wallet/wallet.service';
 import { RpcSend } from '../../rpc/rpc-send.model';
 import { RpcReceive } from '../../rpc/rpc-receive.model';
 
-export interface SendToAddressModel {
-  amount: Number;
-  destinationAddress: String;
-  feeIncluded: Boolean;
-}
-
 
 @Component({
   selector: 'app-wallet-overview',
@@ -23,13 +17,7 @@ export class WalletOverviewComponent implements OnInit {
 
   explorer: ExplorerModel;
   wallet: WalletModel;
-  transaction: SendToAddressModel = {
-    amount: undefined,
-    destinationAddress: undefined,
-    feeIncluded: false,
-  };
   rpcReceive: RpcReceive;
-  qrMainAddress: string;
 
   constructor(
     private explorerService: ExplorerService,
@@ -42,10 +30,8 @@ export class WalletOverviewComponent implements OnInit {
     this.showBalance();
     this.getStakeReport();
     this.wallet = {
-      ...this.wallet,
-      mainAddress: 'NaSdzJ64o8DQo5DMPexVrL4PYFCBZqcmsW'
+      ...this.wallet
     };
-    this.qrMainAddress = `navcoin:${this.wallet.mainAddress}?label=NavPi`;
   }
 
   showBalance() {

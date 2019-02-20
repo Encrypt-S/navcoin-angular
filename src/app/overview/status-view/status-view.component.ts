@@ -5,11 +5,6 @@ import { RpcSend } from '../../rpc/rpc-send.model';
 import { RpcReceive } from '../../rpc/rpc-receive.model';
 
 
-export interface SendToAddressModel {
-  amount: Number;
-  destinationAddress: String;
-  feeIncluded: Boolean;
-}
 
 @Component({
   selector: 'app-status-view',
@@ -19,11 +14,6 @@ export interface SendToAddressModel {
 export class StatusViewComponent implements OnInit {
 
   wallet: WalletModel;
-  transaction: SendToAddressModel = {
-    amount: undefined,
-    destinationAddress: undefined,
-    feeIncluded: false,
-  };
   rpcReceive: RpcReceive;
   qrMainAddress: string;
 

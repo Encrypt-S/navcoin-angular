@@ -4,15 +4,10 @@ export class WalletModel {
   unconfirmedBalance: number;
   immatureBalance: number;
   addresses: Array<String>;
-  walletVersion: String;
   mainAddress: String;
   stakeData: StakeReportData;
-  isSyncing: Boolean;
-  isStaking: Boolean;
-  isLocked: Boolean;
   currentBlock: number;
   highestKnownBlock: number;
-  walletChain: String;
 }
 class StakeReportData {
   today: number;

@@ -1,0 +1,22 @@
+<mz-card
+class="overview-card grey lighten-5"
+[horizontal]="true">
+<mz-card-title>
+  Wallet Status
+</mz-card-title>
+<mz-card-content *ngIf="!wallet.currentBlock">
+  Fetching Wallet Status...
+</mz-card-content>
+<mz-card-content *ngIf="wallet.currentBlock">
+  <p>Wallet Network: {{ wallet.walletChain }}</p>
+  <p>Wallet Version: {{ wallet.walletVersion }}</p>
+  <p>Staking: {{ wallet.isStaking }}</p>
+  <p>Wallet Locked: {{ wallet.isLocked }}</p>
+  <p>Wallet Syncing: {{ wallet.isSyncing }}</p>
+  <p>Current Block Count: {{ wallet.currentBlock }}</p>
+  <p>Highest Known Block Height: {{ wallet.highestKnownBlock }}</p>
+  <button class="waves-effect waves-light btn" *ngIf="!wallet.isLocked">Lock Wallet</button>
+  <button class="waves-effect waves-light btn" *ngIf="wallet.isLocked">Unlock Wallet</button>
+  <button class="waves-effect waves-light btn">Encrypt Wallet</button>
+</mz-card-content>
+</mz-card>

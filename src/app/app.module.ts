@@ -52,10 +52,17 @@ import { ProposalListComponent } from './community-fund/proposal-list/proposal-l
 import { PaymentRequestListComponent } from './community-fund/payment-request-list/payment-request-list.component';
 import { ProposalCreatorComponent } from './community-fund/proposal-creator/proposal-creator.component';
 import { CfundStatsComponent } from './community-fund/cfund-stats/cfund-stats.component';
+import { ProposalsViewComponent } from './overview/proposals-view/proposals-view.component';
+import { SendToViewComponent } from './overview/send-to-view/send-to-view.component';
+import { DepositViewComponent } from './overview/deposit-view/deposit-view.component';
+import { TransactionsViewComponent } from './overview/transactions-view/transactions-view.component';
+import { WalletOverviewComponent } from './overview/wallet-overview/wallet-overview.component';
+import { StatusViewComponent } from './overview/status-view/status-view.component';
 import { PaymentRequestCreatorComponent } from './community-fund/payment-request-creator/payment-request-creator.component';
 import { GenericRpcFormComponent } from './generic-rpc-form/generic-rpc-form.component';
 import { NotificationBarComponent } from './notification-bar/notification-bar.component';
 import { NotificationMakerComponent } from './notification-maker/notification-maker.component';
+
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -77,6 +84,12 @@ export function tokenGetter() {
     PaymentRequestListComponent,
     ProposalCreatorComponent,
     CfundStatsComponent,
+    ProposalsViewComponent,
+    SendToViewComponent,
+    DepositViewComponent,
+    TransactionsViewComponent,
+    WalletOverviewComponent,
+    StatusViewComponent,
     PaymentRequestCreatorComponent,
     GenericRpcFormComponent,
     NotificationBarComponent,

@@ -39,7 +39,7 @@ import { ExplorerService } from './explorer/explorer.service';
 import { WalletService } from './wallet/wallet.service';
 import { AuthService } from './auth/auth.service';
 import { UiPasswordService } from './settings/ui-password/ui-password.service';
-
+import { NotificationService } from './notification-bar/notification.service';
 // tools
 import { QRCodeModule } from 'angular2-qrcode';
 import { ClipboardModule } from 'ngx-clipboard';
@@ -54,6 +54,8 @@ import { ProposalCreatorComponent } from './community-fund/proposal-creator/prop
 import { CfundStatsComponent } from './community-fund/cfund-stats/cfund-stats.component';
 import { PaymentRequestCreatorComponent } from './community-fund/payment-request-creator/payment-request-creator.component';
 import { GenericRpcFormComponent } from './generic-rpc-form/generic-rpc-form.component';
+import { NotificationBarComponent } from './notification-bar/notification-bar.component';
+import { NotificationMakerComponent } from './notification-maker/notification-maker.component';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -76,7 +78,9 @@ export function tokenGetter() {
     ProposalCreatorComponent,
     CfundStatsComponent,
     PaymentRequestCreatorComponent,
-    GenericRpcFormComponent
+    GenericRpcFormComponent,
+    NotificationBarComponent,
+    NotificationMakerComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -107,7 +111,8 @@ export function tokenGetter() {
     WalletService,
     AuthGuard,
     AuthService,
-    UiPasswordService
+    UiPasswordService,
+    NotificationService
   ],
   bootstrap: [AppComponent]
 })

@@ -12,8 +12,6 @@ import { RpcReceive } from 'src/app/rpc/rpc-receive.model';
 export class ProposalCreatorComponent implements OnInit {
   constructor(private walletService: WalletService) {}
 
-  proposalCreatorForm = new FormControl('');
-
   proposalForm = new FormGroup({
     proposalDesc: new FormControl(''),
     paymentAddress: new FormControl(''),

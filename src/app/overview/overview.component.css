@@ -13,7 +13,7 @@
   width: 100%;
 }
 .deposit-card {
-  grid-column:  span 4;
+  grid-column: span 4;
 }
 .overview .address-string {
   margin: 10px 0;

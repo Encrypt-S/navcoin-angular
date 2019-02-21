@@ -1,5 +1,6 @@
 .overview-grid {
   display: grid;
+  grid-auto-flow: dense;
   grid-template-columns: repeat(auto-fill, 100px);
   grid-gap: 20px;
   justify-content: center;
@@ -17,4 +18,8 @@
 }
 .overview .address-string {
   margin: 10px 0;
+}
+
+.wide-card {
+  grid-column: span 6;
 }

@@ -1,6 +1,24 @@
 <mz-card class="overview-card grey lighten-5" [horizontal]="true">
   <mz-card-title>
-    Latest Transactions
+    Last 15 Transactions
   </mz-card-title>
-  <mz-card-content> </mz-card-content>
+  <mz-card-content>
+    <div *ngIf="!transactions">Transactions loading...</div>
+    <table *ngIf="transactions">
+      <thead>
+        <tr>
+          <th>Address</th>
+          <th>Amount</th>
+          <th>Confirmations</th>
+          <th>Time</th>
+        </tr>
+      </thead>
+      <tr *ngFor="let tx of transactions">
+        <td>{{ tx.address }}</td>
+        <td>{{ tx.amount }} NAV</td>
+        <td>{{ tx.confirmations }}</td>
+        <td>{{ getDateNum(tx.time) | date }}</td>
+      </tr>
+    </table>
+  </mz-card-content>
 </mz-card>

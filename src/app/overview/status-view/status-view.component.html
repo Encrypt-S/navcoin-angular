@@ -1,22 +1,64 @@
-<mz-card
-class="overview-card grey lighten-5"
-[horizontal]="true">
-<mz-card-title>
-  Wallet Status
-</mz-card-title>
-<mz-card-content *ngIf="!wallet.currentBlock">
-  Fetching Wallet Status...
-</mz-card-content>
-<mz-card-content *ngIf="wallet.currentBlock">
-  <p>Wallet Network: {{ wallet.walletChain }}</p>
-  <p>Wallet Version: {{ wallet.walletVersion }}</p>
-  <p>Staking: {{ wallet.isStaking }}</p>
-  <p>Wallet Locked: {{ wallet.isLocked }}</p>
-  <p>Wallet Syncing: {{ wallet.isSyncing }}</p>
-  <p>Current Block Count: {{ wallet.currentBlock }}</p>
-  <p>Highest Known Block Height: {{ wallet.highestKnownBlock }}</p>
-  <button class="waves-effect waves-light btn" *ngIf="!wallet.isLocked">Lock Wallet</button>
-  <button class="waves-effect waves-light btn" *ngIf="wallet.isLocked">Unlock Wallet</button>
-  <button class="waves-effect waves-light btn">Encrypt Wallet</button>
-</mz-card-content>
+<mz-card class="overview-card grey lighten-5" [horizontal]="true">
+  <mz-card-title>
+    Wallet Status
+  </mz-card-title>
+  <mz-card-content *ngIf="!wallet">
+    Fetching Wallet Status...
+  </mz-card-content>
+  <mz-card-content *ngIf="wallet">
+    <div class="row">
+      <p>Wallet Network: {{ wallet.walletChain }}</p>
+      <p>Wallet Version: {{ wallet.walletVersion }}</p>
+      <p>Staking: {{ wallet.isStaking }}</p>
+      <p>Wallet Encrypted: {{ wallet.isEncrypted }}</p>
+      <p>Wallet Locked: {{ wallet.isLocked }}</p>
+      <p>Wallet Syncing: {{ wallet.isSyncing }}</p>
+      <p>Current Block Count: {{ wallet.currentBlock }}</p>
+      <p>Highest Known Block Height: {{ wallet.highestKnownBlock }}</p>
+    </div>
+
+    <div
+      class="row"
+      *ngIf="!wallet.isLocked && wallet.isEncrypted"
+      (click)="setLocked(true)"
+    >
+      <button class="waves-effect waves-light btn left blue lighten-2">
+        Lock Wallet
+      </button>
+    </div>
+
+    <div
+      class="row"
+      *ngIf="wallet.isLocked && wallet.isEncrypted"
+      (click)="setLocked(false)"
+    >
+      <button class="waves-effect waves-light btn left blue lighten-2">
+        Unlock Wallet
+      </button>
+    </div>
+
+    <div class="row" *ngIf="!wallet.isStaking" (click)="setStaking(true)">
+      <button class="waves-effect waves-light btn left blue lighten-2">
+        Start Staking
+      </button>
+    </div>
+
+    <div class="row" *ngIf="wallet.isStaking">
+      <button
+        class="waves-effect waves-light btn left blue lighten-2"
+        (click)="setStaking(false)"
+      >
+        Stop Staking
+      </button>
+    </div>
+
+    <div class="row" *ngIf="!wallet.isEncrypted">
+      <button
+        class="waves-effect waves-light btn left blue lighten-2"
+        (click)="encryptWallet()"
+      >
+        Encrypt Wallet
+      </button>
+    </div>
+  </mz-card-content>
 </mz-card>

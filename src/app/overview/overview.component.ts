@@ -20,13 +20,12 @@ export interface SendToAddressModel {
   styleUrls: ['./overview.component.css']
 })
 export class OverviewComponent implements OnInit {
-
   explorer: ExplorerModel;
   wallet: WalletModel;
   transaction: SendToAddressModel = {
     amount: undefined,
     destinationAddress: undefined,
-    feeIncluded: false,
+    feeIncluded: false
   };
   rpcReceive: RpcReceive;
   qrMainAddress: string;
@@ -41,7 +40,6 @@ export class OverviewComponent implements OnInit {
     this.showBTC();
     this.showBalance();
     this.getStakeReport();
-    this.getWalletOverview();
     this.wallet = {
       ...this.wallet,
       mainAddress: 'NaSdzJ64o8DQo5DMPexVrL4PYFCBZqcmsW'
@@ -51,24 +49,24 @@ export class OverviewComponent implements OnInit {
 
   showBalance() {
     const rpcData = new RpcSend('getwalletinfo');
-    this.walletService.sendRPC(rpcData)
-      .subscribe(
-        (receive: RpcReceive) => {
-          if (receive.type === 'SUCCESS') {
-            this.wallet = {
-              ...this.wallet,
-              balance: receive.data.balance,
-              coldStakingBalance: receive.data.coldstaking_balance,
-              unconfirmedBalance: receive.data.unconfirmed_balance,
-              immatureBalance: receive.data.immature_balance,
-            };
-          } else {
-            console.log('error: ', receive);
-          }
-        }, error => {
-          console.log('error: ', error);
+    this.walletService.sendRPC(rpcData).subscribe(
+      (receive: RpcReceive) => {
+        if (receive.type === 'SUCCESS') {
+          this.wallet = {
+            ...this.wallet,
+            balance: receive.data.balance,
+            coldStakingBalance: receive.data.coldstaking_balance,
+            unconfirmedBalance: receive.data.unconfirmed_balance,
+            immatureBalance: receive.data.immature_balance
+          };
+        } else {
+          console.log('error: ', receive);
         }
-      );
+      },
+      error => {
+        console.log('error: ', error);
+      }
+    );
   }
 
   walletLoading() {
@@ -79,97 +77,75 @@ export class OverviewComponent implements OnInit {
   }
 
   sendToAddress(destinationAddress, amount, feeIncluded) {
-    const rpcData = new RpcSend('sendtoaddress', [destinationAddress, amount.toString(), feeIncluded.toString()]);
-    this.walletService.sendRPC(rpcData)
-      .subscribe(
-        (receive: RpcReceive) => {
-          if (receive.type === 'SUCCESS') {
-            console.log('receive: ', typeof receive.data);
-          } else {
-            console.log('error: ', receive);
-          }
-        }, error => {
-          console.log('error: ', error);
+    const rpcData = new RpcSend('sendtoaddress', [
+      destinationAddress,
+      amount.toString(),
+      feeIncluded.toString()
+    ]);
+    this.walletService.sendRPC(rpcData).subscribe(
+      (receive: RpcReceive) => {
+        if (receive.type === 'SUCCESS') {
+          console.log('receive: ', typeof receive.data);
+        } else {
+          console.log('error: ', receive);
         }
-      );
+      },
+      error => {
+        console.log('error: ', error);
+      }
+    );
   }
 
   getStakeReport() {
     const rpcData = new RpcSend('getstakereport');
-    this.walletService.sendRPC(rpcData)
-      .subscribe(
-        (receive: RpcReceive) => {
-          if (receive.type === 'SUCCESS') {
-            this.wallet = {
-              ...this.wallet,
-              stakeData: {
-                today: receive.data['Last 24H'],
-                week: receive.data['Last 7 Days'],
-                month: receive.data['Last 30 Days'],
-                year: receive.data['Last 365 Days'],
-              },
-            };
-            console.log('Stake data set');
-          } else {
-            console.log('error: ', receive);
-          }
-        }, error => {
-          console.log('error: ', error);
+    this.walletService.sendRPC(rpcData).subscribe(
+      (receive: RpcReceive) => {
+        if (receive.type === 'SUCCESS') {
+          this.wallet = {
+            ...this.wallet,
+            stakeData: {
+              today: receive.data['Last 24H'],
+              week: receive.data['Last 7 Days'],
+              month: receive.data['Last 30 Days'],
+              year: receive.data['Last 365 Days']
+            }
+          };
+          console.log('Stake data set');
+        } else {
+          console.log('error: ', receive);
         }
-      );
-  }
-
-  getWalletOverview() {
-      this.walletService.sendAPI('walletoverview', {})
-      .subscribe(
-        (receive: RpcReceive) => {
-          if (receive.type === 'SUCCESS') {
-            console.log('SUCCESS: ', receive);
-            this.wallet = {
-              ...this.wallet,
-              currentBlock: receive.data.currentBlock,
-              highestKnownBlock: receive.data.highestKnownBlock,
-              isLocked: receive.data.isLocked,
-              isStaking: receive.data.isStaking,
-              isSyncing: receive.data.isSyncing,
-              walletChain: receive.data.walletChain,
-              walletVersion: receive.data.walletVersion,
-            };
-          } else {
-            console.log('error: ', receive);
-          }
-        }, error => {
-          console.log('error: ', error);
-        }
-      );
+      },
+      error => {
+        console.log('error: ', error);
+      }
+    );
   }
 
   showUSD() {
-    this.explorerService.getUSD()
-      .subscribe(
-        (data: number) => {
-          this.explorer = {
-            ...this.explorer,
-            tickerUSD: data
-          };
-        }, error => {
-          console.log('error: ', error);
-        }
-      );
+    this.explorerService.getUSD().subscribe(
+      (data: number) => {
+        this.explorer = {
+          ...this.explorer,
+          tickerUSD: data
+        };
+      },
+      error => {
+        console.log('error: ', error);
+      }
+    );
   }
 
   showBTC() {
-    this.explorerService.getBTC()
-      .subscribe(
-        (data: number) => {
-          this.explorer = {
-            ...this.explorer,
-            tickerBTC: data
-          };
-        },
-        error => {
-          console.log('error: ', error);
-        }
-      );
+    this.explorerService.getBTC().subscribe(
+      (data: number) => {
+        this.explorer = {
+          ...this.explorer,
+          tickerBTC: data
+        };
+      },
+      error => {
+        console.log('error: ', error);
+      }
+    );
   }
 }

@@ -40,6 +40,10 @@ export class NotificationService implements OnInit {
   }
 
   addNotification(newNotif: Notification): void {
-    this.notifications = [...this.notifications, newNotif];
+    if (this.notifications) {
+      this.notifications.push(newNotif);
+    } else {
+      this.notifications = [newNotif];
+    }
   }
 }

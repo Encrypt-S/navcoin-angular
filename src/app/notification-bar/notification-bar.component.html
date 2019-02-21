@@ -1,0 +1,24 @@
+<div id="notification-bar">
+  <div
+    *ngFor="let notif of notificationService.getNotifications()"
+    [ngClass]="{
+      notification: true,
+      info: notif.type === notifTypes.INFO,
+      update: notif.type === notifTypes.UPDATE,
+      error: notif.type === notifTypes.ERROR,
+      warning: notif.type === notifTypes.WARNING,
+      success: notif.type === notifTypes.SUCCESS
+    }"
+  >
+    <span>
+      {{ notif.getTypeString() }}: {{ notif.description }}
+      <a *ngIf="notif.url" [href]="notif.url">{{ notif.url }}</a>
+    </span>
+    <button
+      (click)="removeNotification(notif)"
+      class="waves-effect waves-light btn light grey right"
+    >
+      Dismiss notification
+    </button>
+  </div>
+</div>

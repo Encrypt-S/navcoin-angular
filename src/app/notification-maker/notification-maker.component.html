@@ -1,0 +1,53 @@
+<mz-card class="grey lighten-5 creator" [horizontal]="true">
+  <mz-card-title>
+    Notification Creator
+  </mz-card-title>
+  <mz-card-content>
+    <form [formGroup]="notificationForm" (ngSubmit)="onSubmit()">
+      <label for="description">
+        Description:
+      </label>
+      <input
+        type="text"
+        id="description"
+        formControlName="description"
+        required
+      />
+      <label for="url">
+        URL:
+      </label>
+      <input type="text" id="url" formControlName="URL" />
+
+      <label for="type">
+        Type:
+      </label>
+      <select
+        style="display: initial !important"
+        formControlName="type"
+        id="type"
+        required
+      >
+        <option [ngValue]="notifTypes.ERROR">ERROR</option>
+        <option [ngValue]="notifTypes.INFO">INFO</option>
+        <option [ngValue]="notifTypes.SUCCESS">SUCCESS</option>
+        <option [ngValue]="notifTypes.UPDATE">UPDATE</option>
+        <option [ngValue]="notifTypes.WARNING">WARNING</option>
+      </select>
+      <div class="input-field">
+        <button
+          type="submit"
+          [disabled]="!notificationForm.valid"
+          class="waves-effect waves-light btn grey"
+        >
+          Create Notif
+        </button>
+      </div>
+    </form>
+    <button
+      (click)="spawnTestNotifications()"
+      class="waves-effect waves-light btn grey"
+    >
+      Spawn test notifs
+    </button>
+  </mz-card-content>
+</mz-card>

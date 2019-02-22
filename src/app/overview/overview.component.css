@@ -1,5 +1,6 @@
 .overview-grid {
   display: grid;
+  grid-auto-flow: dense;
   grid-template-columns: repeat(auto-fill, 100px);
   grid-gap: 20px;
   justify-content: center;
@@ -8,13 +9,20 @@
   margin: 0 auto;
 }
 
-.overview-card {
+.overview-card-container {
   grid-column: span 3;
-  width: 100%;
+}
+
+.overview-card {
+  height: 100%;
 }
 .deposit-card {
   grid-column: span 4;
 }
 .overview .address-string {
   margin: 10px 0;
+}
+
+.wide-card-container {
+  grid-column: span 3;
 }

@@ -7,7 +7,10 @@ import { WalletService } from 'src/app/wallet/wallet.service';
 @Component({
   selector: 'app-generic-rpc-form',
   templateUrl: './generic-rpc-form.component.html',
-  styleUrls: ['./generic-rpc-form.component.css']
+  styleUrls: [
+    './generic-rpc-form.component.css',
+    '../overview/overview.component.css'
+  ]
 })
 export class GenericRpcFormComponent implements OnInit {
   rpcCommand: String;

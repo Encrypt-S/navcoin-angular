@@ -9,9 +9,12 @@
   margin: 0 auto;
 }
 
-.overview-card {
+.overview-card-container {
   grid-column: span 3;
-  width: 100%;
+}
+
+.overview-card {
+  height: 100%;
 }
 .deposit-card {
   grid-column: span 4;
@@ -20,6 +23,6 @@
   margin: 10px 0;
 }
 
-.wide-card {
-  grid-column: span 6;
+.wide-card-container {
+  grid-column: span 3;
 }

@@ -1,30 +1,14 @@
-<div>
-  <div class="row">
-      <div class="col m6">
-        <mz-card
-        class="grey lighten-5"
-        [horizontal]="true">
-        <mz-card-title>
-          Overview
-        </mz-card-title>
-        <mz-card-content>
-          <p>NAV / USD: <span *ngIf=explorer>{{explorer.tickerUSD}}</span></p>
-          <p>NAV / BTC: <span *ngIf=explorer>{{explorer.tickerBTC}}</span></p>
-          <p>Balance: <span *ngIf=wallet>{{wallet.balance}}</span> NAV</p>
-        </mz-card-content>
-      </mz-card>
-      </div>
-      <div class="col m6">
-        <mz-card
-        class="grey lighten-5"
-        [horizontal]="true">
-        <mz-card-title>
-          Overview
-        </mz-card-title>
-        <mz-card-content>
-          I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.
-        </mz-card-content>
-      </mz-card>
-      </div>
-    </div>
+<div class="overview-grid">
+  <app-status-view class="overview-card-container"></app-status-view>
+  <app-wallet-overview class="overview-card-container"></app-wallet-overview>
+  <app-transactions-view
+    class="overview-card-container"
+  ></app-transactions-view>
+  <app-deposit-view class="overview-card-container"></app-deposit-view>
+  <app-send-to-view class="overview-card-container"></app-send-to-view>
+  <app-proposals-view class="overview-card-container"></app-proposals-view>
+  <cfund-payment-req-list
+    class="overview-card-container"
+  ></cfund-payment-req-list>
+  <app-generic-rpc-form class="overview-card-container"></app-generic-rpc-form>
 </div>

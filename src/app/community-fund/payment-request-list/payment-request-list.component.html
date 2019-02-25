@@ -1,0 +1,91 @@
+<mz-card class="overview-card grey lighten-5" [horizontal]="true">
+  <mz-card-title>
+    Community Fund Payment Requests
+  </mz-card-title>
+  <mz-card-content class="payment-request-container">
+    <div *ngIf="!paymentRequestList || !paymentRequestVotes">Loading...</div>
+    <div *ngIf="paymentRequestList && paymentRequestVotes">
+      <div
+        *ngFor="let paymentRequest of paymentRequestList"
+        class="payment-request-info"
+      >
+        <div>
+          <div class="description-text">
+            <h1>{{ paymentRequest.description }}</h1>
+          </div>
+          <div>Amount: {{ paymentRequest.requestedAmount }} NAV</div>
+          <div>Duration: {{ paymentRequest.proposalDuration }} Seconds</div>
+          <div>
+            <h2>Votes:</h2>
+            <div>
+              Yes: {{ paymentRequest.votesYes }} - No:
+              {{ paymentRequest.votesNo }}
+            </div>
+            <span
+              [ngClass]="{
+                status: true,
+                pending: paymentRequest.status === 'pending',
+                accepted:
+                  paymentRequest.status === 'accepted' ||
+                  paymentRequest.status ===
+                    'accepted waiting for enough coins in fund',
+                rejected: paymentRequest.status === 'rejected',
+                expired:
+                  paymentRequest.status === 'expired' ||
+                  paymentRequest.status ===
+                    'expired waiting for end of voting period'
+              }"
+            >
+              Status: {{ paymentRequest.status }}
+            </span>
+          </div>
+          <h2>Hash:</h2>
+          <div class="payment-request-hash">
+            <span>{{ paymentRequest.hash.slice(0, 16) }}</span
+            ><span>{{ paymentRequest.hash.slice(16, 32) }}</span
+            ><span>{{ paymentRequest.hash.slice(32, 48) }}</span
+            ><span>{{ paymentRequest.hash.slice(48) }}</span>
+          </div>
+          <div class="flex-center">
+            <div
+              *ngIf="paymentRequest.status === 'pending'"
+              class="flex-center"
+            >
+              <h2>Voting:</h2>
+              <div class="button-container">
+                <button
+                  [ngClass]="{
+                    'yes-btn': true,
+                    selected: votingYes(paymentRequest.hash)
+                  }"
+                  [disabled]="buttonDebounce"
+                  (click)="paymentRequestVote(paymentRequest.hash, 'yes')"
+                >
+                  Yes
+                </button>
+                <button
+                  [ngClass]="{
+                    'no-btn': true,
+                    selected: votingNo(paymentRequest.hash)
+                  }"
+                  [disabled]="buttonDebounce"
+                  (click)="paymentRequestVote(paymentRequest.hash, 'no')"
+                >
+                  No
+                </button>
+              </div>
+            </div>
+            <a
+              [href]="
+                'https://www.navexplorer.com/community-fund/paymentRequest/' +
+                paymentRequest.hash
+              "
+              class="button"
+              >View Proposal on NavExplorer.com</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </mz-card-content>
+</mz-card>

@@ -1,0 +1,57 @@
+<mz-card class="overview-card grey lighten-5" [horizontal]="true">
+  <mz-card-title>
+    Run an RPC Command
+  </mz-card-title>
+  <mz-card-content>
+    <form #uiPasswordForm="ngForm">
+      <div class="input-field ">
+        <input
+          id="command"
+          type="text"
+          class="validate"
+          [(ngModel)]="rpcCommand"
+          name="rpcCommand"
+        />
+        <label for="rpcCommand">RPC Command</label>
+      </div>
+      <div class="input-field ">
+        <button
+          mz-button
+          (click)="bottomSheetModal.openModal()"
+          class="waves-effect waves-light btn right"
+        >
+          Run command
+        </button>
+      </div>
+    </form>
+
+    <div class="title">
+      Command Output
+    </div>
+    <textarea name="" class="result" id="" readonly>
+        {{ rpcResult }}
+      </textarea
+    >
+  </mz-card-content>
+</mz-card>
+
+<mz-modal #bottomSheetModal [options]="modalOptions">
+  <mz-modal-header>
+    <h4>Confirm Command</h4>
+  </mz-modal-header>
+  <mz-modal-content>
+    <p>
+      You are about to run the following command on your NavCoin&nbsp;StakeBox.
+      Beware of scammers who ask you to run commands on your stakebox!
+    </p>
+    <p>
+      Make sure you are aware of what the outcome of running this command is
+      before you run it.
+    </p>
+    <div class="codeblock">{{ rpcCommand }}</div>
+  </mz-modal-content>
+  <mz-modal-footer>
+    <button mz-button [flat]="true" mz-modal-close>Cancel</button>
+    <button mz-button mz-modal-close (click)="onSubmit()">Run command</button>
+  </mz-modal-footer>
+</mz-modal>

@@ -1,0 +1,20 @@
+.codeblock {
+  background: lightgray;
+  color: black;
+  padding: 3px 6px;
+  font-family: monospace;
+}
+
+.result {
+  padding: 5px;
+  max-width: 294px;
+  min-width: 100%;
+  min-height: 80px;
+}
+
+.title {
+  margin: 70px 0 10px 0;
+  line-height: 32px;
+  font-size: 24px;
+  font-weight: 300;
+}

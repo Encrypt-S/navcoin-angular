@@ -40,6 +40,7 @@ import { WalletService } from './wallet/wallet.service';
 import { AuthService } from './auth/auth.service';
 import { UiPasswordService } from './settings/ui-password/ui-password.service';
 import { NotificationService } from './notification-bar/notification.service';
+import { CommunityFundService } from './services/community-fund.service';
 // tools
 import { QRCodeModule } from 'angular2-qrcode';
 import { ClipboardModule } from 'ngx-clipboard';
@@ -62,7 +63,6 @@ import { PaymentRequestCreatorComponent } from './community-fund/payment-request
 import { GenericRpcFormComponent } from './generic-rpc-form/generic-rpc-form.component';
 import { NotificationBarComponent } from './notification-bar/notification-bar.component';
 import { NotificationMakerComponent } from './notification-maker/notification-maker.component';
-
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -124,6 +124,7 @@ export function tokenGetter() {
     WalletService,
     AuthGuard,
     AuthService,
+    CommunityFundService,
     UiPasswordService,
     NotificationService
   ],

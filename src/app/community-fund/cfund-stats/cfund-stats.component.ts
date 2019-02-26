@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RpcSend } from 'src/app/rpc/rpc-send.model';
 import { RpcReceive } from 'src/app/rpc/rpc-receive.model';
-import { WalletService } from 'src/app/wallet/wallet.service';
+import { CommunityFundService } from 'src/app/services/community-fund.service';
+import RPCDataCFundStats from 'src/app/models/RPCCommunityFundStats.model';
 
 @Component({
   selector: 'app-cfund-stats',
@@ -9,27 +10,11 @@ import { WalletService } from 'src/app/wallet/wallet.service';
   styleUrls: ['./cfund-stats.component.css']
 })
 export class CfundStatsComponent implements OnInit {
-  cfundStats: CFundStats;
+  cfundStats: RPCDataCFundStats;
 
-  constructor(private walletService: WalletService) {}
+  constructor(public comFundService: CommunityFundService) {}
 
   ngOnInit() {
-    this.fetchCFundStats();
-  }
-
-  fetchCFundStats() {
-    const rpcData = new RpcSend('cfundstats');
-    this.walletService.sendRPC(rpcData).subscribe(
-      (receive: RpcReceive) => {
-        if (receive.type === 'SUCCESS') {
-          this.cfundStats = receive.data;
-        } else {
-          console.log('error: ', receive);
-        }
-      },
-      error => {
-        console.log('error: ', error);
-      }
-    );
+    this.comFundService.fetchCfundStats();
   }
 }

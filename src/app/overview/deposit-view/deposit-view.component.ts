@@ -4,6 +4,11 @@ import { WalletModel } from '../../wallet/wallet.model';
 import { WalletService } from '../../wallet/wallet.service';
 import { RpcReceive } from '../../rpc/rpc-receive.model';
 import { RpcSend } from 'src/app/rpc/rpc-send.model';
+import { NotificationService } from 'src/app/notification-bar/notification.service';
+import {
+  Notification,
+  NotifType
+} from 'src/app/notification-bar/notification.model';
 
 @Component({
   selector: 'app-deposit-view',
@@ -17,8 +22,8 @@ export class DepositViewComponent implements OnInit {
   qrMainAddress: string;
 
   constructor(
-    private explorerService: ExplorerService,
-    private walletService: WalletService
+    private walletService: WalletService,
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit() {
@@ -26,30 +31,27 @@ export class DepositViewComponent implements OnInit {
   }
 
   getMainAddress() {
-    console.log('getaddress called');
     this.walletService.sendAPI('getmainaddress').subscribe(
       (receieve: RpcReceive) => {
         const address = receieve.data.address;
         this.qrMainAddress = `navcoin:${address}?label=NavPi`;
       },
       error => {
-        // this.notificationService.addNotification(
-        //   new Notification(
-        //     `Unable to get transactions ${error}`,
-        //     NotifType.ERROR
-        //   )
-        // );
+        this.notificationService.addNotification(
+          new Notification(
+            `Unable to get new address ${error}`,
+            NotifType.ERROR
+          )
+        );
         return;
       }
     );
   }
 
   getNewAddress() {
-    console.log('getnewaddress called');
     const data = new RpcSend('getnewaddress');
     this.walletService.sendRPC(data).subscribe((receive: RpcReceive) => {
       const address = receive.data;
-      console.log(address);
       this.qrMainAddress = `navcoin${address}?label=NavPi`;
     });
   }

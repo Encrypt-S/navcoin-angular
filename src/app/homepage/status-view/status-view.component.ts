@@ -12,7 +12,7 @@ import {
 @Component({
   selector: 'app-status-view',
   templateUrl: './status-view.component.html',
-  styleUrls: ['../overview.component.css', './status-view.component.css']
+  styleUrls: ['../homepage.component.css', './status-view.component.css']
 })
 export class StatusViewComponent implements OnInit {
   wallet: WalletOverview;

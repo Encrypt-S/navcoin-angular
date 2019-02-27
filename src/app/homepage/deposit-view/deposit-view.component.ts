@@ -4,11 +4,10 @@ import { WalletModel } from '../../wallet/wallet.model';
 import { WalletService } from '../../wallet/wallet.service';
 import { RpcReceive } from '../../rpc/rpc-receive.model';
 
-
 @Component({
   selector: 'app-deposit-view',
   templateUrl: './deposit-view.component.html',
-  styleUrls: ['../overview.component.css','./deposit-view.component.css']
+  styleUrls: ['../homepage.component.css', './deposit-view.component.css']
 })
 export class DepositViewComponent implements OnInit {
   wallet: WalletModel;

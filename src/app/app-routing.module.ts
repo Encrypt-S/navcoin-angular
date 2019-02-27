@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 
 import { WalletComponent } from './wallet/wallet.component';
-import { OverviewComponent } from './overview/overview.component';
+import { HomepageComponent } from './homepage/homepage.component';
 import { SettingsComponent } from './settings/settings.component';
 import { LoginComponent } from './login/login.component';
 import { PageNotFoundComponent } from './not-found/not-found.component';
@@ -14,7 +14,7 @@ import { AuthGuardService as AuthGuard } from './auth/auth-guard.service';
 const routes: Routes = [
   {
     path: '',
-    component: OverviewComponent,
+    component: HomepageComponent,
     canActivate: [AuthGuard]
   },
   {

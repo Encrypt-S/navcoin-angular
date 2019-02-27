@@ -12,7 +12,7 @@ import { AuthGuardService as AuthGuard } from './auth/auth-guard.service';
 import { JwtModule } from '@auth0/angular-jwt';
 
 // pages
-import { OverviewComponent } from './overview/overview.component';
+import { HomepageComponent } from './homepage/homepage.component';
 import { LoginComponent } from './login/login.component';
 import { WalletComponent } from './wallet/wallet.component';
 import { SettingsComponent } from './settings/settings.component';
@@ -41,24 +41,25 @@ import { AuthService } from './auth/auth.service';
 import { UiPasswordService } from './settings/ui-password/ui-password.service';
 import { NotificationService } from './notification-bar/notification.service';
 import { CommunityFundService } from './services/community-fund.service';
+
 // tools
 import { QRCodeModule } from 'angular2-qrcode';
 import { ClipboardModule } from 'ngx-clipboard';
 
 // partials
 import { NavbarComponent } from './navbar/navbar.component';
-import { CFundPaymentRequestListComponent } from './overview/cfund-payment-req/cfund-payment-req-list.component';
+import { CFundPaymentRequestListComponent } from './homepage/cfund-payment-req/cfund-payment-req-list.component';
 import { CommunityFundComponent } from './community-fund/community-fund.component';
 import { ProposalListComponent } from './community-fund/proposal-list/proposal-list.component';
-import { PaymentRequestListComponent } from './community-fund/payment-request-list/payment-request-list.component';
+// import { PaymentRequestListComponent } from './community-fund/payment-request-list/payment-request-list.component';
 import { ProposalCreatorComponent } from './community-fund/proposal-creator/proposal-creator.component';
 import { CfundStatsComponent } from './community-fund/cfund-stats/cfund-stats.component';
-import { ProposalsViewComponent } from './overview/proposals-view/proposals-view.component';
-import { SendToViewComponent } from './overview/send-to-view/send-to-view.component';
-import { DepositViewComponent } from './overview/deposit-view/deposit-view.component';
-import { TransactionsViewComponent } from './overview/transactions-view/transactions-view.component';
-import { WalletOverviewComponent } from './overview/wallet-overview/wallet-overview.component';
-import { StatusViewComponent } from './overview/status-view/status-view.component';
+import { ProposalsViewComponent } from './homepage/proposals-view/proposals-view.component';
+import { SendToViewComponent } from './homepage/send-to-view/send-to-view.component';
+import { DepositViewComponent } from './homepage/deposit-view/deposit-view.component';
+import { TransactionsViewComponent } from './homepage/transactions-view/transactions-view.component';
+import { WalletOverviewComponent } from './homepage/wallet-overview/wallet-overview.component';
+import { StatusViewComponent } from './homepage/status-view/status-view.component';
 import { PaymentRequestCreatorComponent } from './community-fund/payment-request-creator/payment-request-creator.component';
 import { GenericRpcFormComponent } from './generic-rpc-form/generic-rpc-form.component';
 import { NotificationBarComponent } from './notification-bar/notification-bar.component';
@@ -71,7 +72,7 @@ export function tokenGetter() {
 @NgModule({
   declarations: [
     AppComponent,
-    OverviewComponent,
+    HomepageComponent,
     NavbarComponent,
     WalletComponent,
     SettingsComponent,
@@ -81,7 +82,7 @@ export function tokenGetter() {
     CFundPaymentRequestListComponent,
     CommunityFundComponent,
     ProposalListComponent,
-    PaymentRequestListComponent,
+    // PaymentRequestListComponent,
     ProposalCreatorComponent,
     CfundStatsComponent,
     ProposalsViewComponent,
@@ -126,7 +127,8 @@ export function tokenGetter() {
     AuthService,
     CommunityFundService,
     UiPasswordService,
-    NotificationService
+    NotificationService,
+    CommunityFundService
   ],
   bootstrap: [AppComponent]
 })

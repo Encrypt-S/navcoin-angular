@@ -4,6 +4,10 @@ import { RpcSend } from 'src/app/rpc/rpc-send.model';
 import { RpcReceive } from 'src/app/rpc/rpc-receive.model';
 import { Observable, Subscription } from 'rxjs';
 import 'rxjs/add/observable/interval';
+import CFProposal from 'src/app/models/CFProposal.model';
+import RPCCommunityFundVoteList from 'src/app/models/RPCCommunityFundVoteList.model';
+import { CFVote } from 'src/app/models/CFVote.model';
+import VoteType from 'src/app/models/VoteType.model';
 
 @Component({
   selector: 'app-proposal-list',
@@ -18,21 +22,22 @@ export class ProposalListComponent implements OnInit {
   dataRefresher: Subscription;
 
   ngOnInit() {
-    this.fetchProposals();
-    this.fetchProposalVotes();
+    this.fetchProposalData();
     this.dataRefresher = Observable.interval(30000).subscribe(val => {
       console.log('Fetching new Proposal data');
-      this.fetchProposals();
-      this.fetchProposalVotes();
+      this.fetchProposalData();
     });
   }
 
-  fetchProposals() {
-    const rpcData = new RpcSend('listproposals');
-    this.walletService.sendRPC(rpcData).subscribe(
+  fetchProposalData() {
+    const rpcData = [
+      new RpcSend('listproposals'),
+      new RpcSend('proposalvotelist')
+    ];
+    this.walletService.sendBatchRPC(rpcData).subscribe(
       (receive: RpcReceive) => {
         if (receive.type === 'SUCCESS') {
-          this.proposalList = [...receive.data];
+          this.createProposalObjects(receive.data[0], receive.data[1]);
         } else {
           console.log('error: ', receive);
         }
@@ -59,46 +64,26 @@ export class ProposalListComponent implements OnInit {
     );
   }
 
-  votingNo(proposalHash: string) {
-    const vote = this.proposalVotes.no.filter((vote: string) =>
-      vote.includes(proposalHash)
-    );
-    return vote.length === 1 ? true : false;
-  }
+  addVotesToProposals(proposals, votes: RPCCommunityFundVoteList) {
+    return proposals.map(proposal => {
+      const hash = proposal.proposalHash;
+      let proposalVote = new CFVote(VoteType.NONE);
 
-  votingYes(proposalHash: string) {
-    const vote = this.proposalVotes.yes.filter((vote: string) =>
-      vote.includes(proposalHash)
-    );
-    return vote.length === 1 ? true : false;
-  }
+      const noVote = votes.no.filter(vote => hash === votes.getHash(vote));
+      if (noVote.length < 0) {
+        proposalVote = new CFVote(VoteType.NO);
+        proposal.vote = proposalVote;
+        return proposal;
+      }
 
-  proposalVote(proposalHash: string, vote: string) {
-    this.buttonDebounce = true;
-    if (
-      (this.votingYes(proposalHash) && vote === 'yes') ||
-      (this.votingNo(proposalHash) && vote === 'no')
-    ) {
-      vote = 'remove';
-    }
-    const rpcData = new RpcSend('proposalvote', [proposalHash, vote]);
-    this.walletService
-      .sendRPC(rpcData)
-      .subscribe(
-        (receive: RpcReceive) => {
-          if (receive.type === 'SUCCESS') {
-            console.log('Vote successful');
-            this.fetchProposalVotes();
-          } else {
-            console.log('error: ', receive);
-          }
-        },
-        error => {
-          console.log('error: ', error);
-        }
-      )
-      .add(() => {
-        this.buttonDebounce = false;
-      });
+      const yesVote = votes.yes.filter(vote => hash === votes.getHash(vote));
+      if (yesVote.length < 0) {
+        proposalVote = new CFVote(VoteType.YES);
+        proposal.vote = proposalVote;
+        return proposal;
+      }
+      proposal.vote = proposalVote;
+      return proposal;
+    });
   }
 }

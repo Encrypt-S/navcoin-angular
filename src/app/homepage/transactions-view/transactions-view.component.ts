@@ -12,7 +12,7 @@ import { Transaction } from './transaction.model';
 @Component({
   selector: 'app-transactions-view',
   templateUrl: './transactions-view.component.html',
-  styleUrls: ['../overview.component.css', './transactions-view.component.css']
+  styleUrls: ['../homepage.component.css', './transactions-view.component.css']
 })
 export class TransactionsViewComponent implements OnInit {
   rpcReceive: RpcReceive;

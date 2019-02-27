@@ -8,6 +8,7 @@ export class WalletService {
 
   apiEndpoint = 'https://localhost/api/';
   rpcEndpoint = this.apiEndpoint + 'rpc';
+  batchRpcEndpoint = this.rpcEndpoint + '/batch';
 
   sendRPC(rpcData: RpcSend) {
     const token = localStorage.getItem('token');
@@ -32,7 +33,7 @@ export class WalletService {
       })
     };
 
-    return this.http.post(this.rpcEndpoint, rpcData, httpOptions);
+    return this.http.post(this.batchRpcEndpoint, rpcData, httpOptions);
   }
 
   getNewAddress() {

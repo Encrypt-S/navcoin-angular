@@ -79,14 +79,10 @@ export class CommunityFundService implements OnInit {
   }
 
   fetchCfundStats() {
-    console.log('stats');
-
     const rpcData = new RpcSend('cfundstats');
     this.walletService.sendRPC(rpcData).subscribe(
       (receive: RpcReceive) => {
         if (receive.type === 'SUCCESS') {
-          console.log('succss getting stats');
-
           this._communityFundStats = receive.data;
         } else {
           console.log('error: ', receive);

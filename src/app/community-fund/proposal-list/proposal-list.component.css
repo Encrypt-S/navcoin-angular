@@ -58,6 +58,7 @@ h2 {
 
 button,
 .button {
+  color: #000;
   cursor: pointer;
   border-radius: 5px;
   padding: 6px 6px;

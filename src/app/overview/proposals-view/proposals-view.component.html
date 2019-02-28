@@ -1,10 +1,76 @@
-<mz-card
-class="overview-card grey lighten-5"
-[horizontal]="true">
-<mz-card-title>
-  C.Fund Proposals
-</mz-card-title>
-<mz-card-content>
-
-</mz-card-content>
+<mz-card class="overview-card grey lighten-5" [horizontal]="true">
+  <mz-card-title>
+    C.Fund Proposals
+  </mz-card-title>
+  <mz-card-content>
+    <div *ngIf="!proposalList || !proposalVotes">Loading...</div>
+    <div *ngIf="proposalList && proposalVotes" class="proposal-container">
+      <div
+        *ngFor="let proposal of proposalList.slice(0, 5)"
+        class="proposal-info"
+      >
+        <div>
+          <div class="description-text">
+            <div>{{ proposal.description }}</div>
+          </div>
+          <div>Amount: {{ proposal.requestedAmount }} NAV</div>
+          <div>
+            <span
+              [ngClass]="{
+                status: true,
+                pending: proposal.status === 'pending',
+                accepted:
+                  proposal.status === 'accepted' ||
+                  proposal.status ===
+                    'accepted waiting for enough coins in fund',
+                rejected: proposal.status === 'rejected',
+                expired:
+                  proposal.status === 'expired' ||
+                  proposal.status === 'expired waiting for end of voting period'
+              }"
+            >
+              Status: {{ proposal.status }}
+            </span>
+          </div>
+          <div class="flex-center">
+            <div *ngIf="proposal.status === 'pending'" class="flex-center">
+              <div class="button-container">
+                <button
+                  [ngClass]="{
+                    'yes-btn': true,
+                    selected: votingYes(proposal.hash)
+                  }"
+                  [disabled]="buttonDebounce"
+                  (click)="proposalVote(proposal.hash, 'yes')"
+                >
+                  Yes
+                </button>
+                <button
+                  [ngClass]="{
+                    'no-btn': true,
+                    selected: votingNo(proposal.hash)
+                  }"
+                  [disabled]="buttonDebounce"
+                  (click)="proposalVote(proposal.hash, 'no')"
+                >
+                  No
+                </button>
+              </div>
+            </div>
+            <a
+              [href]="
+                'https://www.navexplorer.com/community-fund/proposal/' +
+                proposal.hash
+              "
+              class="button"
+              >View Proposal on NavExplorer.com</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex-center">
+      <a href="/community-fund" class="button">See all proposals -></a>
+    </div>
+  </mz-card-content>
 </mz-card>

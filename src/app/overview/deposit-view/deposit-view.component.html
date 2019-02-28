@@ -3,17 +3,21 @@
     Deposit
   </mz-card-title>
   <mz-card-content>
-    <qr-code [value]="qrMainAddress" [size]="300" class="qr-code"></qr-code>
-    <p class="address-string">{{ qrMainAddress }}</p>
-    <button
-      class="waves-effect waves-light btn"
-      ngxClipboard
-      [cbContent]="qrMainAddress"
-    >
-      Copy
-    </button>
-    <button class="waves-effect waves-light btn" (click)="getNewAddress()">
-      Generate New Address
-    </button>
+    <div *ngIf="!mainAddress">Loading...</div>
+    <div *ngIf="mainAddress">
+      <qr-code [value]="qrMainAddress" [size]="256" class="qr-code"></qr-code>
+
+      <p class="address-string">{{ mainAddress }}</p>
+      <button class="waves-effect waves-light btn" (click)="getNewAddress()">
+        Get New Address
+      </button>
+      <button
+        class="waves-effect waves-light btn"
+        ngxClipboard
+        [cbContent]="mainAddress"
+      >
+        Copy
+      </button>
+    </div>
   </mz-card-content>
 </mz-card>

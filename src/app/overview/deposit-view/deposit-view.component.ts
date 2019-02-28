@@ -20,6 +20,7 @@ export class DepositViewComponent implements OnInit {
   rpcReceive: RpcReceive;
 
   qrMainAddress: string;
+  mainAddress: string;
 
   constructor(
     private walletService: WalletService,
@@ -33,8 +34,8 @@ export class DepositViewComponent implements OnInit {
   getMainAddress() {
     this.walletService.sendAPI('getmainaddress').subscribe(
       (receieve: RpcReceive) => {
-        const address = receieve.data.address;
-        this.qrMainAddress = `navcoin:${address}?label=NavPi`;
+        this.mainAddress = receieve.data.address;
+        this.qrMainAddress = `navcoin:${this.mainAddress}?label=NavPi`;
       },
       error => {
         this.notificationService.addNotification(

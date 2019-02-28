@@ -1,9 +1,9 @@
 export class RpcSend {
-  command: string;
+  method: string;
   params?: Array<string>;
 
-  constructor(command: string, params?: Array<any>) {
-    this.command = command;
+  constructor(method: string, params?: Array<any>) {
+    this.method = method;
     this.params = params;
   }
 }

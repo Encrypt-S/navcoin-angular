@@ -7,11 +7,15 @@ import { CFVote } from '../models/CFVote.model';
 import RPCDataCFundStats from '../models/RPCCommunityFundStats.model';
 import CFPaymentRequest from '../models/CFPaymentRequest.model';
 import { Observable } from 'rxjs';
+import { NotificationService } from '../notification-bar/notification.service';
+import { NavDroidNotification } from '../notification-bar/NavDroidNotification.model';
 
 // TODO Add Caching
 
 @Injectable()
 export class CommunityFundService implements OnInit {
+  private notificationService = new NotificationService();
+
   private _proposalVotes: any = {
     yes: new Array<CFVote>(),
     no: new Array<CFVote>(),
@@ -79,6 +83,7 @@ export class CommunityFundService implements OnInit {
           this._proposalList = [...receive.data];
         } else {
           console.log('error: ', receive);
+          // reject(`${receive.message} ${receive.code} ${[...receive.data]}`);
         }
       },
       error => {
@@ -104,6 +109,7 @@ export class CommunityFundService implements OnInit {
             });
         } else {
           console.log('error: ', receive);
+          // reject(`${receive.message} ${receive.code} ${[...receive.data]}`);
         }
       },
       error => {
@@ -113,19 +119,22 @@ export class CommunityFundService implements OnInit {
   }
 
   fetchCfundStats() {
-    const rpcData = new RpcSend('cfundstats');
-    this.walletService.sendRPC(rpcData).subscribe(
-      (receive: RpcReceive) => {
-        if (receive.type === 'SUCCESS') {
-          this._communityFundStats = receive.data;
-        } else {
-          console.log('error: ', receive);
+    return new Promise((resolve, reject) => {
+      const rpcData = new RpcSend('cfundstats');
+      this.walletService.sendRPC(rpcData).subscribe(
+        (receive: RpcReceive) => {
+          if (receive.type === 'SUCCESS') {
+            this._communityFundStats = receive.data;
+            resolve();
+          } else {
+            reject(`${receive.message} ${receive.code} ${[...receive.data]}`);
+          }
+        },
+        error => {
+          reject(error);
         }
-      },
-      error => {
-        console.log('error: ', error);
-      }
-    );
+      );
+    });
   }
 
   fetchProposalVotes() {
@@ -136,6 +145,7 @@ export class CommunityFundService implements OnInit {
           this._proposalVotes = receive.data;
         } else {
           console.log('error: ', receive);
+          // reject(`${receive.message} ${receive.code} ${[...receive.data]}`);
         }
       },
       error => {
@@ -151,7 +161,7 @@ export class CommunityFundService implements OnInit {
         if (receive.type === 'SUCCESS') {
           this._paymentRequestVotes = receive.data;
         } else {
-          console.log('error: ', receive);
+          // reject(`${receive.message} ${receive.code} ${[...receive.data]}`);
         }
       },
       error => {

@@ -49,7 +49,7 @@ export class PaymentRequestListComponent implements OnInit {
       );
   }
 
-  voteOnProposal(paymentReqHash: string, vote: string) {
+  voteOnPaymentRequest(paymentReqHash: string, vote: string) {
     this.buttonDebounce = true;
 
     this.communityFundService

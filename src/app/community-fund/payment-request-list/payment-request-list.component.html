@@ -81,7 +81,7 @@
                     )
                   }"
                   [disabled]="buttonDebounce"
-                  (click)="paymentRequestVote(paymentRequest.hash, 'yes')"
+                  (click)="voteOnPaymentRequest(paymentRequest.hash, 'yes')"
                 >
                   Yes
                 </button>
@@ -93,7 +93,7 @@
                     )
                   }"
                   [disabled]="buttonDebounce"
-                  (click)="paymentRequestVote(paymentRequest.hash, 'no')"
+                  (click)="voteOnPaymentRequest(paymentRequest.hash, 'no')"
                 >
                   No
                 </button>

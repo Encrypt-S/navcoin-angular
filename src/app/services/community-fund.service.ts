@@ -161,19 +161,22 @@ export class CommunityFundService implements OnInit {
   }
 
   fetchPaymentRequestVotes() {
-    const rpcData = new RpcSend('paymentrequestvotelist');
-    this.walletService.sendRPC(rpcData).subscribe(
-      (receive: RpcReceive) => {
-        if (receive.type === 'SUCCESS') {
-          this._paymentRequestVotes = receive.data;
-        } else {
-          // reject(`${receive.message} ${receive.code} ${[...receive.data]}`);
+    return new Promise((resolve, reject) => {
+      const rpcData = new RpcSend('paymentrequestvotelist');
+      this.walletService.sendRPC(rpcData).subscribe(
+        (receive: RpcReceive) => {
+          if (receive.type === 'SUCCESS') {
+            this._paymentRequestVotes = receive.data;
+            resolve();
+          } else {
+            reject(`${receive.message} ${receive.code} ${[...receive.data]}`);
+          }
+        },
+        error => {
+          reject(error);
         }
-      },
-      error => {
-        console.log('error: ', error);
-      }
-    );
+      );
+    });
   }
 
   // Update

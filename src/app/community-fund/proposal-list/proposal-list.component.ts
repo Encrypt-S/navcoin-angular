@@ -22,6 +22,13 @@ export class ProposalListComponent implements OnInit {
   dataRefresher: Subscription;
 
   ngOnInit() {
+    this.getData();
+
+    this.dataRefresher = Observable.interval(30000).subscribe(val => {
+      this.getData();
+    });
+  }
+  getData() {
     console.log('ProposalListComponent fetching new Proposal data');
     this.communityFundService
       .fetchProposalVotes()
@@ -39,33 +46,13 @@ export class ProposalListComponent implements OnInit {
           'Failed to fetch Community Fund Proposals'
         )
       );
-
-    this.dataRefresher = Observable.interval(30000).subscribe(val => {
-      console.log('ProposalListComponent fetching new Proposal data');
-      this.communityFundService
-        .fetchProposalVotes()
-        .catch(error =>
-          this.notificationService.addError(
-            error,
-            'Failed to get Community Fund Proposal Votes'
-          )
-        );
-      this.communityFundService
-        .fetchProposals()
-        .catch(error =>
-          this.notificationService.addError(
-            error,
-            'Failed to fetch Community Fund Proposals'
-          )
-        );
-    });
   }
 
-  voteOnProposal(proposalHash, vote) {
+  voteOnProposal(proposalHash: string, vote: string) {
     this.buttonDebounce = true;
 
     this.communityFundService
-      .updatePaymentRequestVote(proposalHash, vote)
+      .updateProposalVote(proposalHash, vote)
       .then(() => {
         this.notificationService.addNotification(
           new NavDroidNotification(
@@ -73,7 +60,7 @@ export class ProposalListComponent implements OnInit {
             NotifType.SUCCESS
           )
         );
-        this.communityFundService.fetchPaymentRequestVotes();
+        this.communityFundService.fetchProposalVotes();
       })
       .catch(error => {
         this.notificationService.addError(

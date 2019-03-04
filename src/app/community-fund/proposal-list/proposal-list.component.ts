@@ -60,6 +60,7 @@ export class ProposalListComponent implements OnInit {
             NotifType.SUCCESS
           )
         );
+        this.getData();
       })
       .catch(error => {
         this.notificationService.addError(

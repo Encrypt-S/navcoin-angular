@@ -58,6 +58,7 @@ export class HomepageProposalListComponent implements OnInit {
             NotifType.SUCCESS
           )
         );
+        this.getData();
       })
       .catch(error => {
         this.notificationService.addError(

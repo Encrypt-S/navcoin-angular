@@ -61,6 +61,7 @@ export class PaymentRequestListComponent implements OnInit {
             NotifType.SUCCESS
           )
         );
+        this.getData();
       })
       .catch(error => {
         this.notificationService.addError(

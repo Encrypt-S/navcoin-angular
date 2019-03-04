@@ -3,35 +3,20 @@ import { RpcReceive } from 'src/app/rpc/rpc-receive.model';
 import { WalletService } from 'src/app/wallet/wallet.service';
 import { OnInit, Injectable } from '@angular/core';
 import CFProposal from '../models/CFProposal.model';
-import { CFVote } from '../models/CFVote.model';
 import RPCDataCFundStats from '../models/RPCCommunityFundStats.model';
 import CFPaymentRequest from '../models/CFPaymentRequest.model';
-import { Observable } from 'rxjs';
-import { NotificationService } from '../notification-bar/notification.service';
-import { NavDroidNotification } from '../notification-bar/NavDroidNotification.model';
+import RPCCFundVoteContainer from '../models/RPCCFundVotes.model';
 
-// TODO Add Caching
+// TODO Add Caching ?
 
 @Injectable()
 export class CommunityFundService implements OnInit {
-  private notificationService = new NotificationService();
+  private _proposalVotes: RPCCFundVoteContainer;
 
-  private _proposalVotes: any = {
-    yes: new Array<CFVote>(),
-    no: new Array<CFVote>(),
-    null: new Array<CFVote>()
-  };
-
-  private _paymentRequestList: Array<CFPaymentRequest> = new Array<
-    CFPaymentRequest
-  >();
-  private _proposalList: Array<CFProposal> = new Array<CFProposal>();
-  private _communityFundStats: RPCDataCFundStats = new RPCDataCFundStats();
-  private _paymentRequestVotes: any = {
-    yes: new Array<CFVote>(),
-    no: new Array<CFVote>(),
-    null: new Array<CFVote>()
-  };
+  private _paymentRequestList: Array<CFPaymentRequest>;
+  private _proposalList: Array<CFProposal>;
+  private _communityFundStats: RPCDataCFundStats;
+  private _paymentRequestVotes: RPCCFundVoteContainer;
 
   get proposalVotes(): any {
     return this._proposalVotes;
@@ -100,7 +85,7 @@ export class CommunityFundService implements OnInit {
       this.walletService.sendRPC(rpcData).subscribe(
         (receive: RpcReceive) => {
           if (receive.type === 'SUCCESS') {
-            this._paymentRequestList = [];
+            const paymentRequestList = [];
             receive.data
               .filter(proposal => proposal.paymentRequests)
               .map((proposal: CFProposal) => {
@@ -108,8 +93,10 @@ export class CommunityFundService implements OnInit {
                   paymentRequest.parentProposalHash = proposal.hash;
                   return paymentRequest;
                 });
-                this._paymentRequestList.push(...payReqs);
+                paymentRequestList.push(...payReqs);
               });
+            this._paymentRequestList = paymentRequestList;
+            console.log('data set');
             resolve();
           } else {
             reject(`${receive.message} ${receive.code} ${[...receive.data]}`);
@@ -213,7 +200,7 @@ export class CommunityFundService implements OnInit {
       ) {
         vote = 'remove';
       }
-      const rpcData = new RpcSend('paymentRequestvote', [
+      const rpcData = new RpcSend('paymentrequestvote', [
         paymentRequestHash,
         vote
       ]);
@@ -222,7 +209,11 @@ export class CommunityFundService implements OnInit {
           if (receive.type === 'SUCCESS') {
             resolve();
           } else {
-            reject(`${receive.message} ${receive.code} ${[...receive.data]}`);
+            reject(
+              `${receive.message} ${receive.code} ${JSON.stringify(
+                receive.data
+              )}`
+            );
           }
         },
         error => {

@@ -2,3 +2,12 @@
   max-height: 320px;
   overflow-y: scroll;
 }
+
+.tx-row {
+  border-bottom: 1px solid #ccc;
+}
+
+td,
+th {
+  padding: 13px 12px;
+}

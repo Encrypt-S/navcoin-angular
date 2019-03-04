@@ -5,19 +5,20 @@
   <mz-card-content class="payment-request-container">
     <div
       *ngIf="
-        !comFundService.paymentRequestList ||
-        !comFundService.paymentRequestVotes
+        !communityFundService.paymentRequestList ||
+        !communityFundService.paymentRequestVotes
       "
     >
       Loading...
     </div>
     <div
       *ngIf="
-        comFundService.paymentRequestList && comFundService.paymentRequestVotes
+        communityFundService.paymentRequestList &&
+        communityFundService.paymentRequestVotes
       "
     >
       <div
-        *ngIf="comFundService.paymentRequestList.length < 1"
+        *ngIf="communityFundService.paymentRequestList.length < 1"
         class="proposal-info"
       >
         <div class="description-text">
@@ -25,7 +26,7 @@
         </div>
       </div>
       <div
-        *ngFor="let paymentRequest of comFundService.paymentRequestList"
+        *ngFor="let paymentRequest of communityFundService.paymentRequestList"
         class="payment-request-info"
       >
         <div>
@@ -75,7 +76,7 @@
                 <button
                   [ngClass]="{
                     'yes-btn': true,
-                    selected: comFundService.paymentRequestVotingYes(
+                    selected: communityFundService.paymentRequestVotingYes(
                       paymentRequest.hash
                     )
                   }"
@@ -87,7 +88,7 @@
                 <button
                   [ngClass]="{
                     'no-btn': true,
-                    selected: comFundService.paymentRequestVotingNo(
+                    selected: communityFundService.paymentRequestVotingNo(
                       paymentRequest.hash
                     )
                   }"

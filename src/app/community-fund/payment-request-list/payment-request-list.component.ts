@@ -9,21 +9,21 @@ import { CommunityFundService } from 'src/app/services/community-fund.service';
   styleUrls: ['./payment-request-list.component.css']
 })
 export class PaymentRequestListComponent implements OnInit {
-  constructor(public comFundService: CommunityFundService) {}
+  constructor(public communityFundService: CommunityFundService) {}
   buttonDebounce: Boolean = false;
   dataRefresher: Subscription;
 
   ngOnInit() {
     console.log('PaymentRequestListComponent fetching new paymentRequest data');
-    this.comFundService.fetchPaymentRequestVotes();
-    this.comFundService.fetchPaymentRequests();
+    this.communityFundService.fetchPaymentRequestVotes();
+    this.communityFundService.fetchPaymentRequests();
 
     this.dataRefresher = Observable.interval(30000).subscribe(val => {
       console.log(
         'PaymentRequestListComponent fetching new paymentRequest data'
       );
-      this.comFundService.fetchPaymentRequestVotes();
-      this.comFundService.fetchPaymentRequests();
+      this.communityFundService.fetchPaymentRequestVotes();
+      this.communityFundService.fetchPaymentRequests();
     });
   }
 

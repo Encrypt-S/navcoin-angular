@@ -76,46 +76,50 @@ export class CommunityFundService implements OnInit {
   // Get data
 
   fetchProposals() {
-    const rpcData = new RpcSend('listproposals');
-    this.walletService.sendRPC(rpcData).subscribe(
-      (receive: RpcReceive) => {
-        if (receive.type === 'SUCCESS') {
-          this._proposalList = [...receive.data];
-        } else {
-          console.log('error: ', receive);
-          // reject(`${receive.message} ${receive.code} ${[...receive.data]}`);
+    return new Promise((resolve, reject) => {
+      const rpcData = new RpcSend('listproposals');
+      this.walletService.sendRPC(rpcData).subscribe(
+        (receive: RpcReceive) => {
+          if (receive.type === 'SUCCESS') {
+            this._proposalList = [...receive.data];
+            resolve();
+          } else {
+            reject(`${receive.message} ${receive.code} ${[...receive.data]}`);
+          }
+        },
+        error => {
+          reject(error);
         }
-      },
-      error => {
-        console.log('error: ', error);
-      }
-    );
+      );
+    });
   }
 
   fetchPaymentRequests() {
-    const rpcData = new RpcSend('listproposals');
-    this.walletService.sendRPC(rpcData).subscribe(
-      (receive: RpcReceive) => {
-        if (receive.type === 'SUCCESS') {
-          this._paymentRequestList = [];
-          receive.data
-            .filter(proposal => proposal.paymentRequests)
-            .map((proposal: CFProposal) => {
-              const payReqs = proposal.paymentRequests.map(paymentRequest => {
-                paymentRequest.parentProposalHash = proposal.hash;
-                return paymentRequest;
+    return new Promise((resolve, reject) => {
+      const rpcData = new RpcSend('listproposals');
+      this.walletService.sendRPC(rpcData).subscribe(
+        (receive: RpcReceive) => {
+          if (receive.type === 'SUCCESS') {
+            this._paymentRequestList = [];
+            receive.data
+              .filter(proposal => proposal.paymentRequests)
+              .map((proposal: CFProposal) => {
+                const payReqs = proposal.paymentRequests.map(paymentRequest => {
+                  paymentRequest.parentProposalHash = proposal.hash;
+                  return paymentRequest;
+                });
+                this._paymentRequestList.push(...payReqs);
               });
-              this._paymentRequestList.push(...payReqs);
-            });
-        } else {
-          console.log('error: ', receive);
-          // reject(`${receive.message} ${receive.code} ${[...receive.data]}`);
+            resolve();
+          } else {
+            reject(`${receive.message} ${receive.code} ${[...receive.data]}`);
+          }
+        },
+        error => {
+          reject(error);
         }
-      },
-      error => {
-        console.log('error: ', error);
-      }
-    );
+      );
+    });
   }
 
   fetchCfundStats() {
@@ -138,20 +142,22 @@ export class CommunityFundService implements OnInit {
   }
 
   fetchProposalVotes() {
-    const rpcData = new RpcSend('proposalvotelist');
-    this.walletService.sendRPC(rpcData).subscribe(
-      (receive: RpcReceive) => {
-        if (receive.type === 'SUCCESS') {
-          this._proposalVotes = receive.data;
-        } else {
-          console.log('error: ', receive);
-          // reject(`${receive.message} ${receive.code} ${[...receive.data]}`);
+    return new Promise((resolve, reject) => {
+      const rpcData = new RpcSend('proposalvotelist');
+      this.walletService.sendRPC(rpcData).subscribe(
+        (receive: RpcReceive) => {
+          if (receive.type === 'SUCCESS') {
+            this._proposalVotes = receive.data;
+            resolve();
+          } else {
+            reject(`${receive.message} ${receive.code} ${[...receive.data]}`);
+          }
+        },
+        error => {
+          reject(error);
         }
-      },
-      error => {
-        console.log('error: ', error);
-      }
-    );
+      );
+    });
   }
 
   fetchPaymentRequestVotes() {

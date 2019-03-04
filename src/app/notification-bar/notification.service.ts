@@ -46,4 +46,10 @@ export class NotificationService implements OnInit {
       this.notifications = [newNotif];
     }
   }
+
+  addError(error, message) {
+    this.addNotification(
+      new NavDroidNotification(`${message}: ${error}`, NotifType.ERROR)
+    );
+  }
 }

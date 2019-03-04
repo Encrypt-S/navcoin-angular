@@ -60,7 +60,6 @@ export class ProposalListComponent implements OnInit {
             NotifType.SUCCESS
           )
         );
-        this.communityFundService.fetchProposalVotes();
       })
       .catch(error => {
         this.notificationService.addError(

@@ -27,22 +27,36 @@ export class HomepagePaymentRequestListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log(
-      'HomepagePaymentRequestListComponent fetching new Proposal data'
-    );
-    this.communityFundService.fetchPaymentRequestVotes();
-    this.communityFundService.fetchPaymentRequests();
+    this.getData();
 
     this.dataRefresher = Observable.interval(30000).subscribe(val => {
-      console.log(
-        'HomepagePaymentRequestListComponent fetching new Proposal data'
-      );
-      this.communityFundService.fetchPaymentRequestVotes();
-      this.communityFundService.fetchPaymentRequests();
+      this.getData();
     });
   }
 
-  vote(hash, vote) {
+  getData() {
+    console.log(
+      'HomepagePaymentRequestListComponent fetching new Proposal data'
+    );
+    this.communityFundService
+      .fetchPaymentRequestVotes()
+      .catch(error =>
+        this.notificationService.addError(
+          `Failed to get PaymentRequest votes`,
+          error
+        )
+      );
+    this.communityFundService
+      .fetchPaymentRequests()
+      .catch(error =>
+        this.notificationService.addError(
+          `Failed to get PaymentRequests`,
+          error
+        )
+      );
+  }
+
+  voteForPaymentRequest(hash, vote) {
     this.buttonDebounce = true;
 
     this.communityFundService
@@ -54,14 +68,11 @@ export class HomepagePaymentRequestListComponent implements OnInit {
             NotifType.SUCCESS
           )
         );
-        this.communityFundService.fetchPaymentRequestVotes();
       })
       .catch(error => {
-        this.notificationService.addNotification(
-          new NavDroidNotification(
-            `Failed to vote ${vote} for ${hash} : ${error}`,
-            NotifType.ERROR
-          )
+        this.notificationService.addError(
+          `Failed to vote ${vote} for ${hash}`,
+          error
         );
       })
       .finally(() => {

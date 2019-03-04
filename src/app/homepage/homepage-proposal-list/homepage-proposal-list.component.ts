@@ -48,7 +48,6 @@ export class HomepageProposalListComponent implements OnInit {
             NotifType.SUCCESS
           )
         );
-        this.communityFundService.fetchPaymentRequestVotes();
       })
       .catch(error => {
         this.notificationService.addNotification(

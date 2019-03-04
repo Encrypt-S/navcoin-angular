@@ -193,7 +193,6 @@ export class CommunityFundService implements OnInit {
       this.walletService.sendRPC(rpcData).subscribe(
         (receive: RpcReceive) => {
           if (receive.type === 'SUCCESS') {
-            this.fetchProposalVotes();
             resolve();
           } else {
             reject(`${receive.message} ${receive.code} ${[...receive.data]}`);
@@ -221,7 +220,6 @@ export class CommunityFundService implements OnInit {
       this.walletService.sendRPC(rpcData).subscribe(
         (receive: RpcReceive) => {
           if (receive.type === 'SUCCESS') {
-            this.fetchPaymentRequestVotes();
             resolve();
           } else {
             reject(`${receive.message} ${receive.code} ${[...receive.data]}`);

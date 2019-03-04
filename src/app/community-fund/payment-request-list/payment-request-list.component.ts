@@ -61,7 +61,6 @@ export class PaymentRequestListComponent implements OnInit {
             NotifType.SUCCESS
           )
         );
-        this.communityFundService.fetchPaymentRequestVotes();
       })
       .catch(error => {
         this.notificationService.addError(

@@ -96,7 +96,6 @@ export class CommunityFundService implements OnInit {
                 paymentRequestList.push(...payReqs);
               });
             this._paymentRequestList = paymentRequestList;
-            console.log('data set');
             resolve();
           } else {
             reject(`${receive.message} ${receive.code} ${[...receive.data]}`);

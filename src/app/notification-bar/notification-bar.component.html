@@ -11,8 +11,8 @@
     }"
   >
     <span>
-      {{ notif.getTypeString() }}: {{ notif.description }}
-      <a *ngIf="notif.url" [href]="notif.url">{{ notif.url }}</a>
+      {{ notif.getTypeString() }}: {{ notif.description }} <br />
+      Link: <a *ngIf="notif.url" [href]="notif.url">{{ notif.url }}</a>
     </span>
     <button
       (click)="removeNotification(notif)"

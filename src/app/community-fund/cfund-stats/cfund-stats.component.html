@@ -2,14 +2,28 @@
   <mz-card-title>
     Community Fund Statistics
   </mz-card-title>
-  <mz-card-content *ngIf="!cfundStats">
+  <mz-card-content *ngIf="!communityFundService.communityFundStats.funds">
     Loading...
   </mz-card-content>
-  <mz-card-content *ngIf="cfundStats">
-    <p>Funds available: {{ cfundStats.funds.available }}</p>
-    <p>Funds Locked: {{ cfundStats.funds.locked }}</p>
-    <p>Voting period start: {{ cfundStats.votingPeriod.starting }}</p>
-    <p>Voting period end: {{ cfundStats.votingPeriod.ending }}</p>
-    <p>Voting period current: {{ cfundStats.votingPeriod.current }}</p>
+  <mz-card-content *ngIf="communityFundService.communityFundStats.funds">
+    <p>
+      Funds available:
+      {{ communityFundService.communityFundStats.funds.available }}
+    </p>
+    <p>
+      Funds Locked: {{ communityFundService.communityFundStats.funds.locked }}
+    </p>
+    <p>
+      Voting period start:
+      {{ communityFundService.communityFundStats.votingPeriod.starting }}
+    </p>
+    <p>
+      Voting period end:
+      {{ communityFundService.communityFundStats.votingPeriod.ending }}
+    </p>
+    <p>
+      Voting period current:
+      {{ communityFundService.communityFundStats.votingPeriod.current }}
+    </p>
   </mz-card-content>
 </mz-card>

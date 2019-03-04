@@ -1,20 +1,34 @@
 import { Component, OnInit } from '@angular/core';
-import { ExplorerModel } from '../../explorer/explorer.model';
-import { ExplorerService } from '../../explorer/explorer.service';
-import { WalletModel } from '../../wallet/wallet.model';
-import { WalletService } from '../../wallet/wallet.service';
-import { RpcSend } from '../../rpc/rpc-send.model';
-import { RpcReceive } from '../../rpc/rpc-receive.model';
+
+import { ExplorerModel } from '../explorer/explorer.model';
+import { ExplorerService } from '../explorer/explorer.service';
+
+import { WalletModel } from '../wallet/wallet.model';
+import { WalletService } from '../wallet/wallet.service';
+import { RpcSend } from '../rpc/rpc-send.model';
+import { RpcReceive } from '../rpc/rpc-receive.model';
+
+export interface SendToAddressModel {
+  amount: Number;
+  destinationAddress: String;
+  feeIncluded: Boolean;
+}
 
 @Component({
-  selector: 'app-wallet-overview',
-  templateUrl: './wallet-overview.component.html',
-  styleUrls: ['../overview.component.css', './wallet-overview.component.css']
+  selector: 'app-homepage-component',
+  templateUrl: './homepage.component.html',
+  styleUrls: ['./homepage.component.css']
 })
-export class WalletOverviewComponent implements OnInit {
+export class HomepageComponent implements OnInit {
   explorer: ExplorerModel;
   wallet: WalletModel;
+  transaction: SendToAddressModel = {
+    amount: undefined,
+    destinationAddress: undefined,
+    feeIncluded: false
+  };
   rpcReceive: RpcReceive;
+  qrMainAddress: string;
 
   constructor(
     private explorerService: ExplorerService,
@@ -27,8 +41,10 @@ export class WalletOverviewComponent implements OnInit {
     this.showBalance();
     this.getStakeReport();
     this.wallet = {
-      ...this.wallet
+      ...this.wallet,
+      mainAddress: 'NaSdzJ64o8DQo5DMPexVrL4PYFCBZqcmsW'
     };
+    this.qrMainAddress = `navcoin:${this.wallet.mainAddress}?label=NavPi`;
   }
 
   showBalance() {
@@ -38,10 +54,10 @@ export class WalletOverviewComponent implements OnInit {
         if (receive.type === 'SUCCESS') {
           this.wallet = {
             ...this.wallet,
-            balance: parseFloat(receive.data.balance),
-            coldStakingBalance: parseFloat(receive.data.coldstaking_balance),
-            unconfirmedBalance: parseFloat(receive.data.unconfirmed_balance),
-            immatureBalance: parseFloat(receive.data.immature_balance)
+            balance: receive.data.balance,
+            coldStakingBalance: receive.data.coldstaking_balance,
+            unconfirmedBalance: receive.data.unconfirmed_balance,
+            immatureBalance: receive.data.immature_balance
           };
         } else {
           console.log('error: ', receive);
@@ -58,6 +74,26 @@ export class WalletOverviewComponent implements OnInit {
       return true;
     }
     return false;
+  }
+
+  sendToAddress(destinationAddress, amount, feeIncluded) {
+    const rpcData = new RpcSend('sendtoaddress', [
+      destinationAddress,
+      amount.toString(),
+      feeIncluded.toString()
+    ]);
+    this.walletService.sendRPC(rpcData).subscribe(
+      (receive: RpcReceive) => {
+        if (receive.type === 'SUCCESS') {
+          console.log('receive: ', typeof receive.data);
+        } else {
+          console.log('error: ', receive);
+        }
+      },
+      error => {
+        console.log('error: ', error);
+      }
+    );
   }
 
   getStakeReport() {

@@ -3,9 +3,24 @@
     Community Fund Proposals
   </mz-card-title>
   <mz-card-content>
-    <div *ngIf="!proposalList || !proposalVotes">Loading...</div>
-    <div *ngIf="proposalList && proposalVotes" class="proposal-container">
-      <div *ngFor="let proposal of proposalList" class="proposal-info">
+    <div
+      *ngIf="
+        !communityFundService.proposalList ||
+        !communityFundService.proposalVotes
+      "
+    >
+      Loading...
+    </div>
+    <div
+      *ngIf="
+        communityFundService.proposalList && communityFundService.proposalVotes
+      "
+      class="proposal-container"
+    >
+      <div
+        *ngFor="let proposal of communityFundService.proposalList"
+        class="proposal-info"
+      >
         <div>
           <div class="description-text">
             <h1>{{ proposal.description }}</h1>
@@ -49,20 +64,31 @@
                 <button
                   [ngClass]="{
                     'yes-btn': true,
-                    selected: votingYes(proposal.hash)
+                    selected: communityFundService.proposalVotingYes(
+                      proposal.hash
+                    )
                   }"
                   [disabled]="buttonDebounce"
-                  (click)="proposalVote(proposal.hash, 'yes')"
+                  (click)="
+                    communityFundService.updateProposalVote(
+                      proposal.hash,
+                      'yes'
+                    )
+                  "
                 >
                   Yes
                 </button>
                 <button
                   [ngClass]="{
                     'no-btn': true,
-                    selected: votingNo(proposal.hash)
+                    selected: communityFundService.proposalVotingNo(
+                      proposal.hash
+                    )
                   }"
                   [disabled]="buttonDebounce"
-                  (click)="proposalVote(proposal.hash, 'no')"
+                  (click)="
+                    communityFundService.updateProposalVote(proposal.hash, 'no')
+                  "
                 >
                   No
                 </button>

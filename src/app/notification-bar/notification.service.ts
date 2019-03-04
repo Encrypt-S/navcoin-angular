@@ -1,11 +1,11 @@
 import { OnInit, Injectable } from '@angular/core';
-import { Notification, NotifType } from './notification.model';
+import { NavDroidNotification, NotifType } from './NavDroidNotification.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotificationService implements OnInit {
-  notifications: Array<Notification>;
+  notifications: Array<NavDroidNotification>;
   notifTypes = NotifType;
   constructor() {}
 
@@ -13,12 +13,12 @@ export class NotificationService implements OnInit {
 
   spawnTestNotifications() {
     const testNotifs = [
-      new Notification('Test success', NotifType.SUCCESS),
-      new Notification('Test Info', NotifType.INFO),
-      new Notification('Test Error', NotifType.ERROR),
-      new Notification('Test Warning', NotifType.WARNING),
-      new Notification('Test Update', NotifType.UPDATE),
-      new Notification(
+      new NavDroidNotification('Test success', NotifType.SUCCESS),
+      new NavDroidNotification('Test Info', NotifType.INFO),
+      new NavDroidNotification('Test Error', NotifType.ERROR),
+      new NavDroidNotification('Test Warning', NotifType.WARNING),
+      new NavDroidNotification('Test Update', NotifType.UPDATE),
+      new NavDroidNotification(
         'There is a new wallet update, read about it here - ',
         NotifType.UPDATE,
         'www.navcoin.org'
@@ -30,20 +30,26 @@ export class NotificationService implements OnInit {
       this.notifications = testNotifs;
     }
   }
-  getNotifications(): Array<Notification> {
+  getNotifications(): Array<NavDroidNotification> {
     return this.notifications;
   }
-  removeNotification(targetNotif: Notification): void {
+  removeNotification(targetNotif: NavDroidNotification): void {
     this.notifications = this.notifications.filter(notification =>
       notification !== targetNotif ? true : false
     );
   }
 
-  addNotification(newNotif: Notification): void {
+  addNotification(newNotif: NavDroidNotification): void {
     if (this.notifications) {
       this.notifications.push(newNotif);
     } else {
       this.notifications = [newNotif];
     }
+  }
+
+  addError(error, message) {
+    this.addNotification(
+      new NavDroidNotification(`${message}: ${error}`, NotifType.ERROR)
+    );
   }
 }

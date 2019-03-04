@@ -3,10 +3,30 @@
     Community Fund Payment Requests
   </mz-card-title>
   <mz-card-content class="payment-request-container">
-    <div *ngIf="!paymentRequestList || !paymentRequestVotes">Loading...</div>
-    <div *ngIf="paymentRequestList && paymentRequestVotes">
+    <div
+      *ngIf="
+        !communityFundService.paymentRequestList ||
+        !communityFundService.paymentRequestVotes
+      "
+    >
+      Loading...
+    </div>
+    <div
+      *ngIf="
+        communityFundService.paymentRequestList &&
+        communityFundService.paymentRequestVotes
+      "
+    >
       <div
-        *ngFor="let paymentRequest of paymentRequestList"
+        *ngIf="communityFundService.paymentRequestList.length < 1"
+        class="proposal-info"
+      >
+        <div class="description-text">
+          No Payment Requests
+        </div>
+      </div>
+      <div
+        *ngFor="let paymentRequest of communityFundService.paymentRequestList"
         class="payment-request-info"
       >
         <div>
@@ -56,20 +76,24 @@
                 <button
                   [ngClass]="{
                     'yes-btn': true,
-                    selected: votingYes(paymentRequest.hash)
+                    selected: communityFundService.paymentRequestVotingYes(
+                      paymentRequest.hash
+                    )
                   }"
                   [disabled]="buttonDebounce"
-                  (click)="paymentRequestVote(paymentRequest.hash, 'yes')"
+                  (click)="voteOnPaymentRequest(paymentRequest.hash, 'yes')"
                 >
                   Yes
                 </button>
                 <button
                   [ngClass]="{
                     'no-btn': true,
-                    selected: votingNo(paymentRequest.hash)
+                    selected: communityFundService.paymentRequestVotingNo(
+                      paymentRequest.hash
+                    )
                   }"
                   [disabled]="buttonDebounce"
-                  (click)="paymentRequestVote(paymentRequest.hash, 'no')"
+                  (click)="voteOnPaymentRequest(paymentRequest.hash, 'no')"
                 >
                   No
                 </button>
@@ -81,7 +105,7 @@
                 paymentRequest.hash
               "
               class="button"
-              >View Proposal on NavExplorer.com</a
+              >View Payment Request on NavExplorer.com</a
             >
           </div>
         </div>

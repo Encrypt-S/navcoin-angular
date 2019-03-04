@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { RpcSend } from 'src/app/rpc/rpc-send.model';
-import { RpcReceive } from 'src/app/rpc/rpc-receive.model';
-import { WalletService } from 'src/app/wallet/wallet.service';
+import { CommunityFundService } from 'src/app/services/community-fund.service';
+import {
+  NotifType,
+  NavDroidNotification
+} from 'src/app/notification-bar/NavDroidNotification.model';
+import { NotificationService } from 'src/app/notification-bar/notification.service';
 
 @Component({
   selector: 'app-cfund-stats',
@@ -9,27 +12,19 @@ import { WalletService } from 'src/app/wallet/wallet.service';
   styleUrls: ['./cfund-stats.component.css']
 })
 export class CfundStatsComponent implements OnInit {
-  cfundStats: CFundStats;
-
-  constructor(private walletService: WalletService) {}
+  constructor(
+    public communityFundService: CommunityFundService,
+    private notificationService: NotificationService
+  ) {}
 
   ngOnInit() {
-    this.fetchCFundStats();
-  }
-
-  fetchCFundStats() {
-    const rpcData = new RpcSend('cfundstats');
-    this.walletService.sendRPC(rpcData).subscribe(
-      (receive: RpcReceive) => {
-        if (receive.type === 'SUCCESS') {
-          this.cfundStats = receive.data;
-        } else {
-          console.log('error: ', receive);
-        }
-      },
-      error => {
-        console.log('error: ', error);
-      }
-    );
+    this.communityFundService.fetchCfundStats().catch(error => {
+      this.notificationService.addNotification(
+        new NavDroidNotification(
+          `Failed to get Comnity Fund Stats: ${error}`,
+          NotifType.ERROR
+        )
+      );
+    });
   }
 }

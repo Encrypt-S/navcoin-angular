@@ -71,7 +71,7 @@ button,
 
 a.button {
   background: #f0f0f0;
-  color: black;
+  color: #000;
   line-height: initial;
   width: 152px;
   text-align: center;
@@ -85,6 +85,10 @@ a.button {
 
 button.selected {
   cursor: pointer;
+}
+button:hover,
+a.button:hover {
+  background: lightblue;
 }
 button.yes-btn.selected,
 button.yes-btn:hover {

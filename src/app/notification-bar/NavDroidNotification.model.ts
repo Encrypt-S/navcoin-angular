@@ -1,4 +1,4 @@
-export class Notification {
+export class NavDroidNotification {
   constructor(description: String, type: NotifType, url?: String) {
     this.description = description;
     this.type = type;

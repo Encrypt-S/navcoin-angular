@@ -9,11 +9,14 @@ import {
 } from 'src/app/notification-bar/NavDroidNotification.model';
 
 @Component({
-  selector: 'app-payment-request-list',
-  templateUrl: './payment-request-list.component.html',
-  styleUrls: ['./payment-request-list.component.css']
+  selector: 'app-homepage-proposal-list',
+  templateUrl: './homepage-proposal-list.component.html',
+  styleUrls: [
+    '../homepage.component.css',
+    './homepage-proposal-list.component.css'
+  ]
 })
-export class PaymentRequestListComponent implements OnInit {
+export class HomepageProposalListComponent implements OnInit {
   constructor(
     public communityFundService: CommunityFundService,
     private notificationService: NotificationService
@@ -30,34 +33,28 @@ export class PaymentRequestListComponent implements OnInit {
   }
 
   getData() {
-    console.log('PaymentRequestListComponent fetching new paymentRequest data');
+    console.log('HomepageProposalListComponent fetching new Proposal data');
     this.communityFundService
-      .fetchPaymentRequestVotes()
+      .fetchProposalVotes()
       .catch(error =>
-        this.notificationService.addError(
-          error,
-          'Failed to get Community Fund Payment Request Votes'
-        )
+        this.notificationService.addError(`Failed to get Proposal votes`, error)
       );
     this.communityFundService
-      .fetchPaymentRequests()
+      .fetchProposals()
       .catch(error =>
-        this.notificationService.addError(
-          error,
-          'Failed to fetch Community Fund Payment Requests'
-        )
+        this.notificationService.addError(`Failed to get Proposals`, error)
       );
   }
 
-  voteOnPaymentRequest(paymentReqHash: string, vote: string) {
+  voteForProposal(hash, vote) {
     this.buttonDebounce = true;
 
     this.communityFundService
-      .updatePaymentRequestVote(paymentReqHash, vote)
+      .updatePaymentRequestVote(hash, vote)
       .then(() => {
         this.notificationService.addNotification(
           new NavDroidNotification(
-            `Successfully voted for ${paymentReqHash}`,
+            `Successfully voted ${vote} for ${hash}`,
             NotifType.SUCCESS
           )
         );
@@ -65,8 +62,8 @@ export class PaymentRequestListComponent implements OnInit {
       })
       .catch(error => {
         this.notificationService.addError(
-          error,
-          `Failed to vote for ${paymentReqHash}`
+          `Failed to vote ${vote} for ${hash}`,
+          error
         );
       })
       .finally(() => {

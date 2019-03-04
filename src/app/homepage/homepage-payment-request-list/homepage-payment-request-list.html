@@ -1,0 +1,93 @@
+<mz-card class="overview-card grey lighten-5" [horizontal]="true">
+  <mz-card-title>
+    Last 6 Pending Community Fund Payment Requests
+  </mz-card-title>
+  <mz-card-content>
+    <div
+      *ngIf="
+        !communityFundService.paymentRequestList ||
+        !communityFundService.paymentRequestVotes
+      "
+    >
+      Loading...
+    </div>
+
+    <div
+      *ngIf="
+        communityFundService.paymentRequestList &&
+        communityFundService.paymentRequestVotes
+      "
+      class="proposal-container"
+    >
+      <div
+        *ngIf="
+          communityFundService
+            .getFilteredPaymentRequestList('pending')
+            .slice(0, 6).length < 1
+        "
+        class="proposal-info"
+      >
+        <div class="description-text">
+          No Pending Payment Requests
+        </div>
+      </div>
+      <div
+        *ngFor="
+          let paymentRequest of communityFundService
+            .getFilteredPaymentRequestList('pending')
+            .slice(0, 6)
+        "
+        class="proposal-info"
+      >
+        <div>
+          <div class="description-text">
+            <div>
+              {{ paymentRequest.description.slice(0, 55)
+              }}<span *ngIf="paymentRequest.description.length > 55">...</span>
+            </div>
+          </div>
+          <div>Amount: {{ paymentRequest.requestedAmount }} NAV</div>
+        </div>
+        <div class="flex-center">
+          <div class="button-container">
+            <button
+              [ngClass]="{
+                'yes-btn': true,
+                selected: communityFundService.paymentRequestVotingYes(
+                  paymentRequest.hash
+                )
+              }"
+              [disabled]="buttonDebounce"
+              (click)="voteForPaymentRequest(paymentRequest.hash, 'yes')"
+            >
+              Yes
+            </button>
+            <button
+              [ngClass]="{
+                'no-btn': true,
+                selected: communityFundService.paymentRequestVotingNo(
+                  paymentRequest.hash
+                )
+              }"
+              [disabled]="buttonDebounce"
+              (click)="voteForPaymentRequest(paymentRequest.hash, 'no')"
+            >
+              No
+            </button>
+          </div>
+          <a
+            [href]="
+              'https://www.navexplorer.com/community-fund/payment-request/' +
+              paymentRequest.hash
+            "
+            class="button"
+            >View Proposal on NavExplorer.com</a
+          >
+        </div>
+      </div>
+    </div>
+    <div class="see-all-container">
+      <a href="/community-fund" class="button">See all Payment Requests</a>
+    </div>
+  </mz-card-content>
+</mz-card>

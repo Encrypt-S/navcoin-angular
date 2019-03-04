@@ -6,13 +6,13 @@ import { RpcReceive } from '../../rpc/rpc-receive.model';
 import { NotificationService } from 'src/app/notification-bar/notification.service';
 import {
   NotifType,
-  Notification
-} from 'src/app/notification-bar/notification.model';
+  NavDroidNotification
+} from 'src/app/notification-bar/NavDroidNotification.model';
 
 @Component({
   selector: 'app-status-view',
   templateUrl: './status-view.component.html',
-  styleUrls: ['../overview.component.css', './status-view.component.css']
+  styleUrls: ['../homepage.component.css', './status-view.component.css']
 })
 export class StatusViewComponent implements OnInit {
   wallet: WalletOverview;
@@ -64,16 +64,16 @@ export class StatusViewComponent implements OnInit {
         if (receive.type === 'SUCCESS') {
           if (lockWallet) {
             this.notificationService.addNotification(
-              new Notification('Wallet is now locked', NotifType.SUCCESS)
+              new NavDroidNotification('Wallet is now locked', NotifType.SUCCESS)
             );
           } else {
             this.notificationService.addNotification(
-              new Notification('Wallet is now unlocked', NotifType.WARNING)
+              new NavDroidNotification('Wallet is now unlocked', NotifType.WARNING)
             );
           }
         } else {
           this.notificationService.addNotification(
-            new Notification(
+            new NavDroidNotification(
               `Wallet lock/unlock failed: ${receive.message}, ${receive.data}`,
               NotifType.ERROR
             )
@@ -82,7 +82,7 @@ export class StatusViewComponent implements OnInit {
       },
       error => {
         this.notificationService.addNotification(
-          new Notification(
+          new NavDroidNotification(
             `Wallet lock/unlock failed: ${error}`,
             NotifType.ERROR
           )
@@ -94,7 +94,7 @@ export class StatusViewComponent implements OnInit {
   setStaking(setStaking: Boolean) {
     if (this.wallet.isEncrypted) {
       this.notificationService.addNotification(
-        new Notification(
+        new NavDroidNotification(
           'Changing staking status while the wallet is encrypted is not currently supported',
           NotifType.WARNING
         )
@@ -109,17 +109,17 @@ export class StatusViewComponent implements OnInit {
         if (receive.type === 'SUCCESS') {
           if (setStaking) {
             this.notificationService.addNotification(
-              new Notification('Wallet is now staking', NotifType.SUCCESS)
+              new NavDroidNotification('Wallet is now staking', NotifType.SUCCESS)
             );
           } else {
             this.notificationService.addNotification(
-              new Notification('Wallet is no longer staking', NotifType.SUCCESS)
+              new NavDroidNotification('Wallet is no longer staking', NotifType.SUCCESS)
             );
           }
           this.wallet.isStaking = setStaking;
         } else {
           this.notificationService.addNotification(
-            new Notification(
+            new NavDroidNotification(
               `Turning Staking on/off failed: ${receive.message}, ${
                 receive.data
               }`,
@@ -130,7 +130,7 @@ export class StatusViewComponent implements OnInit {
       },
       error => {
         this.notificationService.addNotification(
-          new Notification(
+          new NavDroidNotification(
             `Turning Staking on/off failed: ${error}`,
             NotifType.ERROR
           )
@@ -140,7 +140,7 @@ export class StatusViewComponent implements OnInit {
   }
   encryptWallet() {
     this.notificationService.addNotification(
-      new Notification(
+      new NavDroidNotification(
         'This function is not currently implemented',
         NotifType.WARNING
       )

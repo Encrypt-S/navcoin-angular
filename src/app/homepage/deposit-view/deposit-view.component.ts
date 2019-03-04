@@ -1,19 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { ExplorerService } from '../../explorer/explorer.service';
 import { WalletModel } from '../../wallet/wallet.model';
 import { WalletService } from '../../wallet/wallet.service';
 import { RpcReceive } from '../../rpc/rpc-receive.model';
 import { RpcSend } from 'src/app/rpc/rpc-send.model';
 import { NotificationService } from 'src/app/notification-bar/notification.service';
 import {
-  Notification,
+  NavDroidNotification,
   NotifType
-} from 'src/app/notification-bar/notification.model';
+} from 'src/app/notification-bar/NavDroidNotification.model';
 
 @Component({
   selector: 'app-deposit-view',
   templateUrl: './deposit-view.component.html',
-  styleUrls: ['../overview.component.css', './deposit-view.component.css']
+  styleUrls: ['../homepage.component.css', './deposit-view.component.css']
 })
 export class DepositViewComponent implements OnInit {
   wallet: WalletModel;
@@ -39,7 +38,7 @@ export class DepositViewComponent implements OnInit {
       },
       error => {
         this.notificationService.addNotification(
-          new Notification(
+          new NavDroidNotification(
             `Unable to get new address ${error}`,
             NotifType.ERROR
           )

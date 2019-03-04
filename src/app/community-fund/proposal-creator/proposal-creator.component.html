@@ -28,7 +28,9 @@
         Fee amount (optional):
         <input type="number" formControlName="optionalFee" />
       </label>
-      <button type="submit" [disabled]="!proposalForm.valid">Submit</button>
+      <button type="submit" [disabled]="!proposalForm.valid || buttonDebounce">
+        Submit
+      </button>
     </form>
   </mz-card-content>
 </mz-card>

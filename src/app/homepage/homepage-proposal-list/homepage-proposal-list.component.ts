@@ -25,18 +25,28 @@ export class HomepageProposalListComponent implements OnInit {
   dataRefresher: Subscription;
 
   ngOnInit() {
-    console.log('HomepageProposalListComponent fetching new Proposal data');
-    this.communityFundService.fetchProposalVotes();
-    this.communityFundService.fetchProposals();
+    this.getData();
 
     this.dataRefresher = Observable.interval(30000).subscribe(val => {
-      console.log('HomepageProposalListComponent fetching new Proposal data');
-      this.communityFundService.fetchProposalVotes();
-      this.communityFundService.fetchProposals();
+      this.getData();
     });
   }
 
-  vote(hash, vote) {
+  getData() {
+    console.log('HomepageProposalListComponent fetching new Proposal data');
+    this.communityFundService
+      .fetchProposalVotes()
+      .catch(error =>
+        this.notificationService.addError(`Failed to get Proposal votes`, error)
+      );
+    this.communityFundService
+      .fetchProposals()
+      .catch(error =>
+        this.notificationService.addError(`Failed to get Proposals`, error)
+      );
+  }
+
+  voteForProposal(hash, vote) {
     this.buttonDebounce = true;
 
     this.communityFundService
@@ -50,11 +60,9 @@ export class HomepageProposalListComponent implements OnInit {
         );
       })
       .catch(error => {
-        this.notificationService.addNotification(
-          new NavDroidNotification(
-            `Failed to vote ${vote} for ${hash} : ${error}`,
-            NotifType.ERROR
-          )
+        this.notificationService.addError(
+          `Failed to vote ${vote} for ${hash}`,
+          error
         );
       })
       .finally(() => {

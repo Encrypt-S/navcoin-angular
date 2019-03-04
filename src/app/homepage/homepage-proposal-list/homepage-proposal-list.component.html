@@ -53,7 +53,7 @@
                 selected: communityFundService.proposalVotingYes(proposal.hash)
               }"
               [disabled]="buttonDebounce"
-              (click)="vote(proposal.hash, 'yes')"
+              (click)="voteForProposal(proposal.hash, 'yes')"
             >
               Yes
             </button>

@@ -3,15 +3,22 @@
     Community Fund Proposals
   </mz-card-title>
   <mz-card-content>
-    <div *ngIf="!comFundService.proposalList || !comFundService.proposalVotes">
+    <div
+      *ngIf="
+        !communityFundService.proposalList ||
+        !communityFundService.proposalVotes
+      "
+    >
       Loading...
     </div>
     <div
-      *ngIf="comFundService.proposalList && comFundService.proposalVotes"
+      *ngIf="
+        communityFundService.proposalList && communityFundService.proposalVotes
+      "
       class="proposal-container"
     >
       <div
-        *ngFor="let proposal of comFundService.proposalList"
+        *ngFor="let proposal of communityFundService.proposalList"
         class="proposal-info"
       >
         <div>
@@ -57,11 +64,16 @@
                 <button
                   [ngClass]="{
                     'yes-btn': true,
-                    selected: comFundService.proposalVotingYes(proposal.hash)
+                    selected: communityFundService.proposalVotingYes(
+                      proposal.hash
+                    )
                   }"
                   [disabled]="buttonDebounce"
                   (click)="
-                    comFundService.updateProposalVote(proposal.hash, 'yes')
+                    communityFundService.updateProposalVote(
+                      proposal.hash,
+                      'yes'
+                    )
                   "
                 >
                   Yes
@@ -69,11 +81,13 @@
                 <button
                   [ngClass]="{
                     'no-btn': true,
-                    selected: comFundService.proposalVotingNo(proposal.hash)
+                    selected: communityFundService.proposalVotingNo(
+                      proposal.hash
+                    )
                   }"
                   [disabled]="buttonDebounce"
                   (click)="
-                    comFundService.updateProposalVote(proposal.hash, 'no')
+                    communityFundService.updateProposalVote(proposal.hash, 'no')
                   "
                 >
                   No

@@ -9,19 +9,19 @@ import { CommunityFundService } from 'src/app/services/community-fund.service';
   styleUrls: ['./proposal-list.component.css']
 })
 export class ProposalListComponent implements OnInit {
-  constructor(public comFundService: CommunityFundService) {}
+  constructor(public communityFundService: CommunityFundService) {}
   buttonDebounce: Boolean = false;
   dataRefresher: Subscription;
 
   ngOnInit() {
     console.log('ProposalListComponent fetching new Proposal data');
-    this.comFundService.fetchProposalVotes();
-    this.comFundService.fetchProposals();
+    this.communityFundService.fetchProposalVotes();
+    this.communityFundService.fetchProposals();
 
     this.dataRefresher = Observable.interval(30000).subscribe(val => {
       console.log('ProposalListComponent fetching new Proposal data');
-      this.comFundService.fetchProposalVotes();
-      this.comFundService.fetchProposals();
+      this.communityFundService.fetchProposalVotes();
+      this.communityFundService.fetchProposals();
     });
   }
 }

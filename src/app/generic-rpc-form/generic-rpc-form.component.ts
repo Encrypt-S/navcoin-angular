@@ -9,7 +9,7 @@ import { WalletService } from 'src/app/wallet/wallet.service';
   templateUrl: './generic-rpc-form.component.html',
   styleUrls: [
     './generic-rpc-form.component.css',
-    '../overview/homepage.component.css'
+    '../homepage/homepage.component.css'
   ]
 })
 export class GenericRpcFormComponent implements OnInit {

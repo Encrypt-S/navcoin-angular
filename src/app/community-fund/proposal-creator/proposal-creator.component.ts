@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { WalletService } from 'src/app/wallet/wallet.service';
-import { RpcSend } from 'src/app/rpc/rpc-send.model';
-import { RpcReceive } from 'src/app/rpc/rpc-receive.model';
+import { CommunityFundService } from 'src/app/services/community-fund.service';
+import { NotificationService } from 'src/app/notification-bar/notification.service';
+import {
+  NavDroidNotification,
+  NotifType
+} from 'src/app/notification-bar/NavDroidNotification.model';
 
 @Component({
   selector: 'app-proposal-creator',
@@ -10,8 +13,11 @@ import { RpcReceive } from 'src/app/rpc/rpc-receive.model';
   styleUrls: ['./proposal-creator.component.css']
 })
 export class ProposalCreatorComponent implements OnInit {
-  constructor(private walletService: WalletService) {}
-
+  constructor(
+    private communityFundService: CommunityFundService,
+    private notificationService: NotificationService
+  ) {}
+  buttonDebounce: Boolean = false;
   proposalForm = new FormGroup({
     proposalDesc: new FormControl(''),
     paymentAddress: new FormControl(''),
@@ -21,6 +27,7 @@ export class ProposalCreatorComponent implements OnInit {
   });
 
   onSubmit() {
+    this.buttonDebounce = true;
     const formData = this.proposalForm.value;
     const arrayData = [
       formData.paymentAddress,
@@ -31,19 +38,26 @@ export class ProposalCreatorComponent implements OnInit {
     if (formData.optionalFee !== '') {
       arrayData.push(formData.optionalFee);
     }
-    const rpcData = new RpcSend('createproposal', arrayData);
-    this.walletService.sendRPC(rpcData).subscribe(
-      (receive: RpcReceive) => {
-        if (receive.type === 'SUCCESS') {
-          console.log('Proposal submitted');
-        } else {
-          console.log('error: ', receive);
-        }
-      },
-      error => {
-        console.log('error: ', error);
-      }
-    );
+    this.communityFundService
+      .createProposal(arrayData)
+      .then(() => {
+        this.notificationService.addNotification(
+          new NavDroidNotification('Proposal created', NotifType.SUCCESS)
+        );
+        this.communityFundService.fetchPaymentRequests();
+        this.proposalForm.reset();
+      })
+      .catch(error => {
+        this.notificationService.addNotification(
+          new NavDroidNotification(
+            `Failed to create Proposal: ${error}`,
+            NotifType.ERROR
+          )
+        );
+      })
+      .finally(() => {
+        this.buttonDebounce = false;
+      });
   }
 
   ngOnInit() {}

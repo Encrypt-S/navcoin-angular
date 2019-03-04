@@ -48,13 +48,13 @@ import { ClipboardModule } from 'ngx-clipboard';
 
 // partials
 import { NavbarComponent } from './navbar/navbar.component';
-import { CFundPaymentRequestListComponent } from './homepage/cfund-payment-req/cfund-payment-req-list.component';
+import { HomepagePaymentRequestListComponent } from './homepage/homepage-payment-request-list/homepage-payment-request-list.component';
 import { CommunityFundComponent } from './community-fund/community-fund.component';
 import { ProposalListComponent } from './community-fund/proposal-list/proposal-list.component';
-// import { PaymentRequestListComponent } from './community-fund/payment-request-list/payment-request-list.component';
+import { PaymentRequestListComponent } from './community-fund/payment-request-list/payment-request-list.component';
 import { ProposalCreatorComponent } from './community-fund/proposal-creator/proposal-creator.component';
 import { CfundStatsComponent } from './community-fund/cfund-stats/cfund-stats.component';
-import { ProposalsViewComponent } from './homepage/proposals-view/proposals-view.component';
+import { HomepageProposalListComponent } from './homepage/homepage-proposal-list/homepage-proposal-list.component';
 import { SendToViewComponent } from './homepage/send-to-view/send-to-view.component';
 import { DepositViewComponent } from './homepage/deposit-view/deposit-view.component';
 import { TransactionsViewComponent } from './homepage/transactions-view/transactions-view.component';
@@ -79,13 +79,13 @@ export function tokenGetter() {
     LoginComponent,
     UiPasswordComponent,
     PageNotFoundComponent,
-    CFundPaymentRequestListComponent,
+    HomepagePaymentRequestListComponent,
     CommunityFundComponent,
     ProposalListComponent,
-    // PaymentRequestListComponent,
+    PaymentRequestListComponent,
     ProposalCreatorComponent,
     CfundStatsComponent,
-    ProposalsViewComponent,
+    HomepageProposalListComponent,
     SendToViewComponent,
     DepositViewComponent,
     TransactionsViewComponent,

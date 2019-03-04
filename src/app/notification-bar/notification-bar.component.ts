@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Notification, NotifType } from './notification.model';
+import { NavDroidNotification, NotifType } from './NavDroidNotification.model';
 import { NotificationService } from './notification.service';
 
 @Component({
@@ -13,7 +13,7 @@ export class NotificationBarComponent implements OnInit {
 
   ngOnInit() {}
 
-  removeNotification(targetNotif: Notification): void {
+  removeNotification(targetNotif: NavDroidNotification): void {
     this.notificationService.removeNotification(targetNotif);
   }
 }

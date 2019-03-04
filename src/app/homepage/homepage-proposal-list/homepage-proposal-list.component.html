@@ -1,0 +1,88 @@
+<mz-card class="overview-card grey lighten-5" [horizontal]="true">
+  <mz-card-title>
+    Last 6 Pending Community Fund Proposals
+  </mz-card-title>
+  <mz-card-content>
+    <div
+      *ngIf="
+        !communityFundService.proposalList ||
+        !communityFundService.proposalVotes
+      "
+    >
+      Loading...
+    </div>
+    <div
+      *ngIf="
+        communityFundService.proposalList && communityFundService.proposalVotes
+      "
+      class="proposal-container"
+    >
+      <div
+        *ngIf="
+          communityFundService.getFilteredProposalList('pending').slice(0, 6)
+            .length < 1
+        "
+        class="proposal-info"
+      >
+        <div class="description-text">
+          No Pending Proposals
+        </div>
+      </div>
+      <div
+        *ngFor="
+          let proposal of communityFundService
+            .getFilteredProposalList('pending')
+            .slice(0, 6)
+        "
+        class="proposal-info"
+      >
+        <div>
+          <div class="description-text">
+            <div>
+              {{ proposal.description.slice(0, 55)
+              }}<span *ngIf="proposal.description.length > 55">...</span>
+            </div>
+          </div>
+          <div>Amount: {{ proposal.requestedAmount }} NAV</div>
+        </div>
+        <div class="flex-center">
+          <div class="button-container">
+            <button
+              [ngClass]="{
+                'yes-btn': true,
+                selected: communityFundService.proposalVotingYes(proposal.hash)
+              }"
+              [disabled]="buttonDebounce"
+              (click)="vote(proposal.hash, 'yes')"
+            >
+              Yes
+            </button>
+            <button
+              [ngClass]="{
+                'no-btn': true,
+                selected: communityFundService.proposalVotingNo(proposal.hash)
+              }"
+              [disabled]="buttonDebounce"
+              (click)="
+                communityFundService.updateProposalVote(proposal.hash, 'no')
+              "
+            >
+              No
+            </button>
+          </div>
+          <a
+            [href]="
+              'https://www.navexplorer.com/community-fund/proposal/' +
+              proposal.hash
+            "
+            class="button"
+            >View Proposal on NavExplorer.com</a
+          >
+        </div>
+      </div>
+    </div>
+    <div class="see-all-container">
+      <a href="/community-fund" class="button">See all Proposals</a>
+    </div>
+  </mz-card-content>
+</mz-card>

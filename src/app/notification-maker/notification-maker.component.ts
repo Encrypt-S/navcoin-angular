@@ -3,9 +3,9 @@ import { NotificationService } from '../notification-bar/notification.service';
 import { FormGroup, FormControl } from '@angular/forms';
 
 import {
-  Notification,
+  NavDroidNotification,
   NotifType
-} from '../notification-bar/notification.model';
+} from '../notification-bar/NavDroidNotification.model';
 
 @Component({
   selector: 'app-notification-maker',
@@ -14,7 +14,7 @@ import {
 })
 export class NotificationMakerComponent implements OnInit {
   notifTypes = NotifType;
-  notificationModel = Notification;
+  notificationModel = NavDroidNotification;
 
   notificationForm = new FormGroup({
     description: new FormControl(''),
@@ -30,7 +30,7 @@ export class NotificationMakerComponent implements OnInit {
   }
   onSubmit(): void {
     const formData = this.notificationForm.value;
-    const newNotif = new Notification(
+    const newNotif = new NavDroidNotification(
       formData.description,
       formData.type,
       formData.URL

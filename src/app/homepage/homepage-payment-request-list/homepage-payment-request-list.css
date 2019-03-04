@@ -1,14 +1,13 @@
 .overview-card {
   height: 100%;
 }
-
-.payment-request-container {
+.proposal-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
-  grid-gap: 15px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-gap: 12px;
   justify-content: space-between;
 }
-.payment-request-info {
+.proposal-info {
   line-height: 30px;
   color: white;
   background: #7d59b5;
@@ -18,6 +17,10 @@
 
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
     0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 h1 {
@@ -41,10 +44,9 @@ h2 {
 }
 
 .button-container {
-  display: inline-flex;
+  display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-end;
+  justify-content: space-between;
 }
 
 .flex-center {
@@ -54,7 +56,7 @@ h2 {
   align-items: center;
 }
 .flex-center h2 {
-  text-align: center;
+  margin: 0 auto;
 }
 
 button,
@@ -72,24 +74,24 @@ button,
 
 a.button {
   background: #f0f0f0;
-  color: #000;
+  color: black;
   line-height: initial;
   width: 152px;
   text-align: center;
   text-decoration: underline;
 }
 
-button:hover,
-a.button:hover {
-  background: lightblue;
-}
-
-.payment-request-hash {
+.proposal-hash {
   display: flex;
   flex-wrap: wrap;
 }
+
 button.selected {
   cursor: pointer;
+}
+button:hover,
+a.button:hover {
+  background: lightblue;
 }
 button.yes-btn.selected,
 button.yes-btn:hover {
@@ -101,23 +103,8 @@ button.no-btn:hover {
   background: lightcoral;
 }
 
-.status {
-  padding: 3px 6px;
-  border-radius: 5px;
-  text-transform: capitalize;
-}
-.pending {
-  background: gray;
-}
-
-.accepted {
-  background: darkgreen;
-}
-
-.expired {
-  background: palevioletred;
-}
-
-.rejected {
-  background: crimson;
+.see-all-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

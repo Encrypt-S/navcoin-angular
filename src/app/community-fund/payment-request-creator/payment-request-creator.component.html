@@ -19,7 +19,12 @@
         <input type="text" formControlName="requestedAmount" required />
       </label>
 
-      <button type="submit" [disabled]="!paymentReqForm.valid">Submit</button>
+      <button
+        type="submit"
+        [disabled]="!paymentReqForm.valid || buttonDebounce"
+      >
+        Submit
+      </button>
     </form>
   </mz-card-content>
 </mz-card>

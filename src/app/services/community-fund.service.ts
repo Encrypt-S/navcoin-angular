@@ -6,23 +6,57 @@ import CFProposal from '../models/CFProposal.model';
 import { CFVote } from '../models/CFVote.model';
 import RPCDataCFundStats from '../models/RPCCommunityFundStats.model';
 import CFPaymentRequest from '../models/CFPaymentRequest.model';
+import { Observable } from 'rxjs';
 
 // TODO Add Caching
 
 @Injectable()
 export class CommunityFundService implements OnInit {
-  private _proposalVotes: Array<CFVote>;
-  private _paymentRequestList: Array<CFPaymentRequest>;
-  private _proposalList: Array<CFProposal>;
-  private _communityFundStats: RPCDataCFundStats;
-  private _paymentRequestVotes: Array<CFVote>;
+  private _proposalVotes: any = {
+    yes: new Array<CFVote>(),
+    no: new Array<CFVote>(),
+    null: new Array<CFVote>()
+  };
+
+  private _paymentRequestList: Array<CFPaymentRequest> = new Array<
+    CFPaymentRequest
+  >();
+  private _proposalList: Array<CFProposal> = new Array<CFProposal>();
+  private _communityFundStats: RPCDataCFundStats = new RPCDataCFundStats();
+  private _paymentRequestVotes: any = {
+    yes: new Array<CFVote>(),
+    no: new Array<CFVote>(),
+    null: new Array<CFVote>()
+  };
 
   get proposalVotes(): any {
     return this._proposalVotes;
   }
 
+  get paymentRequestVotes(): any {
+    return this._paymentRequestVotes;
+  }
+
   get proposalList(): Array<CFProposal> {
     return this._proposalList;
+  }
+
+  getFilteredProposalList(statusFilter): Array<CFProposal> {
+    if (statusFilter) {
+      return this._proposalList.filter(proposal => {
+        return proposal.status === statusFilter;
+      });
+    }
+    return new Array<CFProposal>();
+  }
+
+  getFilteredPaymentRequestList(statusFilter): Array<CFPaymentRequest> {
+    if (statusFilter) {
+      return this._paymentRequestList.filter(paymentRequest => {
+        return paymentRequest.status === statusFilter;
+      });
+    }
+    return new Array<CFPaymentRequest>();
   }
 
   get paymentRequestList(): Array<CFPaymentRequest> {
@@ -129,54 +163,57 @@ export class CommunityFundService implements OnInit {
   // Update
 
   updateProposalVote(proposalHash: string, vote: string) {
-    if (
-      (this.proposalVotingYes(proposalHash) && vote === 'yes') ||
-      (this.proposalVotingNo(proposalHash) && vote === 'no')
-    ) {
-      vote = 'remove';
-    }
-    const rpcData = new RpcSend('proposalvote', [proposalHash, vote]);
-    this.walletService.sendRPC(rpcData).subscribe(
-      (receive: RpcReceive) => {
-        if (receive.type === 'SUCCESS') {
-          console.log('Vote successful');
-          this.fetchProposalVotes();
-        } else {
-          console.log('error: ', receive);
-        }
-      },
-      error => {
-        console.log('error: ', error);
+    return new Promise((resolve, reject) => {
+      if (
+        (this.proposalVotingYes(proposalHash) && vote === 'yes') ||
+        (this.proposalVotingNo(proposalHash) && vote === 'no')
+      ) {
+        vote = 'remove';
       }
-    );
+      const rpcData = new RpcSend('proposalvote', [proposalHash, vote]);
+      this.walletService.sendRPC(rpcData).subscribe(
+        (receive: RpcReceive) => {
+          if (receive.type === 'SUCCESS') {
+            this.fetchProposalVotes();
+            resolve();
+          } else {
+            reject(`${receive.message} ${receive.code} ${[...receive.data]}`);
+          }
+        },
+        error => {
+          reject(error);
+        }
+      );
+    });
   }
-  // updatePaymentRequestVote(proposalHash, vote) {
-  //   if (
-  //     (this.votingYes(proposalHash) && vote === 'yes') ||
-  //     (this.votingNo(proposalHash) && vote === 'no')
-  //   ) {
-  //     vote = 'remove';
-  //   }
-  //   const rpcData = new RpcSend('paymentrequestvote', [proposalHash, vote]);
-  //   this.walletService
-  //     .sendRPC(rpcData)
-  //     .subscribe(
-  //       (receive: RpcReceive) => {
-  //         if (receive.type === 'SUCCESS') {
-  //           console.log('Vote successful');
-  //           this.fetchPaymentRequestVotes();
-  //         } else {
-  //           console.log('error: ', receive);
-  //         }
-  //       },
-  //       error => {
-  //         console.log('error: ', error);
-  //       }
-  //     )
-  //     .add(() => {
-  //       this.buttonDebounce = false;
-  //     });
-  // }
+
+  updatePaymentRequestVote(paymentRequestHash: string, vote: string) {
+    return new Promise((resolve, reject) => {
+      if (
+        (this.paymentRequestVotingYes(paymentRequestHash) && vote === 'yes') ||
+        (this.paymentRequestVotingNo(paymentRequestHash) && vote === 'no')
+      ) {
+        vote = 'remove';
+      }
+      const rpcData = new RpcSend('paymentRequestvote', [
+        paymentRequestHash,
+        vote
+      ]);
+      this.walletService.sendRPC(rpcData).subscribe(
+        (receive: RpcReceive) => {
+          if (receive.type === 'SUCCESS') {
+            this.fetchPaymentRequestVotes();
+            resolve();
+          } else {
+            reject(`${receive.message} ${receive.code} ${[...receive.data]}`);
+          }
+        },
+        error => {
+          reject(error);
+        }
+      );
+    });
+  }
 
   proposalVotingNo(proposalHash: string) {
     const vote = this.proposalVotes.no.filter((proposalVoteString: string) =>
@@ -192,38 +229,58 @@ export class CommunityFundService implements OnInit {
     return vote.length === 1 ? true : false;
   }
 
+  paymentRequestVotingNo(paymentRequestHash: string) {
+    const vote = this._paymentRequestVotes.no.filter(
+      (paymentRequestVoteString: string) =>
+        paymentRequestVoteString.includes(paymentRequestHash)
+    );
+    return vote.length === 1 ? true : false;
+  }
+
+  paymentRequestVotingYes(paymentRequestHash: string) {
+    const vote = this._paymentRequestVotes.yes.filter(
+      (paymentRequestVoteString: string) =>
+        paymentRequestVoteString.includes(paymentRequestHash)
+    );
+    return vote.length === 1 ? true : false;
+  }
+
   // Create
 
   createProposal(formData) {
-    const rpcData = new RpcSend('createproposal', formData);
-    this.walletService.sendRPC(rpcData).subscribe(
-      (receive: RpcReceive) => {
-        if (receive.type === 'SUCCESS') {
-          console.log('Proposal submitted');
-        } else {
-          console.log('error: ', receive);
+    return new Promise((resolve, reject) => {
+      const rpcData = new RpcSend('createproposal', formData);
+      this.walletService.sendRPC(rpcData).subscribe(
+        (receive: RpcReceive) => {
+          if (receive.type === 'SUCCESS') {
+            resolve();
+          } else {
+            reject(`${receive.message} ${receive.code} ${[...receive.data]}`);
+          }
+        },
+        error => {
+          reject(error);
         }
-      },
-      error => {
-        console.log('error: ', error);
-      }
-    );
+      );
+    });
   }
 
   createPaymentRequest(formData) {
-    const rpcData = new RpcSend('createpaymentrequest', formData);
-    this.walletService.sendRPC(rpcData).subscribe(
-      (receive: RpcReceive) => {
-        if (receive.type === 'SUCCESS') {
-          console.log('Payment Request submitted');
-        } else {
-          console.log('error: ', receive);
+    return new Promise((resolve, reject) => {
+      const rpcData = new RpcSend('createpaymentrequest', formData);
+      this.walletService.sendRPC(rpcData).subscribe(
+        (receive: RpcReceive) => {
+          if (receive.type === 'SUCCESS') {
+            resolve();
+          } else {
+            reject(`${receive.message} ${receive.code} ${[...receive.data]}`);
+          }
+        },
+        error => {
+          reject(error);
         }
-      },
-      error => {
-        console.log('error: ', error);
-      }
-    );
+      );
+    });
   }
 
   // check

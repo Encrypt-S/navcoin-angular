@@ -1,12 +1,23 @@
-<mz-card
-class="overview-card deposit-card grey lighten-5"
-[horizontal]="true">
+<mz-card class="overview-card deposit-card grey lighten-5" [horizontal]="true">
   <mz-card-title>
     Deposit
   </mz-card-title>
   <mz-card-content>
-    <qr-code [value]="qrMainAddress" [size]="300" class="qr-code"></qr-code>
-    <p class="address-string">{{wallet.mainAddress}}</p>
-    <button class="waves-effect waves-light btn" ngxClipboard [cbContent]="wallet.mainAddress">Copy</button>
+    <div *ngIf="!mainAddress">Loading...</div>
+    <div *ngIf="mainAddress">
+      <qr-code [value]="qrMainAddress" [size]="256" class="qr-code"></qr-code>
+
+      <p class="address-string">{{ mainAddress }}</p>
+      <button class="waves-effect waves-light btn" (click)="getNewAddress()">
+        Get New Address
+      </button>
+      <button
+        class="waves-effect waves-light btn"
+        ngxClipboard
+        [cbContent]="mainAddress"
+      >
+        Copy
+      </button>
+    </div>
   </mz-card-content>
 </mz-card>

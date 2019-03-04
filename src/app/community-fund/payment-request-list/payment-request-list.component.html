@@ -3,10 +3,29 @@
     Community Fund Payment Requests
   </mz-card-title>
   <mz-card-content class="payment-request-container">
-    <div *ngIf="!paymentRequestList || !paymentRequestVotes">Loading...</div>
-    <div *ngIf="paymentRequestList && paymentRequestVotes">
+    <div
+      *ngIf="
+        !comFundService.paymentRequestList ||
+        !comFundService.paymentRequestVotes
+      "
+    >
+      Loading...
+    </div>
+    <div
+      *ngIf="
+        comFundService.paymentRequestList && comFundService.paymentRequestVotes
+      "
+    >
       <div
-        *ngFor="let paymentRequest of paymentRequestList"
+        *ngIf="comFundService.paymentRequestList.length < 1"
+        class="proposal-info"
+      >
+        <div class="description-text">
+          No Payment Requests
+        </div>
+      </div>
+      <div
+        *ngFor="let paymentRequest of comFundService.paymentRequestList"
         class="payment-request-info"
       >
         <div>
@@ -56,7 +75,9 @@
                 <button
                   [ngClass]="{
                     'yes-btn': true,
-                    selected: votingYes(paymentRequest.hash)
+                    selected: comFundService.paymentRequestVotingYes(
+                      paymentRequest.hash
+                    )
                   }"
                   [disabled]="buttonDebounce"
                   (click)="paymentRequestVote(paymentRequest.hash, 'yes')"
@@ -66,7 +87,9 @@
                 <button
                   [ngClass]="{
                     'no-btn': true,
-                    selected: votingNo(paymentRequest.hash)
+                    selected: comFundService.paymentRequestVotingNo(
+                      paymentRequest.hash
+                    )
                   }"
                   [disabled]="buttonDebounce"
                   (click)="paymentRequestVote(paymentRequest.hash, 'no')"
@@ -81,7 +104,7 @@
                 paymentRequest.hash
               "
               class="button"
-              >View Proposal on NavExplorer.com</a
+              >View Payment Request on NavExplorer.com</a
             >
           </div>
         </div>

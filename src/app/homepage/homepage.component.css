@@ -1,7 +1,8 @@
 .overview-grid {
   display: grid;
   grid-auto-flow: dense;
-  grid-template-columns: repeat(auto-fill, 100px);
+  grid-template-columns: repeat(auto-fill, 350px);
+  grid-auto-rows: 120px;
   grid-gap: 20px;
   justify-content: center;
   max-width: 90vw;
@@ -10,7 +11,29 @@
 }
 
 .overview-card-container {
-  grid-column: span 3;
+  grid-column: span 1;
+  grid-row: span 3;
+}
+.span-two-rows {
+  grid-row: span 2;
+}
+.span-four-rows {
+  grid-row: span 4;
+}
+.span-five-rows {
+  grid-row: span 5;
+}
+.span-six-rows {
+  grid-row: span 6;
+}
+
+.span-two-columns {
+  grid-column: span 2;
+}
+@media (max-width: 750px) {
+  .span-two-columns {
+    grid-column: span 1;
+  }
 }
 
 .overview-card {

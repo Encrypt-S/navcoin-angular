@@ -4,9 +4,9 @@ import { RpcReceive } from '../../rpc/rpc-receive.model';
 import { RpcSend } from 'src/app/rpc/rpc-send.model';
 import { NotificationService } from 'src/app/notification-bar/notification.service';
 import {
-  Notification,
+  NavDroidNotification,
   NotifType
-} from 'src/app/notification-bar/notification.model';
+} from 'src/app/notification-bar/NavDroidNotification.model';
 import { Transaction } from './transaction.model';
 
 @Component({
@@ -37,7 +37,7 @@ export class TransactionsViewComponent implements OnInit {
           this.transactions = receieve.data;
         } else {
           this.notificationService.addNotification(
-            new Notification(
+            new NavDroidNotification(
               `Unable to get transactions ${receieve.data}. ${
                 receieve.message
               }`,
@@ -48,7 +48,7 @@ export class TransactionsViewComponent implements OnInit {
       },
       error => {
         this.notificationService.addNotification(
-          new Notification(
+          new NavDroidNotification(
             `Unable to get transactions ${error}`,
             NotifType.ERROR
           )

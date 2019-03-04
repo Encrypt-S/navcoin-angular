@@ -31,11 +31,11 @@ export class DetailedTransactionsCardComponent implements OnInit {
     return parseInt(str) * 1000;
   }
   getTransactions() {
-    const command = new RpcSend('listtransactions', ['', 15]);
+    const command = new RpcSend('listtransactions', ['', 999999999]);
     this.walletService.sendRPC(command).subscribe(
       (receieve: RpcReceive) => {
         if (receieve.type === 'SUCCESS') {
-          this.transactions = receieve.data;
+          this.transactions = receieve.data.reverse();
         } else {
           this.notificationService.addNotification(
             new NavDroidNotification(

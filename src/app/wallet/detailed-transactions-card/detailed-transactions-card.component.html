@@ -1,6 +1,6 @@
 <mz-card class="overview-card grey lighten-5" [horizontal]="true">
   <mz-card-title>
-    Last 15 Transactions
+    Transaction Log
   </mz-card-title>
   <mz-card-content>
     <div *ngIf="!transactions">Transactions loading...</div>
@@ -9,14 +9,20 @@
         <thead>
           <tr>
             <th>Amount (NAV)</th>
+            <th>Category</th>
+            <th>Address</th>
             <th>Date</th>
+            <th>Confirmations</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let tx of transactions" class="tx-row">
             <td>{{ tx.amount }}</td>
-            <td>{{ getDateNum(tx.time) | date }}</td>
+            <td>{{ tx.category }}</td>
+            <td>{{ tx.address }}</td>
+            <td>{{ getDateNum(tx.time) | date: 'medium' }}</td>
+            <td>{{ tx.confirmations }}</td>
             <td>
               <a
                 [href]="'https://navexplorer.com/tx/' + tx.txid"

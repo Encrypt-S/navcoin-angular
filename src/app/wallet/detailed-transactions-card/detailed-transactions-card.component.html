@@ -1,0 +1,38 @@
+<mz-card class="overview-card grey lighten-5" [horizontal]="true">
+  <mz-card-title>
+    Transaction Log
+  </mz-card-title>
+  <mz-card-content>
+    <div *ngIf="!transactions">Transactions loading...</div>
+    <div class="tx-list">
+      <table *ngIf="transactions">
+        <thead>
+          <tr>
+            <th>Amount (NAV)</th>
+            <th>Category</th>
+            <th>Address</th>
+            <th>Date</th>
+            <th>Confirmations</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let tx of transactions" class="tx-row">
+            <td>{{ tx.amount }}</td>
+            <td>{{ tx.category }}</td>
+            <td>{{ tx.address }}</td>
+            <td>{{ getDateNum(tx.time) | date: 'medium' }}</td>
+            <td>{{ tx.confirmations }}</td>
+            <td>
+              <a
+                [href]="'https://navexplorer.com/tx/' + tx.txid"
+                target="_blank"
+                >Details</a
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </mz-card-content>
+</mz-card>

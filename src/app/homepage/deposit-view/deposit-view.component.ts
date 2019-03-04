@@ -18,8 +18,9 @@ export class DepositViewComponent implements OnInit {
   wallet: WalletModel;
   rpcReceive: RpcReceive;
 
-  qrMainAddress: string;
+  qrCodeString: string;
   mainAddress: string;
+  displayAddress: string;
 
   constructor(
     private walletService: WalletService,
@@ -31,18 +32,30 @@ export class DepositViewComponent implements OnInit {
   }
 
   getMainAddress() {
-    this.walletService.sendAPI('getmainaddress').subscribe(
+    this.walletService.sendAPI('get-main-address').subscribe(
       (receieve: RpcReceive) => {
-        this.mainAddress = receieve.data.address;
-        this.qrMainAddress = `navcoin:${this.mainAddress}?label=NavPi`;
+        if (receieve.type === 'SUCCESS') {
+          this.mainAddress = receieve.data.address;
+          this.displayAddress = receieve.data.address;
+          this.qrCodeString = `navcoin:${this.mainAddress}?label=NavPi`;
+        } else if (receieve.type === 'WARN' && receieve.code === 'ADR_004') {
+          this.displayAddress = receieve.data.address;
+          this.qrCodeString = `navcoin:${this.mainAddress}?label=NavPi`;
+          this.notificationService.addWarning(receieve.message, '/settings');
+        } else {
+          if (receieve.code === 'ADR_006') {
+            this.notificationService.addError(
+              receieve.data,
+              receieve.message,
+              '/settings'
+            );
+          } else {
+            this.notificationService.addError(receieve.data, receieve.message);
+          }
+        }
       },
       error => {
-        this.notificationService.addNotification(
-          new NavDroidNotification(
-            `Unable to get new address ${error}`,
-            NotifType.ERROR
-          )
-        );
+        this.notificationService.addError(`Unable to get main address`, error);
         return;
       }
     );
@@ -50,9 +63,18 @@ export class DepositViewComponent implements OnInit {
 
   getNewAddress() {
     const data = new RpcSend('getnewaddress');
-    this.walletService.sendRPC(data).subscribe((receive: RpcReceive) => {
-      const address = receive.data;
-      this.qrMainAddress = `navcoin${address}?label=NavPi`;
-    });
+    this.walletService.sendRPC(data).subscribe(
+      (receive: RpcReceive) => {
+        const newAddress = receive.data;
+        this.displayAddress = newAddress;
+        this.qrCodeString = `navcoin${newAddress}?label=NavPi`;
+      },
+      error => {
+        this.notificationService.addError(
+          'Failed to get a new address from the RPC',
+          error
+        );
+      }
+    );
   }
 }

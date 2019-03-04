@@ -14,7 +14,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 // pages
 import { HomepageComponent } from './homepage/homepage.component';
 import { LoginComponent } from './login/login.component';
-import { WalletComponent } from './wallet/wallet.component';
+import { WalletPageComponent } from './wallet/wallet-page.component';
 import { SettingsComponent } from './settings/settings.component';
 import { PageNotFoundComponent } from './not-found/not-found.component';
 
@@ -64,6 +64,7 @@ import { PaymentRequestCreatorComponent } from './community-fund/payment-request
 import { GenericRpcFormComponent } from './generic-rpc-form/generic-rpc-form.component';
 import { NotificationBarComponent } from './notification-bar/notification-bar.component';
 import { NotificationMakerComponent } from './notification-maker/notification-maker.component';
+import { DetailedTransactionsCardComponent } from './wallet/detailed-transactions-card/detailed-transactions-card.component';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -74,7 +75,7 @@ export function tokenGetter() {
     AppComponent,
     HomepageComponent,
     NavbarComponent,
-    WalletComponent,
+    WalletPageComponent,
     SettingsComponent,
     LoginComponent,
     UiPasswordComponent,
@@ -94,7 +95,8 @@ export function tokenGetter() {
     PaymentRequestCreatorComponent,
     GenericRpcFormComponent,
     NotificationBarComponent,
-    NotificationMakerComponent
+    NotificationMakerComponent,
+    DetailedTransactionsCardComponent
   ],
   imports: [
     ReactiveFormsModule,

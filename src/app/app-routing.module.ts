@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 
-import { WalletComponent } from './wallet/wallet.component';
+import { WalletPageComponent } from './wallet/wallet-page.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { SettingsComponent } from './settings/settings.component';
 import { LoginComponent } from './login/login.component';
@@ -19,7 +19,7 @@ const routes: Routes = [
   },
   {
     path: 'wallet',
-    component: WalletComponent,
+    component: WalletPageComponent,
     canActivate: [AuthGuard]
   },
   {

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { WalletService } from '../../wallet/wallet.service';
-import { RpcReceive } from '../../rpc/rpc-receive.model';
-import { RpcSend } from 'src/app/rpc/rpc-send.model';
+import { WalletService } from '../wallet.service';
 import { NotificationService } from 'src/app/notification-bar/notification.service';
+
+import { RpcSend } from 'src/app/rpc/rpc-send.model';
+import { RpcReceive } from '../../rpc/rpc-receive.model';
 import {
   NavDroidNotification,
   NotifType
@@ -10,11 +11,11 @@ import {
 import { Transaction } from '../../models/transaction.model';
 
 @Component({
-  selector: 'app-transactions-view',
-  templateUrl: './transactions-view.component.html',
-  styleUrls: ['../homepage.component.css', './transactions-view.component.css']
+  selector: 'app-detailed-transactions-card',
+  templateUrl: './detailed-transactions-card.component.html',
+  styleUrls: ['./detailed-transactions-card.component.css']
 })
-export class TransactionsViewComponent implements OnInit {
+export class DetailedTransactionsCardComponent implements OnInit {
   rpcReceive: RpcReceive;
   transactions: Array<Transaction>;
 

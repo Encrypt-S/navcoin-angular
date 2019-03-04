@@ -1,0 +1,32 @@
+<mz-card class="overview-card grey lighten-5" [horizontal]="true">
+  <mz-card-title>
+    Last 15 Transactions
+  </mz-card-title>
+  <mz-card-content>
+    <div *ngIf="!transactions">Transactions loading...</div>
+    <div class="tx-list">
+      <table *ngIf="transactions">
+        <thead>
+          <tr>
+            <th>Amount (NAV)</th>
+            <th>Date</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let tx of transactions" class="tx-row">
+            <td>{{ tx.amount }}</td>
+            <td>{{ getDateNum(tx.time) | date }}</td>
+            <td>
+              <a
+                [href]="'https://navexplorer.com/tx/' + tx.txid"
+                target="_blank"
+                >Details</a
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </mz-card-content>
+</mz-card>

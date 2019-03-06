@@ -39,8 +39,8 @@ export class DepositViewComponent implements OnInit {
           this.displayAddress = receieve.data.address;
           this.qrCodeString = `navcoin:${this.mainAddress}?label=NavPi`;
         } else if (receieve.type === 'WARN' && receieve.code === 'ADR_004') {
-          this.displayAddress = receieve.data.address;
-          this.qrCodeString = `navcoin:${this.mainAddress}?label=NavPi`;
+          this.displayAddress = receieve.data;
+          this.qrCodeString = `navcoin:${this.displayAddress}?label=NavPi`;
           this.notificationService.addWarning(receieve.message, '/settings');
         } else {
           if (receieve.code === 'ADR_006') {

@@ -1,0 +1,42 @@
+<mz-card class="overview-card grey lighten-5" [horizontal]="true">
+  <mz-card-title>
+    Update Main Address
+  </mz-card-title>
+  <mz-card-content>
+    <p>
+      Let the Stakebox generate an address for you (GENERATE NEW ADDRESS) or
+      enter a specific address yourself.
+    </p>
+    <form (ngSubmit)="updateAddress(newAddress)" #loginForm="ngForm">
+      <div class="input-field">
+        <input
+          id="address"
+          type="text"
+          class="validate"
+          [(ngModel)]="newAddress"
+          name="address"
+        />
+        <label for="address">Address</label>
+      </div>
+      <div class="input-field">
+        <button
+          class="waves-effect waves-light btn right"
+          type="submit"
+          [disabled]="
+            (newAddress && newAddress.length === 34) || buttonDebounce
+          "
+        >
+          UPDATE TO: {{ newAddress }}
+        </button>
+      </div>
+    </form>
+
+    <button
+      class="waves-effect waves-light btn right"
+      (click)="generateNewAddress()"
+      [disabled]="buttonDebounce"
+    >
+      GENERATE NEW ADDRESS
+    </button>
+  </mz-card-content>
+</mz-card>

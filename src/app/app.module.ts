@@ -65,6 +65,7 @@ import { GenericRpcFormComponent } from './generic-rpc-form/generic-rpc-form.com
 import { NotificationBarComponent } from './notification-bar/notification-bar.component';
 import { NotificationMakerComponent } from './notification-maker/notification-maker.component';
 import { DetailedTransactionsCardComponent } from './wallet/detailed-transactions-card/detailed-transactions-card.component';
+import { SetMainAddressComponent } from './settings/set-main-address/set-main-address.component';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -96,7 +97,8 @@ export function tokenGetter() {
     GenericRpcFormComponent,
     NotificationBarComponent,
     NotificationMakerComponent,
-    DetailedTransactionsCardComponent
+    DetailedTransactionsCardComponent,
+    SetMainAddressComponent
   ],
   imports: [
     ReactiveFormsModule,

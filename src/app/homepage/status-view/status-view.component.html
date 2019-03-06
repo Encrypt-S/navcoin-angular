@@ -55,10 +55,50 @@
     <div class="row" *ngIf="!wallet.isEncrypted">
       <button
         class="waves-effect waves-light btn left blue lighten-2"
-        (click)="encryptWallet()"
+        (click)="bottomSheetModal.openModal()"
       >
         Encrypt Wallet
       </button>
     </div>
   </mz-card-content>
 </mz-card>
+
+<mz-modal #bottomSheetModal [options]="modalOptions">
+  <mz-modal-header>
+    <h4>Encrypt Your Wallet</h4>
+  </mz-modal-header>
+  <mz-modal-content>
+    <p>
+      You are about to encrypt your NavCoin&nbsp;StakeBox wallet. Be aware that
+      if you lose this encryption password you will be unable to recover your
+      coins.
+    </p>
+    <p>
+      Do not proceed unless you have a safe, secure back up of your password
+      before encrypting.
+    </p>
+    <form [formGroup]="passwordForm" (ngSubmit)="encryptWallet()">
+      <label>
+        Wallet Password:
+        <input type="text" formControlName="password" required />
+      </label>
+
+      <label>
+        Confirm Password:
+        <input type="text" formControlName="passwordConfirm" required />
+      </label>
+
+      <button
+        mz-button
+        mz-modal-close
+        type="submit"
+        [disabled]="!passwordForm.valid || buttonDebounce"
+      >
+        Encrypt Wallet
+      </button>
+    </form>
+  </mz-modal-content>
+  <mz-modal-footer>
+    <button mz-button [flat]="true" mz-modal-close>Cancel</button>
+  </mz-modal-footer>
+</mz-modal>

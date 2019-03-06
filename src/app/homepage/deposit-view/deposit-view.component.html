@@ -3,8 +3,8 @@
     Deposit
   </mz-card-title>
   <mz-card-content>
-    <div *ngIf="!mainAddress">Loading...</div>
-    <div *ngIf="mainAddress">
+    <div *ngIf="!displayAddress">Loading...</div>
+    <div *ngIf="displayAddress">
       <qr-code [value]="qrCodeString" [size]="256" class="qr-code"></qr-code>
 
       <p class="address-string">

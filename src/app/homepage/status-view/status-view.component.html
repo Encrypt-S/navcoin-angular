@@ -77,6 +77,7 @@
       Do not proceed unless you have a safe, secure back up of your password
       before encrypting.
     </p>
+
     <form [formGroup]="passwordForm" (ngSubmit)="encryptWallet()">
       <label>
         Wallet Password:
@@ -87,7 +88,9 @@
         Confirm Password:
         <input type="text" formControlName="passwordConfirm" required />
       </label>
-
+      <p *ngIf="!passwordForm.valid">
+        Please ensure the passwords match and are at least 10 characters long
+      </p>
       <button
         mz-button
         mz-modal-close

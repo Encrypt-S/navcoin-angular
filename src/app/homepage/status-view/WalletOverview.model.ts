@@ -6,5 +6,6 @@ export class WalletOverview {
   isEncrypted: Boolean;
   isSyncing: Boolean;
   walletChain: number;
+  isUnlockedForStaking: Boolean;
   walletVersion: number;
 }

@@ -1,29 +1,100 @@
-<mz-card
-class="overview-card grey lighten-5"
-[horizontal]="true">
-<mz-card-title>
-  Send to address
-</mz-card-title>
-<mz-card-content>
-  <form (ngSubmit)="sendToAddress(transaction.destinationAddress, transaction.amount, transaction.feeIncluded)" #loginForm="ngForm">
-    <div class="input-field">
-      <input id="address" type="text" class="validate"
-        [(ngModel)]="transaction.destinationAddress" name="address">
-      <label for="username">Address</label>
-    </div>
-    <div class="input-field">
-      <input id="amount" type="number" class="validate"
-        [(ngModel)]="transaction.amount" name="amount">
-      <label for="amount">Amount</label>
-    </div>
+<mz-card class="overview-card grey lighten-5" [horizontal]="true">
+  <mz-card-title>
+    Send to address
+  </mz-card-title>
+  <mz-card-content>
+    <form
+      (ngSubmit)="
+        isEncrypted
+          ? sendModal.openModal()
+          : sendToAddress(
+              transaction.destinationAddress,
+              transaction.amount,
+              transaction.feeIncluded
+            )
+      "
+      #loginForm="ngForm"
+    >
+      <div class="input-field">
+        <input
+          id="address"
+          type="text"
+          class="validate"
+          [(ngModel)]="transaction.destinationAddress"
+          name="address"
+        />
+        <label for="username">Address</label>
+      </div>
+      <div class="input-field">
+        <input
+          id="amount"
+          type="number"
+          class="validate"
+          [(ngModel)]="transaction.amount"
+          name="amount"
+        />
+        <label for="amount">Amount</label>
+      </div>
       <label>
-        <input type="checkbox" id="fee-included" class="filled-in validate"
-        [(ngModel)]="transaction.feeIncluded" name="fee-included" />
+        <input
+          type="checkbox"
+          id="fee-included"
+          class="filled-in validate"
+          [(ngModel)]="transaction.feeIncluded"
+          name="fee-included"
+        />
         <span>Fee included in amount</span>
       </label>
-    <div class="input-field">
-      <button class="waves-effect waves-light btn right" type="submit" [disabled]="!transaction.amount || !transaction.destinationAddress" >Send</button>
-    </div>
-  </form>
-</mz-card-content>
+      <div class="input-field">
+        <button
+          class="waves-effect waves-light btn right"
+          type="submit"
+          [disabled]="!transaction.amount || !transaction.destinationAddress"
+        >
+          Send
+        </button>
+      </div>
+    </form>
+  </mz-card-content>
 </mz-card>
+
+<mz-modal #sendModal>
+  <mz-modal-header>
+    <h4>Send to Address</h4>
+  </mz-modal-header>
+  <mz-modal-content>
+    <p *ngIf="">
+      Because your wallet is encrypted your need to enter your encryption
+      password before you can send a transaction, please enter it below.
+    </p>
+
+    <form
+      [formGroup]="passwordForm"
+      (ngSubmit)="
+        sendToAddress(
+          transaction.destinationAddress,
+          transaction.amount,
+          transaction.feeIncluded
+        )
+      "
+    >
+      <div>
+        <label>
+          Wallet Password:
+          <input type="password" formControlName="password" required />
+        </label>
+      </div>
+      <button
+        mz-button
+        mz-modal-close
+        type="submit"
+        [disabled]="!passwordForm.valid || buttonDebounce"
+      >
+        Send
+      </button>
+    </form>
+  </mz-modal-content>
+  <mz-modal-footer>
+    <button mz-button [flat]="true" mz-modal-close>Cancel</button>
+  </mz-modal-footer>
+</mz-modal>

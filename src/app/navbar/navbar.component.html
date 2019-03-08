@@ -1,10 +1,14 @@
 <mz-navbar navbarClass="nav-bar">
   <a href="/" class="site-logo">NavCoin StakeBox</a>
-  <mz-navbar-item-container  *ngIf="authed" [align]="'right'">
-    <mz-navbar-item><a href="/">Overview</a></mz-navbar-item>
-    <mz-navbar-item><a href="/wallet">Wallet</a></mz-navbar-item>
-    <mz-navbar-item><a href="/community-fund">Community Fund</a></mz-navbar-item>
-    <mz-navbar-item><a href="/settings">Settings</a></mz-navbar-item>
-    <mz-navbar-item><a href="/#/" (click)="logOut()">Logout</a></mz-navbar-item>
+  <mz-navbar-item-container *ngIf="authed" [align]="'right'">
+    <mz-navbar-item><a routerLink="/">Overview</a></mz-navbar-item>
+    <mz-navbar-item><a routerLink="/wallet">Wallet</a></mz-navbar-item>
+    <mz-navbar-item
+      ><a routerLink="/community-fund">Community Fund</a></mz-navbar-item
+    >
+    <mz-navbar-item><a routerLink="/settings">Settings</a></mz-navbar-item>
+    <mz-navbar-item
+      ><a routerLink="/#/" (click)="logOut()">Logout</a></mz-navbar-item
+    >
   </mz-navbar-item-container>
 </mz-navbar>

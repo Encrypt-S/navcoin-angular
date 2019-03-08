@@ -4,6 +4,12 @@ import { WalletModel } from '../../wallet/wallet.model';
 import { WalletService } from '../../wallet/wallet.service';
 import { RpcSend } from '../../rpc/rpc-send.model';
 import { RpcReceive } from '../../rpc/rpc-receive.model';
+import { FormControl, FormGroup } from '@angular/forms';
+import { NotificationService } from 'src/app/notification-bar/notification.service';
+import {
+  NavDroidNotification,
+  NotifType
+} from 'src/app/notification-bar/NavDroidNotification.model';
 
 export interface SendToAddressModel {
   amount: Number;
@@ -23,28 +29,100 @@ export class SendToViewComponent implements OnInit {
     destinationAddress: undefined,
     feeIncluded: false
   };
+  buttonDebounce: Boolean = false;
+  isEncrypted: Boolean;
   rpcReceive: RpcReceive;
 
-  constructor(private walletService: WalletService) {}
+  passwordForm = new FormGroup({
+    password: new FormControl('')
+  });
 
-  ngOnInit() {}
+  constructor(
+    private walletService: WalletService,
+    private notificationService: NotificationService
+  ) {}
 
-  sendToAddress(destinationAddress, amount, feeIncluded) {
-    const rpcData = new RpcSend('sendtoaddress', [
-      destinationAddress,
-      amount.toString(),
-      feeIncluded.toString()
-    ]);
-    this.walletService.sendRPC(rpcData).subscribe(
+  ngOnInit() {
+    this.walletService.sendAPI('walletoverview', {}).subscribe(
       (receive: RpcReceive) => {
         if (receive.type === 'SUCCESS') {
-          console.log('receive: ', typeof receive.data);
+          this.isEncrypted = receive.data;
         } else {
           console.log('error: ', receive);
         }
       },
       error => {
         console.log('error: ', error);
+      }
+    );
+  }
+
+  sendToAddress(destinationAddress, amount, feeIncluded) {
+    this.buttonDebounce = true;
+
+    if (this.isEncrypted) {
+      // unlock the wallet if we must
+      const rpcData = new RpcSend('walletpassphrase', [
+        `${this.passwordForm.value.password}`,
+        30
+      ]);
+      this.walletService.sendRPC(rpcData).subscribe(
+        (receive: RpcReceive) => {
+          if (receive.type === 'SUCCESS') {
+            this.notificationService.addNotification(
+              new NavDroidNotification(
+                `Wallet unlocked, preparing to send`,
+                NotifType.SUCCESS
+              )
+            );
+            this.sendCoins(destinationAddress, amount, feeIncluded);
+          } else {
+            this.notificationService.addError(
+              receive.data,
+              'Failed to unlock wallet to send coins'
+            );
+            this.buttonDebounce = false;
+          }
+        },
+        error => {
+          console.log('error: ', error);
+          this.notificationService.addError(
+            error,
+            'Failed to unlock wallet to send coins'
+          );
+          this.buttonDebounce = false;
+        }
+      );
+    } else {
+      this.sendCoins(destinationAddress, amount, feeIncluded);
+    }
+  }
+
+  sendCoins(destinationAddress, amount, feeIncluded) {
+    const rpcData = new RpcSend('sendtoaddress', [
+      destinationAddress,
+      amount.toString(),
+      feeIncluded.toString()
+    ]);
+
+    this.walletService.sendRPC(rpcData).subscribe(
+      (receive: RpcReceive) => {
+        if (receive.type === 'SUCCESS') {
+          this.buttonDebounce = false;
+          this.notificationService.addNotification(
+            new NavDroidNotification(`Sent`, NotifType.SUCCESS)
+          );
+        } else {
+          this.notificationService.addError(
+            receive.data,
+            'Failed to send coins'
+          );
+          this.buttonDebounce = false;
+        }
+      },
+      error => {
+        this.notificationService.addError(error, 'Failed to send coins');
+        this.buttonDebounce = false;
       }
     );
   }

@@ -12,6 +12,7 @@
       <p>Staking: {{ wallet.isStaking }}</p>
       <p>Wallet Encrypted: {{ wallet.isEncrypted }}</p>
       <p>Wallet Locked: {{ wallet.isLocked }}</p>
+      <p>Wallet Unlocked for Staking: {{ wallet.isUnlockedForStaking }}</p>
       <p>Wallet Syncing: {{ wallet.isSyncing }}</p>
       <p>Current Block Count: {{ wallet.currentBlock }}</p>
       <p>Highest Known Block Height: {{ wallet.highestKnownBlock }}</p>
@@ -22,7 +23,10 @@
       *ngIf="!wallet.isLocked && wallet.isEncrypted"
       (click)="setLocked(true)"
     >
-      <button class="waves-effect waves-light btn left blue lighten-2">
+      <button
+        [disabled]="buttonDebounce"
+        class="waves-effect waves-light btn left blue lighten-2"
+      >
         Lock Wallet
       </button>
     </div>
@@ -30,21 +34,36 @@
     <div
       class="row"
       *ngIf="wallet.isLocked && wallet.isEncrypted"
-      (click)="setLocked(false)"
+      (click)="unlockModal.openModal()"
     >
-      <button class="waves-effect waves-light btn left blue lighten-2">
+      <button
+        [disabled]="buttonDebounce"
+        class="waves-effect waves-light btn left blue lighten-2"
+      >
         Unlock Wallet
       </button>
     </div>
 
-    <div class="row" *ngIf="!wallet.isStaking" (click)="setStaking(true)">
-      <button class="waves-effect waves-light btn left blue lighten-2">
+    <div
+      class="row"
+      *ngIf="!wallet.isStaking"
+      (click)="
+        !wallet.isUnlockedForStaking
+          ? stakingModal.openModal()
+          : setStaking(true)
+      "
+    >
+      <button
+        [disabled]="buttonDebounce"
+        class="waves-effect waves-light btn left blue lighten-2"
+      >
         Start Staking
       </button>
     </div>
 
     <div class="row" *ngIf="wallet.isStaking">
       <button
+        [disabled]="buttonDebounce"
         class="waves-effect waves-light btn left blue lighten-2"
         (click)="setStaking(false)"
       >
@@ -55,7 +74,7 @@
     <div class="row" *ngIf="!wallet.isEncrypted">
       <button
         class="waves-effect waves-light btn left blue lighten-2"
-        (click)="bottomSheetModal.openModal()"
+        (click)="encryptionModal.openModal()"
       >
         Encrypt Wallet
       </button>
@@ -63,7 +82,7 @@
   </mz-card-content>
 </mz-card>
 
-<mz-modal #bottomSheetModal [options]="modalOptions">
+<mz-modal #encryptionModal>
   <mz-modal-header>
     <h4>Encrypt Your Wallet</h4>
   </mz-modal-header>
@@ -98,6 +117,78 @@
         [disabled]="!passwordForm.valid || buttonDebounce"
       >
         Encrypt Wallet
+      </button>
+    </form>
+  </mz-modal-content>
+  <mz-modal-footer>
+    <button mz-button [flat]="true" mz-modal-close>Cancel</button>
+  </mz-modal-footer>
+</mz-modal>
+
+<mz-modal #unlockModal>
+  <mz-modal-header>
+    <h4>Unlock Your Wallet</h4>
+  </mz-modal-header>
+  <mz-modal-content>
+    <p>
+      You are about unlock your wallet. Be aware that this means your wallet
+      will be able to send payments and sign messages without the use of the
+      wallets encryption password.
+    </p>
+    <p>
+      We recommend only unlocking your wallet for the shortest amount of time
+      required. Use the 'Lock Wallet' button that will display after your wallet
+      is unlocked to lock it when you are finished.
+    </p>
+
+    <form [formGroup]="unlockForm" (ngSubmit)="setLocked(false)">
+      <label>
+        Wallet Password:
+        <input type="text" formControlName="unlockPassword" required />
+      </label>
+
+      <label>
+        Unlock time (in seconds):
+        <input type="number" formControlName="unlockTime" required />
+      </label>
+      <button
+        mz-button
+        mz-modal-close
+        type="submit"
+        [disabled]="!unlockForm.valid || buttonDebounce"
+      >
+        Unlock Wallet
+      </button>
+    </form>
+  </mz-modal-content>
+  <mz-modal-footer>
+    <button mz-button [flat]="true" mz-modal-close>Cancel</button>
+  </mz-modal-footer>
+</mz-modal>
+
+<mz-modal #stakingModal>
+  <mz-modal-header>
+    <h4>Begin Staking</h4>
+  </mz-modal-header>
+  <mz-modal-content>
+    <p>
+      Because your wallet is encrypted your need to enter your encryption
+      password before you can start staking, please enter it below.
+    </p>
+
+    <form [formGroup]="stakingForm" (ngSubmit)="setStaking(true)">
+      <label>
+        Wallet Password:
+        <input type="text" formControlName="stakingPassword" required />
+      </label>
+
+      <button
+        mz-button
+        mz-modal-close
+        type="submit"
+        [disabled]="!stakingForm.valid || buttonDebounce"
+      >
+        Begin Staking
       </button>
     </form>
   </mz-modal-content>

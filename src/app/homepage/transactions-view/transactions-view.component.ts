@@ -27,7 +27,7 @@ export class TransactionsViewComponent implements OnInit {
     this.getTransactions();
   }
   getDateNum(str) {
-    return parseInt(str) * 1000;
+    return parseInt(str, 10) * 1000;
   }
   getTransactions() {
     const command = new RpcSend('listtransactions', ['', 15]);

@@ -9,6 +9,7 @@ import {
   NavDroidNotification
 } from 'src/app/notification-bar/NavDroidNotification.model';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Subscription, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-status-view',
@@ -18,6 +19,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class StatusViewComponent implements OnInit {
   wallet: WalletOverview;
   rpcReceive: RpcReceive;
+  dataRefresher: Subscription;
 
   buttonDebounce: Boolean = false;
 
@@ -28,6 +30,15 @@ export class StatusViewComponent implements OnInit {
     },
     this.passwordMatchValidator
   );
+
+  unlockForm = new FormGroup({
+    unlockPassword: new FormControl('', Validators.minLength(10)),
+    unlockTime: new FormControl('')
+  });
+
+  stakingForm = new FormGroup({
+    stakingPassword: new FormControl('', Validators.minLength(10))
+  });
 
   passwordMatchValidator(g: FormGroup) {
     return g.get('password').value === g.get('passwordConfirm').value
@@ -42,6 +53,9 @@ export class StatusViewComponent implements OnInit {
 
   ngOnInit() {
     this.getWalletOverview();
+    this.dataRefresher = Observable.interval(30000).subscribe(val => {
+      this.getWalletOverview();
+    });
   }
 
   getWalletOverview() {
@@ -56,7 +70,8 @@ export class StatusViewComponent implements OnInit {
             isSyncing: receive.data.isSyncing,
             walletChain: receive.data.walletChain,
             walletVersion: receive.data.walletVersion,
-            isEncrypted: receive.data.isEncrypted
+            isEncrypted: receive.data.isEncrypted,
+            isUnlockedForStaking: receive.data.isUnlockedForStaking
           };
         } else {
           console.log('error: ', receive);
@@ -69,11 +84,16 @@ export class StatusViewComponent implements OnInit {
   }
 
   setLocked(lockWallet: Boolean) {
+    this.buttonDebounce = true;
+
     let command: RpcSend;
     if (lockWallet) {
       command = new RpcSend('walletlock');
     } else {
-      command = new RpcSend('walletpassphrase', ['60']);
+      command = new RpcSend('walletpassphrase', [
+        this.unlockForm.value.unlockPassword,
+        this.unlockForm.value.unlockTime
+      ]);
     }
 
     this.walletService.sendRPC(command).subscribe(
@@ -87,9 +107,12 @@ export class StatusViewComponent implements OnInit {
               )
             );
           } else {
+            this.wallet.isLocked = false;
             this.notificationService.addNotification(
               new NavDroidNotification(
-                'Wallet is now unlocked',
+                `Wallet is now unlocked, it will lock itself in ${
+                  this.unlockForm.value.unlockTime
+                } seconds`,
                 NotifType.WARNING
               )
             );
@@ -97,11 +120,14 @@ export class StatusViewComponent implements OnInit {
         } else {
           this.notificationService.addNotification(
             new NavDroidNotification(
-              `Wallet lock/unlock failed: ${receive.message}, ${receive.data}`,
+              `Wallet lock/unlock failed: ${receive.message}, ${JSON.stringify(
+                receive.data
+              )}`,
               NotifType.ERROR
             )
           );
         }
+        this.buttonDebounce = false;
       },
       error => {
         this.notificationService.addNotification(
@@ -110,24 +136,30 @@ export class StatusViewComponent implements OnInit {
             NotifType.ERROR
           )
         );
+        this.buttonDebounce = false;
       }
     );
   }
 
   setStaking(setStaking: Boolean) {
-    if (this.wallet.isEncrypted) {
-      this.notificationService.addNotification(
-        new NavDroidNotification(
-          'Changing staking status while the wallet is encrypted is not currently supported',
-          NotifType.WARNING
-        )
-      );
-      return;
+    this.buttonDebounce = true;
+
+    let command;
+
+    if (this.wallet.isEncrypted && setStaking) {
+      command = [
+        new RpcSend('walletpassphrase', [
+          this.stakingForm.value.stakingPassword,
+          999999999999999999,
+          true
+        ]),
+        new RpcSend('staking', [setStaking])
+      ];
+    } else {
+      command = [new RpcSend('staking', [setStaking])];
     }
 
-    const command = new RpcSend('staking', [setStaking]);
-
-    this.walletService.sendRPC(command).subscribe(
+    this.walletService.sendBatchRPC(command).subscribe(
       (receive: RpcReceive) => {
         if (receive.type === 'SUCCESS') {
           if (setStaking) {
@@ -137,6 +169,10 @@ export class StatusViewComponent implements OnInit {
                 NotifType.SUCCESS
               )
             );
+            this.wallet.isStaking = true;
+            if (this.wallet.isEncrypted) {
+              this.wallet.isUnlockedForStaking = true;
+            }
           } else {
             this.notificationService.addNotification(
               new NavDroidNotification(
@@ -145,25 +181,25 @@ export class StatusViewComponent implements OnInit {
               )
             );
           }
-          this.wallet.isStaking = setStaking;
+          this.wallet.isStaking = false;
         } else {
           this.notificationService.addNotification(
             new NavDroidNotification(
-              `Turning Staking on/off failed: ${receive.message}, ${
-                receive.data
-              }`,
+              `Turning Staking on/off failed: ${JSON.stringify(
+                receive.message
+              )}, ${receive.data}`,
               NotifType.ERROR
             )
           );
         }
+        this.buttonDebounce = false;
       },
       error => {
-        this.notificationService.addNotification(
-          new NavDroidNotification(
-            `Turning Staking on/off failed: ${error}`,
-            NotifType.ERROR
-          )
+        this.notificationService.addError(
+          error,
+          `Turning Staking on/off failed`
         );
+        this.buttonDebounce = false;
       }
     );
   }
@@ -180,11 +216,12 @@ export class StatusViewComponent implements OnInit {
               NotifType.SUCCESS
             )
           );
+          this.buttonDebounce = false;
         },
         error => {
           this.notificationService.addError(error, 'Failed to encrypt wallet');
+          this.buttonDebounce = false;
         }
       );
-    this.buttonDebounce = false;
   }
 }

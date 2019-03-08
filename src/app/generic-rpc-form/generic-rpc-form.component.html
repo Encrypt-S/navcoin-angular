@@ -18,6 +18,7 @@
         <button
           mz-button
           (click)="bottomSheetModal.openModal()"
+          [disabled]="!rpcCommand"
           class="waves-effect waves-light btn right"
         >
           Run command
@@ -35,7 +36,7 @@
   </mz-card-content>
 </mz-card>
 
-<mz-modal #bottomSheetModal [options]="modalOptions">
+<mz-modal #bottomSheetModal>
   <mz-modal-header>
     <h4>Confirm Command</h4>
   </mz-modal-header>

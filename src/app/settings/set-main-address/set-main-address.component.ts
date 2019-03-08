@@ -18,7 +18,7 @@ import {
 export class SetMainAddressComponent implements OnInit {
   wallet: WalletModel;
   rpcReceive: RpcReceive;
-  newAddress: string;
+  newAddress: string = '';
   buttonDebounce: Boolean = false;
 
   constructor(

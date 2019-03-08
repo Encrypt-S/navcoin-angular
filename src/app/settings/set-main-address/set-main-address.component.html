@@ -22,9 +22,7 @@
         <button
           class="waves-effect waves-light btn right"
           type="submit"
-          [disabled]="
-            (newAddress && newAddress.length === 34) || buttonDebounce
-          "
+          [disabled]="newAddress.length !== 34 || buttonDebounce"
         >
           UPDATE TO: {{ newAddress }}
         </button>

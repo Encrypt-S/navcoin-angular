@@ -2,10 +2,20 @@
   <mz-card-title>
     Community Fund Statistics
   </mz-card-title>
-  <mz-card-content *ngIf="!communityFundService.communityFundStats.funds">
+  <mz-card-content
+    *ngIf="
+      !communityFundService.communityFundStats ||
+      !communityFundService.communityFundStats.funds
+    "
+  >
     Loading...
   </mz-card-content>
-  <mz-card-content *ngIf="communityFundService.communityFundStats.funds">
+  <mz-card-content
+    *ngIf="
+      communityFundService.communityFundStats &&
+      communityFundService.communityFundStats.funds
+    "
+  >
     <p>
       Funds available:
       {{ communityFundService.communityFundStats.funds.available }}

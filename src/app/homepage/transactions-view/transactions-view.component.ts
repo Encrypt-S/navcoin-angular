@@ -34,7 +34,7 @@ export class TransactionsViewComponent implements OnInit {
     this.walletService.sendRPC(command).subscribe(
       (receieve: RpcReceive) => {
         if (receieve.type === 'SUCCESS') {
-          this.transactions = receieve.data;
+          this.transactions = receieve.data.reverse();
         } else {
           this.notificationService.addNotification(
             new NavDroidNotification(

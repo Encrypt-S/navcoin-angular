@@ -3,7 +3,7 @@
     Create a Proposal
   </mz-card-title>
   <mz-card-content>
-    <form [formGroup]="proposalForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="proposalForm" (ngSubmit)="confirmModal.openModal()">
       <label>
         Proposal Description:
         <input type="text" formControlName="proposalDesc" required />
@@ -38,3 +38,30 @@
     </form>
   </mz-card-content>
 </mz-card>
+
+<mz-modal #confirmModal>
+  <mz-modal-header>
+    <h4>Create Proposal</h4>
+  </mz-modal-header>
+  <mz-modal-content>
+    <p *ngIf="">
+      You are about to create the following proposal, you will be paying a fee
+      of <b>{{ proposalForm.value.optionalFee }}</b> NAV.
+    </p>
+
+    <form (ngSubmit)="onSubmit()">
+      <p>Proposal Description: {{ proposalForm.value.proposalDesc }}</p>
+      <p>
+        Proposal Requested Amount: {{ proposalForm.value.requestedAmount }} NAV
+      </p>
+      <p>Proposal Duration (in seconds): {{ proposalForm.value.duration }}</p>
+      <p>Proposal Fee: {{ proposalForm.value.optionalFee || 50 }} NAV</p>
+      <button mz-button mz-modal-close type="submit">
+        Create Proposal
+      </button>
+    </form>
+  </mz-modal-content>
+  <mz-modal-footer>
+    <button mz-button [flat]="true" mz-modal-close>Cancel</button>
+  </mz-modal-footer>
+</mz-modal>

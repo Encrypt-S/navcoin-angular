@@ -3,7 +3,7 @@
     Create a Payment Request
   </mz-card-title>
   <mz-card-content>
-    <form [formGroup]="paymentReqForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="paymentReqForm" (ngSubmit)="confirmModal.openModal()">
       <label>
         Proposal Hash:
         <input type="text" formControlName="proposalHash" required />
@@ -29,3 +29,29 @@
     </form>
   </mz-card-content>
 </mz-card>
+
+<mz-modal #confirmModal>
+  <mz-modal-header>
+    <h4>Create Payment Request</h4>
+  </mz-modal-header>
+  <mz-modal-content>
+    <p>
+      You are about to create the following payment request.
+    </p>
+
+    <form (ngSubmit)="onSubmit()">
+      <p>Proposal Hash: {{ paymentReqForm.value.proposalHash }}</p>
+      <p>Payment Request Description: {{ paymentReqForm.value.uniqueID }}</p>
+      <p>
+        Payment Request Requested Amount:
+        {{ paymentReqForm.value.requestedAmount }} NAV
+      </p>
+      <button mz-button mz-modal-close type="submit">
+        Create Payment Request
+      </button>
+    </form>
+  </mz-modal-content>
+  <mz-modal-footer>
+    <button mz-button [flat]="true" mz-modal-close>Cancel</button>
+  </mz-modal-footer>
+</mz-modal>

@@ -3,18 +3,7 @@
     Send to address
   </mz-card-title>
   <mz-card-content>
-    <form
-      (ngSubmit)="
-        isEncrypted
-          ? sendModal.openModal()
-          : sendToAddress(
-              transaction.destinationAddress,
-              transaction.amount,
-              transaction.feeIncluded
-            )
-      "
-      #loginForm="ngForm"
-    >
+    <form (ngSubmit)="sendModal.openModal()" #loginForm="ngForm">
       <div class="input-field">
         <input
           id="address"
@@ -63,12 +52,19 @@
     <h4>Send to Address</h4>
   </mz-modal-header>
   <mz-modal-content>
-    <p *ngIf="">
+    <p *ngIf="isEncrypted">
       Because your wallet is encrypted your need to enter your encryption
       password before you can send a transaction, please enter it below.
     </p>
 
+    <p>
+      You are going to be sending <b>{{ transaction.amount }} NAV</b> to
+      <b>{{ transaction.destinationAddress }}</b
+      >. Are you sure?
+    </p>
+
     <form
+      *ngIf="isEncrypted"
       [formGroup]="passwordForm"
       (ngSubmit)="
         sendToAddress(
@@ -93,6 +89,21 @@
         Send
       </button>
     </form>
+    <button
+      *ngIf="!isEncrypted"
+      mz-button
+      mz-modal-close
+      (click)="
+        sendToAddress(
+          transaction.destinationAddress,
+          transaction.amount,
+          transaction.feeIncluded
+        )
+      "
+      [disabled]="buttonDebounce"
+    >
+      Send
+    </button>
   </mz-modal-content>
   <mz-modal-footer>
     <button mz-button [flat]="true" mz-modal-close>Cancel</button>

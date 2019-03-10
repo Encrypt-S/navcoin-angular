@@ -48,11 +48,19 @@ export class SendToViewComponent implements OnInit {
         if (receive.type === 'SUCCESS') {
           this.isEncrypted = receive.data;
         } else {
-          console.log('error: ', receive);
+          this.notificationService.addError(
+            `${receive.message} ${receive.code} ${[...receive.data]}`,
+            'SendToViewComponent was unable to check if your wallet is encrypted'
+          );
+          this.isEncrypted = false;
         }
       },
       error => {
-        console.log('error: ', error);
+        this.notificationService.addError(
+          error,
+          'SendToViewComponent was unable to check if your wallet is encrypted'
+        );
+        this.isEncrypted = false;
       }
     );
   }

@@ -1,0 +1,9 @@
+.overview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-auto-rows: minmax(400px, auto);
+}
+
+.overview-grid > * {
+  height: 100%;
+}

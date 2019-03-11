@@ -1,0 +1,61 @@
+<mz-card class="overview-card grey lighten-5" [horizontal]="true">
+  <mz-card-title>
+    Edit Wallet Config
+  </mz-card-title>
+  <mz-card-content>
+    <form [formGroup]="configForm">
+      <div class="input-field ">
+        <mz-textarea-container>
+          <textarea
+            mz-textarea
+            [label]="'Wallet Config'"
+            class="result"
+            id="wallet-config"
+            formControlName="config"
+          ></textarea>
+        </mz-textarea-container>
+      </div>
+
+      <div class="input-field ">
+        <button
+          mz-button
+          (click)="bottomSheetModal.openModal()"
+          [disabled]="originalConfig === configForm.value.config"
+          class="waves-effect waves-light btn right"
+        >
+          Save Config
+        </button>
+
+        <button
+          mz-button
+          (click)="resetConfig()"
+          [disabled]="originalConfig === configForm.value.config"
+          class="waves-effect waves-light btn right"
+        >
+          Reset Changes
+        </button>
+      </div>
+    </form>
+  </mz-card-content>
+</mz-card>
+
+<mz-modal #bottomSheetModal>
+  <mz-modal-header>
+    <h4>Confirm Config Update</h4>
+  </mz-modal-header>
+  <mz-modal-content>
+    <p>
+      You are about to update your NavCoin&nbsp;StakeBox's wallet config. Beware
+      of scammers who ask you to run commands on your stakebox!
+    </p>
+    <p>
+      Make sure you are aware of what the settings in your config are before you
+      save them.
+    </p>
+    <div class="codeblock">{{ configForm.value.config }}</div>
+  </mz-modal-content>
+  <mz-modal-footer>
+    <button mz-button [flat]="true" mz-modal-close>Cancel</button>
+    <button mz-button mz-modal-close (click)="onSubmit()">Update Config</button>
+  </mz-modal-footer>
+</mz-modal>

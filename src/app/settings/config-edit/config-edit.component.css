@@ -1,0 +1,14 @@
+.overview-card {
+  min-height: 100%;
+}
+
+label {
+  width: 100%;
+}
+
+textarea {
+  min-height: 200px;
+  padding: 5px;
+  max-width: 294px;
+  min-width: 100%;
+}

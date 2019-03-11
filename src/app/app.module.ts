@@ -31,7 +31,8 @@ import {
   MzNavbarModule,
   MzModalModule,
   MzToastModule,
-  MzToastService
+  MzToastService,
+  MzTextareaModule
 } from 'ngx-materialize';
 
 // services
@@ -66,6 +67,7 @@ import { NotificationBarComponent } from './notification-bar/notification-bar.co
 import { NotificationMakerComponent } from './notification-maker/notification-maker.component';
 import { DetailedTransactionsCardComponent } from './wallet/detailed-transactions-card/detailed-transactions-card.component';
 import { SetMainAddressComponent } from './settings/set-main-address/set-main-address.component';
+import { ConfigEditComponent } from './settings/config-edit/config-edit.component';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -98,7 +100,8 @@ export function tokenGetter() {
     NotificationBarComponent,
     NotificationMakerComponent,
     DetailedTransactionsCardComponent,
-    SetMainAddressComponent
+    SetMainAddressComponent,
+    ConfigEditComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -108,6 +111,7 @@ export function tokenGetter() {
     MzButtonModule,
     MzCardModule,
     MzSelectModule,
+    MzTextareaModule,
     MzModalModule,
     MzNavbarModule,
     MzToastModule,

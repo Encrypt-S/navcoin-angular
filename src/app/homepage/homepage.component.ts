@@ -17,7 +17,7 @@ export interface SendToAddressModel {
 @Component({
   selector: 'app-homepage-component',
   templateUrl: './homepage.component.html',
-  styleUrls: ['./homepage.component.css']
+  styleUrls: ['./homepage.component.css', '../common/css/grid-layout.css']
 })
 export class HomepageComponent implements OnInit {
   explorer: ExplorerModel;

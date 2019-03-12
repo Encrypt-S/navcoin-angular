@@ -1,0 +1,62 @@
+<mz-card class="overview-card grey lighten-5" [horizontal]="true">
+  <mz-card-title>
+    Balance Overview
+  </mz-card-title>
+  <mz-card-content
+    *ngIf="!wallet || !explorer.tickerUSD || !explorer.tickerBTC"
+  >
+    <p>Wallet Balance loading...</p>
+  </mz-card-content>
+  <mz-card-content
+    *ngIf="wallet && explorer && explorer.tickerUSD && explorer.tickerBTC"
+  >
+    <table>
+      <thead>
+        <th>
+          Balance Type
+        </th>
+        <th>Amount</th>
+      </thead>
+      <tr>
+        <td>Available</td>
+        <td>{{ wallet.balance }} NAV</td>
+      </tr>
+      <tr>
+        <td>Pending</td>
+        <td>{{ wallet.unconfirmedBalance }} NAV</td>
+      </tr>
+      <tr>
+        <td>Immature</td>
+        <td>{{ wallet.immatureBalance }} NAV</td>
+      </tr>
+      <tr>
+        <td>Cold Staking</td>
+        <td>{{ wallet.coldStakingBalance }} NAV</td>
+      </tr>
+      <tr>
+        <td>Total</td>
+        <td>
+          {{
+            wallet.balance +
+              wallet.unconfirmedBalance +
+              wallet.immatureBalance +
+              wallet.coldStakingBalance
+          }}
+          NAV
+        </td>
+      </tr>
+      <tr>
+        <td>Est. USD Value</td>
+        <td>{{ wallet.balance * explorer.tickerUSD | number: '1.2-2' }} USD</td>
+      </tr>
+      <tr>
+        <td>1 NAV to USD</td>
+        <td>{{ explorer.tickerUSD }} USD</td>
+      </tr>
+      <tr>
+        <td>1 NAV to BTC</td>
+        <td>{{ explorer.tickerBTC }} BTC</td>
+      </tr>
+    </table>
+  </mz-card-content>
+</mz-card>

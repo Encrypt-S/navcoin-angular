@@ -59,7 +59,8 @@ import { HomepageProposalListComponent } from './homepage/homepage-proposal-list
 import { SendToViewComponent } from './homepage/send-to-view/send-to-view.component';
 import { DepositViewComponent } from './homepage/deposit-view/deposit-view.component';
 import { TransactionsViewComponent } from './homepage/transactions-view/transactions-view.component';
-import { WalletOverviewComponent } from './homepage/wallet-overview/wallet-overview.component';
+import { BalanceOverviewComponent } from './homepage/balance-overview/balance-overview.component';
+import { StakingOverviewComponent } from './homepage/staking-overview/staking-overview.component';
 import { StatusViewComponent } from './homepage/status-view/status-view.component';
 import { PaymentRequestCreatorComponent } from './community-fund/payment-request-creator/payment-request-creator.component';
 import { GenericRpcFormComponent } from './generic-rpc-form/generic-rpc-form.component';
@@ -93,7 +94,8 @@ export function tokenGetter() {
     SendToViewComponent,
     DepositViewComponent,
     TransactionsViewComponent,
-    WalletOverviewComponent,
+    BalanceOverviewComponent,
+    StakingOverviewComponent,
     StatusViewComponent,
     PaymentRequestCreatorComponent,
     GenericRpcFormComponent,

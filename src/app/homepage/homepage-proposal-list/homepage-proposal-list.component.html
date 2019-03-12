@@ -19,7 +19,7 @@
     >
       <div
         *ngIf="
-          communityFundService.getFilteredProposalList('pending').slice(0, 6)
+          communityFundService.getFilteredProposalList(['pending']).slice(0, 6)
             .length < 1
         "
         class="proposal-info"
@@ -31,7 +31,7 @@
       <div
         *ngFor="
           let proposal of communityFundService
-            .getFilteredProposalList('pending')
+            .getFilteredProposalList(['pending'])
             .slice(0, 6)
         "
         class="proposal-info"

@@ -18,7 +18,9 @@
       class="proposal-container"
     >
       <div
-        *ngFor="let proposal of communityFundService.proposalList"
+        *ngFor="
+          let proposal of communityFundService.getFilteredProposalList(filterBy)
+        "
         class="proposal-info"
       >
         <div>

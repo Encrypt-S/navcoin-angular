@@ -1,3 +1,6 @@
 .overview-card {
   height: 100%;
 }
+.data {
+  text-align: right;
+}

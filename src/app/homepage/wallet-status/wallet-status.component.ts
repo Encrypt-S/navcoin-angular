@@ -59,7 +59,7 @@ export class WalletStatusComponent implements OnInit {
   }
 
   getWalletOverview() {
-    this.walletService.sendAPI('walletoverview', {}).subscribe(
+    this.walletService.sendAPI('get-wallet-overview', {}).subscribe(
       (receive: RpcReceive) => {
         if (receive.type === 'SUCCESS') {
           this.wallet = {

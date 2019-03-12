@@ -11,3 +11,17 @@ td,
 th {
   padding: 13px 12px;
 }
+
+.chevron {
+  margin-left: 5px;
+  color: #039be5;
+}
+
+a {
+  color: black;
+}
+
+tr:hover td a,
+tr:active td a {
+  color: #039be5;
+}

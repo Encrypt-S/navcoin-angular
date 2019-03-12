@@ -10,19 +10,28 @@
           <tr>
             <th>Amount (NAV)</th>
             <th>Date</th>
-            <th></th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let tx of transactions" class="tx-row">
-            <td>{{ tx.amount }}</td>
-            <td>{{ getDateNum(tx.time) | date }}</td>
             <td>
               <a
                 [href]="'https://navexplorer.com/tx/' + tx.txid"
                 target="_blank"
-                >Details</a
               >
+                {{ tx.amount }}
+              </a>
+            </td>
+            <td>
+              <a
+                [href]="'https://navexplorer.com/tx/' + tx.txid"
+                target="_blank"
+              >
+                {{ getDateNum(tx.time) | date }}
+                <span class="chevron">
+                  &raquo;
+                </span>
+              </a>
             </td>
           </tr>
         </tbody>

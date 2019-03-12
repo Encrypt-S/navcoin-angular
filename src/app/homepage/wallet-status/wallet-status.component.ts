@@ -12,11 +12,11 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Subscription, Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-status-view',
-  templateUrl: './status-view.component.html',
-  styleUrls: ['../homepage.component.css', './status-view.component.css']
+  selector: 'app-wallet-status',
+  templateUrl: './wallet-status.component.html',
+  styleUrls: ['../homepage.component.css', './wallet-status.component.css']
 })
-export class StatusViewComponent implements OnInit {
+export class WalletStatusComponent implements OnInit {
   wallet: WalletOverview;
   rpcReceive: RpcReceive;
   dataRefresher: Subscription;
@@ -64,7 +64,6 @@ export class StatusViewComponent implements OnInit {
         if (receive.type === 'SUCCESS') {
           this.wallet = {
             currentBlock: receive.data.currentBlock,
-            highestKnownBlock: receive.data.highestKnownBlock,
             isLocked: receive.data.isLocked,
             isStaking: receive.data.isStaking,
             isSyncing: receive.data.isSyncing,
@@ -74,11 +73,17 @@ export class StatusViewComponent implements OnInit {
             isUnlockedForStaking: receive.data.isUnlockedForStaking
           };
         } else {
-          console.log('error: ', receive);
+          this.notificationService.addError(
+            `${receive.message} ${receive.code} ${[...receive.data]}`,
+            'Unable to get wallet overview data'
+          );
         }
       },
       error => {
-        console.log('error: ', error);
+        this.notificationService.addError(
+          error,
+          'Unable to get wallet overview data'
+        );
       }
     );
   }

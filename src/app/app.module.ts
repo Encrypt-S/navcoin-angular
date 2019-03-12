@@ -61,7 +61,7 @@ import { DepositViewComponent } from './homepage/deposit-view/deposit-view.compo
 import { TransactionsViewComponent } from './homepage/transactions-view/transactions-view.component';
 import { BalanceOverviewComponent } from './homepage/balance-overview/balance-overview.component';
 import { StakingOverviewComponent } from './homepage/staking-overview/staking-overview.component';
-import { StatusViewComponent } from './homepage/status-view/status-view.component';
+import { WalletStatusComponent } from './homepage/wallet-status/wallet-status.component';
 import { PaymentRequestCreatorComponent } from './community-fund/payment-request-creator/payment-request-creator.component';
 import { GenericRpcFormComponent } from './generic-rpc-form/generic-rpc-form.component';
 import { NotificationBarComponent } from './notification-bar/notification-bar.component';
@@ -96,7 +96,7 @@ export function tokenGetter() {
     TransactionsViewComponent,
     BalanceOverviewComponent,
     StakingOverviewComponent,
-    StatusViewComponent,
+    WalletStatusComponent,
     PaymentRequestCreatorComponent,
     GenericRpcFormComponent,
     NotificationBarComponent,

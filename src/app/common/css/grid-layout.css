@@ -9,6 +9,10 @@
 }
 
 .overview-card {
+  background: red;
+}
+
+.overview-card {
   height: 100%;
 }
 
@@ -51,9 +55,6 @@
   .wide-cards {
     grid-column: span 1;
   }
-}
-.overview-card {
-  height: 100%;
 }
 
 .deposit-card {

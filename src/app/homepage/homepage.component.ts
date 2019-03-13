@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { ExplorerModel } from '../explorer/explorer.model';
 import { ExplorerService } from '../explorer/explorer.service';
@@ -17,7 +17,8 @@ export interface SendToAddressModel {
 @Component({
   selector: 'app-homepage-component',
   templateUrl: './homepage.component.html',
-  styleUrls: ['./homepage.component.css', '../common/css/grid-layout.css']
+  styleUrls: ['./homepage.component.css', '../common/css/grid-layout.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class HomepageComponent implements OnInit {
   explorer: ExplorerModel;

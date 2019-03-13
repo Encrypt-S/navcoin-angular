@@ -69,6 +69,8 @@ import { NotificationMakerComponent } from './notification-maker/notification-ma
 import { DetailedTransactionsCardComponent } from './wallet/detailed-transactions-card/detailed-transactions-card.component';
 import { SetMainAddressComponent } from './settings/set-main-address/set-main-address.component';
 import { ConfigEditComponent } from './settings/config-edit/config-edit.component';
+import { WalletUtilsComponent } from './settings/wallet-utils/wallet-utils.component';
+import { DeviceUtilsComponent } from './settings/device-utils/device-utils.component';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -103,7 +105,9 @@ export function tokenGetter() {
     NotificationMakerComponent,
     DetailedTransactionsCardComponent,
     SetMainAddressComponent,
-    ConfigEditComponent
+    ConfigEditComponent,
+    WalletUtilsComponent,
+    DeviceUtilsComponent
   ],
   imports: [
     ReactiveFormsModule,

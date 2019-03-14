@@ -16,24 +16,64 @@
       communityFundService.communityFundStats.funds
     "
   >
-    <p>
-      Funds available:
-      {{ communityFundService.communityFundStats.funds.available }}
-    </p>
-    <p>
-      Funds Locked: {{ communityFundService.communityFundStats.funds.locked }}
-    </p>
-    <p>
-      Voting period start:
-      {{ communityFundService.communityFundStats.votingPeriod.starting }}
-    </p>
-    <p>
-      Voting period end:
-      {{ communityFundService.communityFundStats.votingPeriod.ending }}
-    </p>
-    <p>
-      Voting period current:
-      {{ communityFundService.communityFundStats.votingPeriod.current }}
-    </p>
+    <table>
+      <thead>
+        <th>Item</th>
+        <th>Status</th>
+      </thead>
+    </table>
+    <tr>
+      <td>
+        Funds available
+      </td>
+      <td class="data">
+        {{ communityFundService.communityFundStats.funds.available }} NAV
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Funds Locked
+      </td>
+      <td class="data">
+        {{ communityFundService.communityFundStats.funds.locked }} NAV
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Current Voting period start
+      </td>
+      <td class="data">
+        Block #{{
+          communityFundService.communityFundStats.votingPeriod.starting
+        }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Current Voting period end
+      </td>
+      <td class="data">
+        Block #{{ communityFundService.communityFundStats.votingPeriod.ending }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Current Block
+      </td>
+      <td class="data">
+        #{{ communityFundService.communityFundStats.votingPeriod.current }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Remaining Blocks
+      </td>
+      <td class="data">
+        #{{
+          communityFundService.communityFundStats.votingPeriod.ending -
+            communityFundService.communityFundStats.votingPeriod.starting
+        }}
+      </td>
+    </tr>
   </mz-card-content>
 </mz-card>

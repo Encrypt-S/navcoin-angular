@@ -1,0 +1,115 @@
+<mz-card class="overview-card grey lighten-5" [horizontal]="true">
+  <mz-card-title>
+    Wallet Utilities
+  </mz-card-title>
+
+  <mz-card-content>
+    <div class="row" (click)="updateModal.openModal()">
+      <button
+        [disabled]=""
+        class="waves-effect waves-light btn left blue lighten-2"
+      >
+        Update NavCoin Daemon
+      </button>
+    </div>
+
+    <div class="row" (click)="backUpModal.openModal()">
+      <button
+        [disabled]=""
+        class="waves-effect waves-light btn left blue lighten-2"
+      >
+        Back Up Wallet
+      </button>
+    </div>
+
+    <div class="row" (click)="importModal.openModal()">
+      <button
+        [disabled]=""
+        class="waves-effect waves-light btn left blue lighten-2"
+      >
+        Import Existing Wallet
+      </button>
+    </div>
+  </mz-card-content>
+</mz-card>
+
+<mz-modal #importModal>
+  <mz-modal-header>
+    <h4>Import wallet</h4>
+  </mz-modal-header>
+  <mz-modal-content>
+    <p>
+      We will need your web interface password in order to import a new wallet.
+    </p>
+
+    <form [formGroup]="">
+      <label>
+        Web interface Password:
+        <input type="text" required />
+      </label>
+
+      <label>
+        Wallet file
+        <input type="number" required />
+      </label>
+      <button mz-button mz-modal-close type="submit">
+        Unlock Wallet
+      </button>
+    </form>
+  </mz-modal-content>
+  <mz-modal-footer>
+    <button mz-button [flat]="true" mz-modal-close>Cancel</button>
+  </mz-modal-footer>
+</mz-modal>
+
+<mz-modal #updateModal>
+  <mz-modal-header>
+    <h4>Update NavCoin Daemon</h4>
+  </mz-modal-header>
+  <mz-modal-content>
+    <p>
+      We will need your web interface password in order to upate the a NavCoin
+      Daemon to the latest version
+    </p>
+
+    <form [formGroup]="">
+      <label>
+        Web interface Password:
+        <input type="text" required />
+      </label>
+
+      <button mz-button mz-modal-close type="submit">
+        Update NavCoin
+      </button>
+    </form>
+  </mz-modal-content>
+  <mz-modal-footer>
+    <button mz-button [flat]="true" mz-modal-close>Cancel</button>
+  </mz-modal-footer>
+</mz-modal>
+
+<mz-modal #backUpModal>
+  <mz-modal-header>
+    <h4>Back Up wallet</h4>
+  </mz-modal-header>
+  <mz-modal-content>
+    <p>
+      We will need your web interface password in order to back up your wallet.
+      After submitting this form your wallet download will begin.
+    </p>
+
+    <form [formGroup]="">
+      <label>
+        Web interface Password:
+        <input type="text" required />
+      </label>
+
+      <button mz-button mz-modal-close type="submit">
+        Download Wallet
+      </button>
+    </form>
+  </mz-modal-content>
+  <mz-modal-footer>
+    <button mz-button [flat]="true" mz-modal-close>Cancel</button>
+  </mz-modal-footer>
+</mz-modal>

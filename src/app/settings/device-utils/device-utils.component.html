@@ -1,0 +1,69 @@
+<mz-card class="overview-card grey lighten-5" [horizontal]="true">
+  <mz-card-title>
+    Device Utilities
+  </mz-card-title>
+
+  <mz-card-content>
+    <div class="row" (click)="restartModal.openModal()">
+      <button
+        [disabled]=""
+        class="waves-effect waves-light btn left blue lighten-2"
+      >
+        Restart Stakebox
+      </button>
+    </div>
+
+    <div class="row" (click)="updateModal.openModal()">
+      <button
+        [disabled]=""
+        class="waves-effect waves-light btn left blue lighten-2"
+      >
+        Update Stakebox UI
+      </button>
+    </div>
+  </mz-card-content>
+</mz-card>
+
+<mz-modal #restartModal>
+  <mz-modal-header>
+    <h4>Restart Stakebox</h4>
+  </mz-modal-header>
+  <mz-modal-content>
+    <p>
+      You are about to restart your Stakevbox, are you sure?
+    </p>
+
+    <button mz-button mz-modal-close type="submit">
+      Yes
+    </button>
+  </mz-modal-content>
+  <mz-modal-footer>
+    <button mz-button [flat]="true" mz-modal-close>Cancel</button>
+  </mz-modal-footer>
+</mz-modal>
+
+<mz-modal #updateModal>
+  <mz-modal-header>
+    <h4>Update NavCoin Daemon</h4>
+  </mz-modal-header>
+  <mz-modal-content>
+    <p>
+      We will need your web interface password in order to upate the a Stakebox
+      UI to the latest version
+    </p>
+
+    <form [formGroup]="">
+      <label>
+        Web interface Password:
+        <input type="text" required />
+      </label>
+
+      <button mz-button mz-modal-close type="submit">
+        Update Stakebox UI
+      </button>
+    </form>
+  </mz-modal-content>
+  <mz-modal-footer>
+    <button mz-button [flat]="true" mz-modal-close>Cancel</button>
+  </mz-modal-footer>
+</mz-modal>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { ExplorerModel } from '../explorer/explorer.model';
 import { ExplorerService } from '../explorer/explorer.service';
@@ -17,7 +17,8 @@ export interface SendToAddressModel {
 @Component({
   selector: 'app-homepage-component',
   templateUrl: './homepage.component.html',
-  styleUrls: ['./homepage.component.css']
+  styleUrls: ['./homepage.component.css', '../common/css/grid-layout.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class HomepageComponent implements OnInit {
   explorer: ExplorerModel;
@@ -39,7 +40,6 @@ export class HomepageComponent implements OnInit {
     this.showUSD();
     this.showBTC();
     this.showBalance();
-    this.getStakeReport();
     this.wallet = {
       ...this.wallet,
       mainAddress: 'NaSdzJ64o8DQo5DMPexVrL4PYFCBZqcmsW'
@@ -70,7 +70,7 @@ export class HomepageComponent implements OnInit {
   }
 
   walletLoading() {
-    if (this.wallet.balance && this.wallet.stakeData) {
+    if (this.wallet.balance && this.wallet) {
       return true;
     }
     return false;
@@ -86,31 +86,6 @@ export class HomepageComponent implements OnInit {
       (receive: RpcReceive) => {
         if (receive.type === 'SUCCESS') {
           console.log('receive: ', typeof receive.data);
-        } else {
-          console.log('error: ', receive);
-        }
-      },
-      error => {
-        console.log('error: ', error);
-      }
-    );
-  }
-
-  getStakeReport() {
-    const rpcData = new RpcSend('getstakereport');
-    this.walletService.sendRPC(rpcData).subscribe(
-      (receive: RpcReceive) => {
-        if (receive.type === 'SUCCESS') {
-          this.wallet = {
-            ...this.wallet,
-            stakeData: {
-              today: receive.data['Last 24H'],
-              week: receive.data['Last 7 Days'],
-              month: receive.data['Last 30 Days'],
-              year: receive.data['Last 365 Days']
-            }
-          };
-          console.log('Stake data set');
         } else {
           console.log('error: ', receive);
         }

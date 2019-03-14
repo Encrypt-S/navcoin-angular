@@ -43,7 +43,7 @@ export class SendToViewComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.walletService.sendAPI('walletoverview', {}).subscribe(
+    this.walletService.sendAPI('get-wallet-overview', {}).subscribe(
       (receive: RpcReceive) => {
         if (receive.type === 'SUCCESS') {
           this.isEncrypted = receive.data;

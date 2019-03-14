@@ -20,7 +20,7 @@
       </div>
       <div class="input-field">
         <button
-          class="waves-effect waves-light btn right"
+          class="waves-effect waves-light btn right blue lighten-2"
           type="submit"
           [disabled]="newAddress.length !== 34 || buttonDebounce"
         >
@@ -28,9 +28,9 @@
         </button>
       </div>
     </form>
-
     <button
-      class="waves-effect waves-light btn right"
+      id="generate-new"
+      class="waves-effect waves-light btn right blue lighten-2"
       (click)="generateNewAddress()"
       [disabled]="buttonDebounce"
     >

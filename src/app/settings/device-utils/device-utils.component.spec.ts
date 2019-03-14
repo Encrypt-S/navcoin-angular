@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { StatusViewComponent } from './status-view.component';
+import { DeviceUtilsComponent } from './device-utils.component';
 
-describe('StatusViewComponent', () => {
-  let component: StatusViewComponent;
-  let fixture: ComponentFixture<StatusViewComponent>;
+describe('DeviceUtilsComponent', () => {
+  let component: DeviceUtilsComponent;
+  let fixture: ComponentFixture<DeviceUtilsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ StatusViewComponent ]
+      declarations: [ DeviceUtilsComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(StatusViewComponent);
+    fixture = TestBed.createComponent(DeviceUtilsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

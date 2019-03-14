@@ -29,10 +29,18 @@
     <div class="title">
       Command Output
     </div>
-    <textarea name="" class="result" id="" readonly>
-        {{ rpcResult }}
-      </textarea
-    >
+    <mz-textarea-container>
+      <textarea
+        mz-textarea
+        name=""
+        [label]="'RPC Command Output'"
+        class="result"
+        readonly
+      >
+          {{ rpcResult }}
+          </textarea
+      >
+    </mz-textarea-container>
   </mz-card-content>
 </mz-card>
 

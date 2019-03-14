@@ -9,7 +9,7 @@ export class AuthService {
     private http: HttpClient
   ) {}
 
-  authEndpoint = 'https://localhost/api/auth';
+  authEndpoint = '/api/auth';
 
   httpOptions = {
     headers: new HttpHeaders({

@@ -12,3 +12,7 @@ textarea {
   max-width: 294px;
   min-width: 100%;
 }
+
+#reset-changes {
+  margin-top: 12px;
+}

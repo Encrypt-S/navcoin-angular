@@ -1,0 +1,32 @@
+<mz-card class="overview-card grey lighten-5" [horizontal]="true">
+  <mz-card-title>
+    Staking Overview
+  </mz-card-title>
+  <mz-card-content *ngIf="!this.stakeData">
+    <p>Staking report loading...</p>
+  </mz-card-content>
+  <mz-card-content *ngIf="this.stakeData">
+    <table>
+      <thead>
+        <th>Time period</th>
+        <th>Amount</th>
+      </thead>
+      <tr>
+        <td>Today</td>
+        <td>{{ stakeData.today }} NAV</td>
+      </tr>
+      <tr>
+        <td>Last 7 days</td>
+        <td>{{ stakeData.week }} NAV</td>
+      </tr>
+      <tr>
+        <td>Last 30 days</td>
+        <td>{{ stakeData.month }} NAV</td>
+      </tr>
+      <tr>
+        <td>Last 365 days</td>
+        <td>{{ stakeData.year }} NAV</td>
+      </tr>
+    </table>
+  </mz-card-content>
+</mz-card>

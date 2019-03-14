@@ -1,6 +1,5 @@
 export class WalletOverview {
   currentBlock: number;
-  highestKnownBlock: number;
   isLocked: Boolean;
   isStaking: Boolean;
   isEncrypted: Boolean;

@@ -59,8 +59,9 @@ import { HomepageProposalListComponent } from './homepage/homepage-proposal-list
 import { SendToViewComponent } from './homepage/send-to-view/send-to-view.component';
 import { DepositViewComponent } from './homepage/deposit-view/deposit-view.component';
 import { TransactionsViewComponent } from './homepage/transactions-view/transactions-view.component';
-import { WalletOverviewComponent } from './homepage/wallet-overview/wallet-overview.component';
-import { StatusViewComponent } from './homepage/status-view/status-view.component';
+import { BalanceOverviewComponent } from './homepage/balance-overview/balance-overview.component';
+import { StakingOverviewComponent } from './homepage/staking-overview/staking-overview.component';
+import { WalletStatusComponent } from './homepage/wallet-status/wallet-status.component';
 import { PaymentRequestCreatorComponent } from './community-fund/payment-request-creator/payment-request-creator.component';
 import { GenericRpcFormComponent } from './generic-rpc-form/generic-rpc-form.component';
 import { NotificationBarComponent } from './notification-bar/notification-bar.component';
@@ -68,6 +69,8 @@ import { NotificationMakerComponent } from './notification-maker/notification-ma
 import { DetailedTransactionsCardComponent } from './wallet/detailed-transactions-card/detailed-transactions-card.component';
 import { SetMainAddressComponent } from './settings/set-main-address/set-main-address.component';
 import { ConfigEditComponent } from './settings/config-edit/config-edit.component';
+import { WalletUtilsComponent } from './settings/wallet-utils/wallet-utils.component';
+import { DeviceUtilsComponent } from './settings/device-utils/device-utils.component';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -93,15 +96,18 @@ export function tokenGetter() {
     SendToViewComponent,
     DepositViewComponent,
     TransactionsViewComponent,
-    WalletOverviewComponent,
-    StatusViewComponent,
+    BalanceOverviewComponent,
+    StakingOverviewComponent,
+    WalletStatusComponent,
     PaymentRequestCreatorComponent,
     GenericRpcFormComponent,
     NotificationBarComponent,
     NotificationMakerComponent,
     DetailedTransactionsCardComponent,
     SetMainAddressComponent,
-    ConfigEditComponent
+    ConfigEditComponent,
+    WalletUtilsComponent,
+    DeviceUtilsComponent
   ],
   imports: [
     ReactiveFormsModule,

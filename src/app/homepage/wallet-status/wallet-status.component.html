@@ -6,17 +6,40 @@
     Fetching Wallet Status...
   </mz-card-content>
   <mz-card-content *ngIf="wallet">
-    <div class="row">
-      <p>Wallet Network: {{ wallet.walletChain }}</p>
-      <p>Wallet Version: {{ wallet.walletVersion }}</p>
-      <p>Staking: {{ wallet.isStaking }}</p>
-      <p>Wallet Encrypted: {{ wallet.isEncrypted }}</p>
-      <p>Wallet Locked: {{ wallet.isLocked }}</p>
-      <p>Wallet Unlocked for Staking: {{ wallet.isUnlockedForStaking }}</p>
-      <p>Wallet Syncing: {{ wallet.isSyncing }}</p>
-      <p>Current Block Count: {{ wallet.currentBlock }}</p>
-      <p>Highest Known Block Height: {{ wallet.highestKnownBlock }}</p>
-    </div>
+    <table class="row">
+      <thead>
+        <th>Attribute</th>
+        <th>Status</th>
+      </thead>
+      <tr>
+        <td>Wallet Network</td>
+        <td>{{ wallet.walletChain }}</td>
+      </tr>
+      <tr>
+        <td>Wallet Version</td>
+        <td>{{ wallet.walletVersion }}</td>
+      </tr>
+      <tr>
+        <td>Staking</td>
+        <td>{{ wallet.isStaking }}</td>
+      </tr>
+      <tr>
+        <td>Wallet Encrypted</td>
+        <td>{{ wallet.isEncrypted }}</td>
+      </tr>
+      <tr>
+        <td>Wallet Locked</td>
+        <td>{{ wallet.isLocked }}</td>
+      </tr>
+      <tr>
+        <td>Wallet Unlocked for Staking</td>
+        <td>{{ wallet.isUnlockedForStaking }}</td>
+      </tr>
+      <tr>
+        <td>Current Block Count</td>
+        <td>{{ wallet.currentBlock }}</td>
+      </tr>
+    </table>
 
     <div
       class="row"

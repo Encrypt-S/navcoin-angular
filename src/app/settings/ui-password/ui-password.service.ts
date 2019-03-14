@@ -7,7 +7,7 @@ export class UiPasswordService {
     private http: HttpClient
   ) {}
 
-  uiPasswordEndpoint = 'https://localhost/api/ui-password';
+  uiPasswordEndpoint = '/api/ui-password';
 
   update(uIPasswordForm){
 

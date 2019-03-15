@@ -30,7 +30,7 @@ import {
   MzNavbarModule,
   MzModalModule,
   MzToastModule,
-  MzToastService,
+  MzDropdownModule,
   MzTextareaModule
 } from 'ngx-materialize';
 
@@ -129,6 +129,7 @@ export function tokenGetter() {
     HttpClientModule,
     FormsModule,
     QRCodeModule,
+    MzDropdownModule,
     ClipboardModule,
     JwtModule.forRoot({
       config: {

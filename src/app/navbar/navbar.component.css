@@ -1,0 +1,12 @@
+.mobile-menu {
+  display: none;
+}
+
+@media (max-width: 690px) {
+  .mobile-menu {
+    display: initial;
+  }
+  .reg-menu {
+    display: none;
+  }
+}

@@ -1,14 +1,50 @@
 <mz-navbar navbarClass="nav-bar">
-  <a href="/" class="site-logo">NavCoin StakeBox</a>
+  <a routerlink="/" class="site-logo">NavCoin StakeBox</a>
   <mz-navbar-item-container *ngIf="authed" [align]="'right'">
-    <mz-navbar-item><a routerLink="/">Overview</a></mz-navbar-item>
-    <mz-navbar-item><a routerLink="/wallet">Wallet</a></mz-navbar-item>
-    <mz-navbar-item
+    <mz-navbar-item class="reg-menu"
+      ><a routerLink="/">Overview</a></mz-navbar-item
+    >
+    <mz-navbar-item class="reg-menu"
+      ><a routerLink="/wallet">Wallet</a></mz-navbar-item
+    >
+    <mz-navbar-item class="reg-menu"
       ><a routerLink="/community-fund">Community Fund</a></mz-navbar-item
     >
-    <mz-navbar-item><a routerLink="/settings">Settings</a></mz-navbar-item>
-    <mz-navbar-item
+    <mz-navbar-item class="reg-menu"
+      ><a routerLink="/settings">Settings</a></mz-navbar-item
+    >
+    <mz-navbar-item class="reg-menu"
       ><a routerLink="/#/" (click)="logOut()">Logout</a></mz-navbar-item
     >
+
+    <mz-navbar-item class="mobile-menu">
+      <mz-dropdown
+        [id]="'dropdown-demo'"
+        [align]="'right'"
+        [belowOrigin]="true"
+        [constrainWidth]="false"
+        [dropdownButtonId]="'btn-dropdown'"
+        [gutter]="true"
+        [hover]="false"
+        [inDuration]="300"
+        [outDuration]="300"
+        [stopPropagation]="true"
+        class="purple lighten-2"
+      >
+        <mz-dropdown-item><a routerLink="/">Overview</a></mz-dropdown-item>
+        <mz-dropdown-item><a routerLink="/wallet">Wallet</a></mz-dropdown-item>
+        <mz-dropdown-item
+          ><a routerLink="/community-fund">Community Fund</a></mz-dropdown-item
+        >
+        <mz-dropdown-item
+          ><a routerLink="/settings">Settings</a></mz-dropdown-item
+        >
+        <mz-dropdown-item
+          ><a routerLink="/#/" (click)="logOut()">Logout</a></mz-dropdown-item
+        >
+      </mz-dropdown>
+
+      <a mz-button id="btn-dropdown" href="#" class="grey lighten-2">Menu</a>
+    </mz-navbar-item>
   </mz-navbar-item-container>
 </mz-navbar>

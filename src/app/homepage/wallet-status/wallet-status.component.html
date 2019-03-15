@@ -123,12 +123,12 @@
     <form [formGroup]="passwordForm" (ngSubmit)="encryptWallet()">
       <label>
         Wallet Password:
-        <input type="text" formControlName="password" required />
+        <input type="password" formControlName="password" required />
       </label>
 
       <label>
         Confirm Password:
-        <input type="text" formControlName="passwordConfirm" required />
+        <input type="password" formControlName="passwordConfirm" required />
       </label>
       <p *ngIf="!passwordForm.valid">
         Please ensure the passwords match and are at least 10 characters long
@@ -167,7 +167,7 @@
     <form [formGroup]="unlockForm" (ngSubmit)="setLocked(false)">
       <label>
         Wallet Password:
-        <input type="text" formControlName="unlockPassword" required />
+        <input type="password" formControlName="unlockPassword" required />
       </label>
 
       <label>

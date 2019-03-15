@@ -144,19 +144,21 @@ export class WalletStatusComponent implements OnInit {
 
   encryptWallet() {
     this.buttonDebounce = true;
+    this.toastService.show('Wallet is encrypting, please wait', 10000, 'green');
+
     this.walletService
       .sendRPC(new RpcSend('encryptwallet', [this.passwordForm.value.password]))
       .subscribe(
         (receive: RpcReceive) => {
-          this.notificationService.addNotification(
-            new NavDroidNotification(
-              'Wallet successfully encrypted, please restart your Stakebox to begin using your encrypted wallet.',
-              NotifType.SUCCESS
-            )
+          this.toastService.show(
+            'Wallet successfully encrypted, please restart your Stakebox to begin using your encrypted wallet.',
+            10000,
+            'green'
           );
           this.buttonDebounce = false;
         },
         error => {
+          this.toastService.show('Failed to encrypt wallet.', 5000, 'red');
           this.notificationService.addError(error, 'Failed to encrypt wallet');
           this.buttonDebounce = false;
         }

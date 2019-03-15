@@ -72,6 +72,7 @@
       <button
         class="waves-effect waves-light btn left blue lighten-2"
         (click)="encryptionModal.openModal()"
+        [disabled]="buttonDebounce"
       >
         Encrypt Wallet
       </button>

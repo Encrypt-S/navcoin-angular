@@ -10,6 +10,7 @@ import {
 } from 'src/app/notification-bar/NavDroidNotification.model';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Subscription, Observable } from 'rxjs';
+import { MzToastService } from 'ngx-materialize';
 
 @Component({
   selector: 'app-wallet-status',
@@ -31,11 +32,6 @@ export class WalletStatusComponent implements OnInit {
     this.passwordMatchValidator
   );
 
-  unlockForm = new FormGroup({
-    unlockPassword: new FormControl('', Validators.minLength(10)),
-    unlockTime: new FormControl('')
-  });
-
   stakingForm = new FormGroup({
     stakingPassword: new FormControl('', Validators.minLength(10))
   });
@@ -48,7 +44,8 @@ export class WalletStatusComponent implements OnInit {
 
   constructor(
     private walletService: WalletService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private toastService: MzToastService
   ) {}
 
   ngOnInit() {
@@ -88,68 +85,10 @@ export class WalletStatusComponent implements OnInit {
     );
   }
 
-  setLocked(lockWallet: Boolean) {
-    this.buttonDebounce = true;
-
-    let command: RpcSend;
-    if (lockWallet) {
-      command = new RpcSend('walletlock');
-    } else {
-      command = new RpcSend('walletpassphrase', [
-        this.unlockForm.value.unlockPassword,
-        this.unlockForm.value.unlockTime
-      ]);
-    }
-
-    this.walletService.sendRPC(command).subscribe(
-      (receive: RpcReceive) => {
-        if (receive.type === 'SUCCESS') {
-          if (lockWallet) {
-            this.notificationService.addNotification(
-              new NavDroidNotification(
-                'Wallet is now locked',
-                NotifType.SUCCESS
-              )
-            );
-          } else {
-            this.wallet.isLocked = false;
-            this.notificationService.addNotification(
-              new NavDroidNotification(
-                `Wallet is now unlocked, it will lock itself in ${
-                  this.unlockForm.value.unlockTime
-                } seconds`,
-                NotifType.WARNING
-              )
-            );
-          }
-        } else {
-          this.notificationService.addNotification(
-            new NavDroidNotification(
-              `Wallet lock/unlock failed: ${receive.message}, ${JSON.stringify(
-                receive.data
-              )}`,
-              NotifType.ERROR
-            )
-          );
-        }
-        this.buttonDebounce = false;
-      },
-      error => {
-        this.notificationService.addNotification(
-          new NavDroidNotification(
-            `Wallet lock/unlock failed: ${error}`,
-            NotifType.ERROR
-          )
-        );
-        this.buttonDebounce = false;
-      }
-    );
-  }
-
   setStaking(setStaking: Boolean) {
     this.buttonDebounce = true;
 
-    let command;
+    let command: Array<RpcSend>;
 
     if (this.wallet.isEncrypted && setStaking) {
       command = [
@@ -168,25 +107,19 @@ export class WalletStatusComponent implements OnInit {
       (receive: RpcReceive) => {
         if (receive.type === 'SUCCESS') {
           if (setStaking) {
-            this.notificationService.addNotification(
-              new NavDroidNotification(
-                'Wallet is now staking',
-                NotifType.SUCCESS
-              )
-            );
+            this.toastService.show('Wallet is now staking', 4000, 'green');
             this.wallet.isStaking = true;
             if (this.wallet.isEncrypted) {
               this.wallet.isUnlockedForStaking = true;
             }
           } else {
-            this.notificationService.addNotification(
-              new NavDroidNotification(
-                'Wallet is no longer staking',
-                NotifType.SUCCESS
-              )
+            this.toastService.show(
+              'Wallet is no longer staking',
+              4000,
+              'green'
             );
+            this.wallet.isStaking = false;
           }
-          this.wallet.isStaking = false;
         } else {
           this.notificationService.addNotification(
             new NavDroidNotification(

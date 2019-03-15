@@ -13,7 +13,7 @@
     <span>
       {{ notif.getTypeString() }}: {{ notif.description }} <br />
       <span *ngIf="notif.url">
-        Link: <a [href]="notif.url">{{ notif.url }}</a>
+        Link: <a [href]="notif.url" target="_blank">{{ notif.url }}</a>
       </span>
     </span>
     <button

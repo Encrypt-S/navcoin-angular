@@ -40,11 +40,24 @@ export class NotificationService implements OnInit {
   }
 
   addNotification(newNotif: NavDroidNotification): void {
-    if (this.notifications) {
+    if (this.notifications && !this.notifExists(newNotif)) {
       this.notifications.push(newNotif);
     } else {
       this.notifications = [newNotif];
     }
+  }
+
+  notifExists(notif: NavDroidNotification) {
+    const filtered = this.notifications.filter(n => {
+      return n.type === notif.type && n.description === notif.description
+        ? true
+        : false;
+    });
+    // if we found a notif that matches return true
+    if (filtered.length > 0) {
+      return true;
+    }
+    return false;
   }
 
   addWarning(message: string, URL?: string) {

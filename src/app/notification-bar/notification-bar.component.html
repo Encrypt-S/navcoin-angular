@@ -1,4 +1,4 @@
-<div id="notification-bar">
+<div id="notification-bar" *ngIf="authed">
   <div
     *ngFor="let notif of notificationService.getNotifications()"
     [ngClass]="{

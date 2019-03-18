@@ -62,17 +62,15 @@ export class NotificationService implements OnInit {
 
   addWarning(message: string, URL?: string) {
     this.addNotification(
-      new NavDroidNotification(`${message}:`, NotifType.WARNING, URL)
+      new NavDroidNotification(`${message}`, NotifType.WARNING, URL)
     );
   }
 
   addError(error: any, message: string, URL?: string) {
-    this.addNotification(
-      new NavDroidNotification(
-        `${message}: ${JSON.stringify(error)}`,
-        NotifType.ERROR,
-        URL
-      )
-    );
+    let desc = message;
+    if (error) {
+      desc = desc + `: ${JSON.stringify(error)}`;
+    }
+    this.addNotification(new NavDroidNotification(desc, NotifType.ERROR, URL));
   }
 }

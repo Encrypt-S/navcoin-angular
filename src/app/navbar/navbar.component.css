@@ -3,6 +3,11 @@
 }
 
 @media (max-width: 690px) {
+  .site-logo {
+    font-size: 1.5rem;
+    margin-left: 0.8rem;
+  }
+
   .mobile-menu {
     display: initial;
   }

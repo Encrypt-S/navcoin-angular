@@ -41,7 +41,7 @@ export class NotificationBarComponent implements OnInit {
     this.walletService.sendRPC(new RpcSend('help')).subscribe(
       (receive: RpcReceive) => {
         if (receive.type === 'SUCCESS') {
-          if (receive.data.indexOf('walletlock') === -1 ? false : true) {
+          if (receive.data.indexOf('walletlock') === -1) {
             this.notificationService.addWarning(
               `Your wallet is not encrypted, please use the 'Encrypt Wallet' button on the overview page to secure your wallet.`
             );

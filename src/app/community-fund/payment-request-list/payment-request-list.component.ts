@@ -3,10 +3,6 @@ import { Observable, Subscription } from 'rxjs';
 import 'rxjs/add/observable/interval';
 import { CommunityFundService } from 'src/app/services/community-fund.service';
 import { NotificationService } from 'src/app/notification-bar/notification.service';
-import {
-  NavDroidNotification,
-  NotifType
-} from 'src/app/notification-bar/NavDroidNotification.model';
 import { MzToastService } from 'ngx-materialize';
 
 @Component({
@@ -22,6 +18,9 @@ export class PaymentRequestListComponent implements OnInit {
   ) {}
   buttonDebounce: Boolean = false;
   dataRefresher: Subscription;
+
+  filterBy: Array<string> = [];
+  payReqfilterValue = 'PENDING';
 
   ngOnInit() {
     this.getData();
@@ -49,6 +48,18 @@ export class PaymentRequestListComponent implements OnInit {
           'Failed to fetch Community Fund Payment Requests'
         )
       );
+  }
+
+  updateFilter() {
+    if (this.payReqfilterValue === 'ALL') {
+      this.filterBy = [];
+    } else if (this.payReqfilterValue === 'PENDING') {
+      this.filterBy = ['pending'];
+    } else if (this.payReqfilterValue === 'ACCEPTED') {
+      this.filterBy = ['accepted'];
+    } else if (this.payReqfilterValue === 'FAILED') {
+      this.filterBy = ['expired', 'rejected'];
+    }
   }
 
   voteOnPaymentRequest(paymentReqHash: string, vote: string) {

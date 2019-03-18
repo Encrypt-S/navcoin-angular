@@ -6,11 +6,14 @@ label {
   width: 100%;
 }
 
-textarea {
+.result {
+  max-height: 350px;
+  overflow-y: scroll;
   min-height: 200px;
   padding: 5px;
   max-width: 294px;
-  min-width: 100%;
+  width: 100%;
+  resize: none;
 }
 
 #reset-changes {

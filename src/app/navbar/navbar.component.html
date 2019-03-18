@@ -31,16 +31,30 @@
         [stopPropagation]="true"
         class="purple lighten-2"
       >
-        <mz-dropdown-item><a routerLink="/">Overview</a></mz-dropdown-item>
-        <mz-dropdown-item><a routerLink="/wallet">Wallet</a></mz-dropdown-item>
         <mz-dropdown-item
-          ><a routerLink="/community-fund">Community Fund</a></mz-dropdown-item
+          ><a class="dropdown-link" routerLink="/"
+            >Overview</a
+          ></mz-dropdown-item
         >
         <mz-dropdown-item
-          ><a routerLink="/settings">Settings</a></mz-dropdown-item
+          ><a class="dropdown-link" routerLink="/wallet"
+            >Wallet</a
+          ></mz-dropdown-item
         >
         <mz-dropdown-item
-          ><a routerLink="/#/" (click)="logOut()">Logout</a></mz-dropdown-item
+          ><a class="dropdown-link" routerLink="/community-fund"
+            >Community Fund</a
+          ></mz-dropdown-item
+        >
+        <mz-dropdown-item
+          ><a class="dropdown-link" routerLink="/settings"
+            >Settings</a
+          ></mz-dropdown-item
+        >
+        <mz-dropdown-item
+          ><a class="dropdown-link" routerLink="/#/" (click)="logOut()"
+            >Logout</a
+          ></mz-dropdown-item
         >
       </mz-dropdown>
 

@@ -1,26 +1,28 @@
-<div id="notification-bar">
-  <div
-    *ngFor="let notif of notificationService.getNotifications()"
-    [ngClass]="{
-      notification: true,
-      info: notif.type === notifTypes.INFO,
-      update: notif.type === notifTypes.UPDATE,
-      error: notif.type === notifTypes.ERROR,
-      warning: notif.type === notifTypes.WARNING,
-      success: notif.type === notifTypes.SUCCESS
-    }"
-  >
-    <span>
-      {{ notif.getTypeString() }}: {{ notif.description }} <br />
-      <span *ngIf="notif.url">
-        Link: <a [href]="notif.url">{{ notif.url }}</a>
-      </span>
-    </span>
-    <button
-      (click)="removeNotification(notif)"
-      class="waves-effect waves-light btn light grey right"
+<div class="container">
+  <div id="notification-bar" *ngIf="authed">
+    <div
+      *ngFor="let notif of notificationService.getNotifications()"
+      [ngClass]="{
+        notification: true,
+        info: notif.type === notifTypes.INFO,
+        update: notif.type === notifTypes.UPDATE,
+        error: notif.type === notifTypes.ERROR,
+        warning: notif.type === notifTypes.WARNING,
+        success: notif.type === notifTypes.SUCCESS
+      }"
     >
-      Dismiss notification
-    </button>
+      <span class="text">
+        {{ notif.getTypeString() }}: {{ notif.description }} <br />
+        <span *ngIf="notif.url">
+          Link: <a [href]="notif.url" target="_blank">{{ notif.url }}</a>
+        </span>
+      </span>
+      <button
+        (click)="removeNotification(notif)"
+        class="waves-effect waves-light btn light grey right"
+      >
+        Dismiss
+      </button>
+    </div>
   </div>
 </div>

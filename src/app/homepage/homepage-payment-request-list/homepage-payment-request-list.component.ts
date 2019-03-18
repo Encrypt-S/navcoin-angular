@@ -8,6 +8,7 @@ import {
   NavDroidNotification
 } from 'src/app/notification-bar/NavDroidNotification.model';
 import { NotificationService } from 'src/app/notification-bar/notification.service';
+import { MzToastService } from 'ngx-materialize';
 
 @Component({
   selector: 'app-homepage-payment-request-list',
@@ -23,7 +24,8 @@ export class HomepagePaymentRequestListComponent implements OnInit {
 
   constructor(
     public communityFundService: CommunityFundService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private toastService: MzToastService
   ) {}
 
   ngOnInit() {
@@ -42,16 +44,16 @@ export class HomepagePaymentRequestListComponent implements OnInit {
       .fetchPaymentRequestVotes()
       .catch(error =>
         this.notificationService.addError(
-          `Failed to get PaymentRequest votes`,
-          error
+          error,
+          `Failed to get PaymentRequest votes`
         )
       );
     this.communityFundService
       .fetchPaymentRequests()
       .catch(error =>
         this.notificationService.addError(
-          `Failed to get PaymentRequests`,
-          error
+          error,
+          `Failed to get PaymentRequests`
         )
       );
   }
@@ -62,18 +64,17 @@ export class HomepagePaymentRequestListComponent implements OnInit {
     this.communityFundService
       .updatePaymentRequestVote(hash, vote)
       .then(() => {
-        this.notificationService.addNotification(
-          new NavDroidNotification(
-            `Successfully voted ${vote} for ${hash}`,
-            NotifType.SUCCESS
-          )
+        this.toastService.show(
+          `Successfully voted ${vote} for ${hash}`,
+          4000,
+          'green'
         );
         this.getData();
       })
       .catch(error => {
         this.notificationService.addError(
-          `Failed to vote ${vote} for ${hash}`,
-          error
+          error,
+          `Failed to vote ${vote} for ${hash}`
         );
       })
       .finally(() => {

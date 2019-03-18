@@ -4,19 +4,18 @@
   </mz-card-title>
   <mz-card-content>
     <div *ngIf="!displayAddress">Loading...</div>
-    <div *ngIf="displayAddress">
-      <qr-code [value]="qrCodeString" [size]="256" class="qr-code"></qr-code>
+    <div class="container" *ngIf="displayAddress">
+      <qr-code [value]="qrCodeString" [size]="300" class="qr-code"></qr-code>
+      <div class="address-string">{{ displayAddress }}</div>
 
-      <p class="address-string">
-        Address:
-        <span>{{ displayAddress.slice(0, 27) }}</span>
-        <span>{{ displayAddress.slice(27) }}</span>
-      </p>
-      <button class="waves-effect waves-light btn" (click)="getNewAddress()">
+      <button
+        class="waves-effect waves-light blue lighten-2 btn"
+        (click)="getNewAddress()"
+      >
         Get New Address
       </button>
       <button
-        class="waves-effect waves-light btn"
+        class="waves-effect waves-light blue lighten-2 btn"
         ngxClipboard
         [cbContent]="displayAddress"
       >

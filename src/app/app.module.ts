@@ -30,7 +30,7 @@ import {
   MzNavbarModule,
   MzModalModule,
   MzToastModule,
-  MzToastService,
+  MzDropdownModule,
   MzTextareaModule
 } from 'ngx-materialize';
 
@@ -73,6 +73,7 @@ import { ConfigEditComponent } from './settings/config-edit/config-edit.componen
 import { WalletUtilsComponent } from './settings/wallet-utils/wallet-utils.component';
 import { DeviceUtilsComponent } from './settings/device-utils/device-utils.component';
 import { ChangeRPCAuthComponent } from './settings/change-rpc-auth/change-rpc-auth.component';
+import { SecondsToDays } from './common/pipes/secondsToDays.pipe';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -111,7 +112,8 @@ export function tokenGetter() {
     WalletUtilsComponent,
     DeviceUtilsComponent,
     ChangeWalletPasswordComponent,
-    ChangeRPCAuthComponent
+    ChangeRPCAuthComponent,
+    SecondsToDays
   ],
   imports: [
     ReactiveFormsModule,
@@ -129,6 +131,7 @@ export function tokenGetter() {
     HttpClientModule,
     FormsModule,
     QRCodeModule,
+    MzDropdownModule,
     ClipboardModule,
     JwtModule.forRoot({
       config: {

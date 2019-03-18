@@ -18,92 +18,104 @@
       class="proposal-container"
     >
       <div
+        *ngIf="communityFundService.proposalList.length < 1"
+        class="proposal-info"
+      >
+        <div class="description-text">
+          No Proposals
+        </div>
+      </div>
+
+      <div
         *ngFor="let proposal of communityFundService.proposalList"
         class="proposal-info"
       >
-        <div>
-          <div class="description-text">
-            <h1>{{ proposal.description }}</h1>
-          </div>
-          <div>Amount: {{ proposal.requestedAmount }} NAV</div>
-          <div>Duration: {{ proposal.proposalDuration }} Seconds</div>
-          <div>
-            <h2>Votes:</h2>
-            <div>
-              Yes: {{ proposal.votesYes }} - No:
-              {{ proposal.votesNo }}
-            </div>
-            <span
-              [ngClass]="{
-                status: true,
-                pending: proposal.status === 'pending',
-                accepted:
-                  proposal.status === 'accepted' ||
-                  proposal.status ===
-                    'accepted waiting for enough coins in fund',
-                rejected: proposal.status === 'rejected',
-                expired:
-                  proposal.status === 'expired' ||
-                  proposal.status === 'expired waiting for end of voting period'
-              }"
-            >
-              Status: {{ proposal.status }}
-            </span>
-          </div>
-          <h2>Hash:</h2>
-          <div class="proposal-hash">
-            <span>{{ proposal.hash.slice(0, 16) }}</span
-            ><span>{{ proposal.hash.slice(16, 32) }}</span
-            ><span>{{ proposal.hash.slice(32, 48) }}</span
-            ><span>{{ proposal.hash.slice(48) }}</span>
-          </div>
-          <div class="flex-center">
-            <div *ngIf="proposal.status === 'pending'" class="flex-center">
-              <h2>Voting:</h2>
-              <div class="button-container">
-                <button
-                  [ngClass]="{
-                    'yes-btn': true,
-                    selected: communityFundService.proposalVotingYes(
-                      proposal.hash
-                    )
-                  }"
-                  [disabled]="buttonDebounce"
-                  (click)="
-                    communityFundService.updateProposalVote(
-                      proposal.hash,
-                      'yes'
-                    )
-                  "
-                >
-                  Yes
-                </button>
-                <button
-                  [ngClass]="{
-                    'no-btn': true,
-                    selected: communityFundService.proposalVotingNo(
-                      proposal.hash
-                    )
-                  }"
-                  [disabled]="buttonDebounce"
-                  (click)="
-                    communityFundService.updateProposalVote(proposal.hash, 'no')
-                  "
-                >
-                  No
-                </button>
-              </div>
-            </div>
-            <a
-              [href]="
-                'https://www.navexplorer.com/community-fund/proposal/' +
-                proposal.hash
-              "
-              class="button"
-              >View Proposal</a
-            >
-          </div>
+        <div class="description-text">
+          <h1>{{ proposal.description }}</h1>
         </div>
+        <div>
+          <span
+            [ngClass]="{
+              status: true,
+              pending: proposal.status === 'pending',
+              accepted:
+                proposal.status === 'accepted' ||
+                proposal.status === 'accepted waiting for enough coins in fund',
+              rejected: proposal.status === 'rejected',
+              expired:
+                proposal.status === 'expired' ||
+                proposal.status === 'expired waiting for end of voting period'
+            }"
+          >
+            Status: {{ proposal.status }}
+          </span>
+        </div>
+        <table>
+          <tr>
+            <td>Amount</td>
+            <td>{{ proposal.requestedAmount }} NAV</td>
+          </tr>
+          <tr>
+            <td>Duration</td>
+            <td>{{ proposal.proposalDuration | secondsToDays }}</td>
+          </tr>
+          <tr>
+            <td>Yes&nbsp;Votes</td>
+            <td>{{ proposal.votesYes }}</td>
+          </tr>
+          <tr>
+            <td>No&nbsp;Votes</td>
+            <td>{{ proposal.votesNo }}</td>
+          </tr>
+          <tr>
+            <td>Hash</td>
+            <td class="hash">{{ proposal.hash }}</td>
+          </tr>
+        </table>
+
+        <div class="flex-center">
+          <div *ngIf="proposal.status === 'pending'" class="flex-center">
+            <h2>Voting:</h2>
+            <div class="button-container">
+              <button
+                [ngClass]="{
+                  'yes-btn': true,
+                  selected: communityFundService.proposalVotingYes(
+                    proposal.hash
+                  )
+                }"
+                [disabled]="buttonDebounce"
+                (click)="
+                  communityFundService.updateProposalVote(proposal.hash, 'yes')
+                "
+              >
+                Yes
+              </button>
+              <button
+                [ngClass]="{
+                  'no-btn': true,
+                  selected: communityFundService.proposalVotingNo(proposal.hash)
+                }"
+                [disabled]="buttonDebounce"
+                (click)="
+                  communityFundService.updateProposalVote(proposal.hash, 'no')
+                "
+              >
+                No
+              </button>
+            </div>
+          </div>
+          <a
+            [href]="
+              'https://www.navexplorer.com/community-fund/proposal/' +
+              proposal.hash
+            "
+            target="_blank"
+            class="button"
+            >View Proposal</a
+          >
+        </div>
+        <hr />
       </div>
     </div>
   </mz-card-content>

@@ -11,11 +11,10 @@ label {
   overflow-y: scroll;
   min-height: 350px;
   padding: 5px;
-  max-width: 294px;
   width: 100%;
   resize: none;
 }
 
-#reset-changes {
-  margin-top: 12px;
+button {
+  margin: 10px;
 }

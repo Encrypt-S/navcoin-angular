@@ -9,7 +9,7 @@ label {
 .result {
   max-height: 350px;
   overflow-y: scroll;
-  min-height: 200px;
+  min-height: 350px;
   padding: 5px;
   max-width: 294px;
   width: 100%;

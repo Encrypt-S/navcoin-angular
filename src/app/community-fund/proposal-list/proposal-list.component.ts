@@ -8,6 +8,9 @@ import {
   NotifType
 } from 'src/app/notification-bar/NavDroidNotification.model';
 import { MzToastService } from 'ngx-materialize';
+import { WalletService } from 'src/app/wallet/wallet.service';
+import { RpcSend } from 'src/app/rpc/rpc-send.model';
+import { RpcReceive } from 'src/app/rpc/rpc-receive.model';
 
 @Component({
   selector: 'app-proposal-list',
@@ -22,14 +25,15 @@ export class ProposalListComponent implements OnInit {
   ) {}
   buttonDebounce: Boolean = false;
   dataRefresher: Subscription;
+  isEncrypted: Boolean;
 
   ngOnInit() {
     this.getData();
-
     this.dataRefresher = Observable.interval(30000).subscribe(val => {
       this.getData();
     });
   }
+
   getData() {
     console.log('ProposalListComponent fetching new Proposal data');
     this.communityFundService

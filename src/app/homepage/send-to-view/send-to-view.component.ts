@@ -48,7 +48,7 @@ export class SendToViewComponent implements OnInit {
     this.walletService.sendAPI('get-wallet-overview', {}).subscribe(
       (receive: RpcReceive) => {
         if (receive.type === 'SUCCESS') {
-          this.isEncrypted = receive.data;
+          this.isEncrypted = receive.data.isEncrypted;
         } else {
           this.notificationService.addError(
             `${receive.message} ${receive.code} ${[...receive.data]}`,

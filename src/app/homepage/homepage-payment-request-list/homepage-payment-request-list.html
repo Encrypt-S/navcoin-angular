@@ -19,6 +19,14 @@
       "
       class="proposal-container"
     >
+      <hr
+        *ngIf="
+          communityFundService
+            .getFilteredPaymentRequestList('pending')
+            .slice(0, 6).length < 1
+        "
+      />
+
       <div
         *ngIf="
           communityFundService
@@ -41,10 +49,10 @@
       >
         <div>
           <div class="description-text">
-            <div>
+            <h1>
               {{ paymentRequest.description.slice(0, 55)
               }}<span *ngIf="paymentRequest.description.length > 55">...</span>
-            </div>
+            </h1>
           </div>
           <div>Amount: {{ paymentRequest.requestedAmount }} NAV</div>
         </div>
@@ -86,6 +94,7 @@
           >
         </div>
       </div>
+      <hr />
     </div>
     <div class="see-all-container">
       <a routerLink="/community-fund" class="button"

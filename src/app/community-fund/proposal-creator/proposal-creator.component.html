@@ -44,9 +44,13 @@
     <h4>Create Proposal</h4>
   </mz-modal-header>
   <mz-modal-content>
-    <p *ngIf="">
+    <p>
       You are about to create the following proposal, you will be paying a fee
       of <b>{{ proposalForm.value.optionalFee }}</b> NAV.
+    </p>
+    <p *ngIf="isEncrypted">
+      Since your wallet is encrypted you will need to enter your wallet
+      password.
     </p>
 
     <form (ngSubmit)="onSubmit()">
@@ -56,7 +60,15 @@
       </p>
       <p>Proposal Duration (in seconds): {{ proposalForm.value.duration }}</p>
       <p>Proposal Fee: {{ proposalForm.value.optionalFee || 50 }} NAV</p>
-      <button mz-button mz-modal-close type="submit">
+      <div class="input-field ">
+        <input type="password" name="password" [(ngModel)]="walletPassword" />
+      </div>
+      <button
+        mz-button
+        mz-modal-close
+        type="submit"
+        [disabled]="isEncrypted && !walletPassword"
+      >
         Create Proposal
       </button>
     </form>

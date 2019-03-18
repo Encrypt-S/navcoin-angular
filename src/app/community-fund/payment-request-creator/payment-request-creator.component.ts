@@ -6,6 +6,7 @@ import {
   NotifType,
   NavDroidNotification
 } from 'src/app/notification-bar/NavDroidNotification.model';
+import { MzToastService } from 'ngx-materialize';
 
 @Component({
   selector: 'app-payment-request-creator',
@@ -15,7 +16,8 @@ import {
 export class PaymentRequestCreatorComponent implements OnInit {
   constructor(
     private communityFundService: CommunityFundService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private toastService: MzToastService
   ) {}
   buttonDebounce: Boolean = false;
   paymentReqForm = new FormGroup({
@@ -36,18 +38,14 @@ export class PaymentRequestCreatorComponent implements OnInit {
     this.communityFundService
       .createPaymentRequest(arrayData)
       .then(() => {
-        this.notificationService.addNotification(
-          new NavDroidNotification('Payment Request created', NotifType.SUCCESS)
-        );
+        this.toastService.show('Payment Request created', 4000, 'green');
         this.communityFundService.fetchPaymentRequests();
         this.paymentReqForm.reset();
       })
       .catch(error => {
-        this.notificationService.addNotification(
-          new NavDroidNotification(
-            `Failed to create payment request: ${error}`,
-            NotifType.ERROR
-          )
+        this.notificationService.addError(
+          error,
+          `Failed to create payment request`
         );
       })
       .finally(() => {

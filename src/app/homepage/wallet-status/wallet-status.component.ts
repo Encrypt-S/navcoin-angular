@@ -121,13 +121,9 @@ export class WalletStatusComponent implements OnInit {
             this.wallet.isStaking = false;
           }
         } else {
-          this.notificationService.addNotification(
-            new NavDroidNotification(
-              `Turning Staking on/off failed: ${JSON.stringify(
-                receive.message
-              )}, ${receive.data}`,
-              NotifType.ERROR
-            )
+          this.notificationService.addError(
+            `${JSON.stringify(receive.message)}, ${receive.data}`,
+            `Turning Staking on/off failed`
           );
         }
         this.buttonDebounce = false;

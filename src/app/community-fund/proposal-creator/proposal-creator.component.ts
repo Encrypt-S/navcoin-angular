@@ -6,6 +6,7 @@ import {
   NavDroidNotification,
   NotifType
 } from 'src/app/notification-bar/NavDroidNotification.model';
+import { MzToastService } from 'ngx-materialize';
 
 @Component({
   selector: 'app-proposal-creator',
@@ -15,7 +16,8 @@ import {
 export class ProposalCreatorComponent implements OnInit {
   constructor(
     private communityFundService: CommunityFundService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private toastService: MzToastService
   ) {}
   buttonDebounce: Boolean = false;
   proposalForm = new FormGroup({
@@ -41,19 +43,12 @@ export class ProposalCreatorComponent implements OnInit {
     this.communityFundService
       .createProposal(arrayData)
       .then(() => {
-        this.notificationService.addNotification(
-          new NavDroidNotification('Proposal created', NotifType.SUCCESS)
-        );
+        this.toastService.show('Proposal created', 4000, 'green');
         this.communityFundService.fetchPaymentRequests();
         this.proposalForm.reset();
       })
       .catch(error => {
-        this.notificationService.addNotification(
-          new NavDroidNotification(
-            `Failed to create Proposal: ${error}`,
-            NotifType.ERROR
-          )
-        );
+        this.notificationService.addError(error, `Failed to create Proposal`);
       })
       .finally(() => {
         this.buttonDebounce = false;

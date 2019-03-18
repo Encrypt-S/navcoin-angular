@@ -55,7 +55,7 @@ export class DepositViewComponent implements OnInit {
         }
       },
       error => {
-        this.notificationService.addError(`Unable to get main address`, error);
+        this.notificationService.addError(error, `Unable to get main address`);
         return;
       }
     );
@@ -71,8 +71,8 @@ export class DepositViewComponent implements OnInit {
       },
       error => {
         this.notificationService.addError(
-          'Failed to get a new address from the RPC',
-          error
+          error,
+          'Failed to get a new address from the RPC'
         );
       }
     );

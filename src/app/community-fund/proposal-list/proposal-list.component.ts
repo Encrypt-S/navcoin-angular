@@ -7,6 +7,7 @@ import {
   NavDroidNotification,
   NotifType
 } from 'src/app/notification-bar/NavDroidNotification.model';
+import { MzToastService } from 'ngx-materialize';
 
 @Component({
   selector: 'app-proposal-list',
@@ -16,7 +17,8 @@ import {
 export class ProposalListComponent implements OnInit {
   constructor(
     public communityFundService: CommunityFundService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private toastService: MzToastService
   ) {}
   buttonDebounce: Boolean = false;
   dataRefresher: Subscription;
@@ -54,11 +56,10 @@ export class ProposalListComponent implements OnInit {
     this.communityFundService
       .updateProposalVote(proposalHash, vote)
       .then(() => {
-        this.notificationService.addNotification(
-          new NavDroidNotification(
-            `Successfully voted for ${proposalHash}`,
-            NotifType.SUCCESS
-          )
+        this.toastService.show(
+          `Successfully voted for ${proposalHash}`,
+          4000,
+          'green'
         );
         this.getData();
       })

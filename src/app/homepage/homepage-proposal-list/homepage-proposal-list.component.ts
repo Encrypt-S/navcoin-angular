@@ -7,6 +7,7 @@ import {
   NavDroidNotification,
   NotifType
 } from 'src/app/notification-bar/NavDroidNotification.model';
+import { MzToastService } from 'ngx-materialize';
 
 @Component({
   selector: 'app-homepage-proposal-list',
@@ -19,6 +20,7 @@ import {
 export class HomepageProposalListComponent implements OnInit {
   constructor(
     public communityFundService: CommunityFundService,
+    private toastService: MzToastService,
     private notificationService: NotificationService
   ) {}
   buttonDebounce: Boolean = false;
@@ -37,12 +39,12 @@ export class HomepageProposalListComponent implements OnInit {
     this.communityFundService
       .fetchProposalVotes()
       .catch(error =>
-        this.notificationService.addError(`Failed to get Proposal votes`, error)
+        this.notificationService.addError(error, `Failed to get Proposal votes`)
       );
     this.communityFundService
       .fetchProposals()
       .catch(error =>
-        this.notificationService.addError(`Failed to get Proposals`, error)
+        this.notificationService.addError(error, `Failed to get Proposals`)
       );
   }
 
@@ -52,18 +54,17 @@ export class HomepageProposalListComponent implements OnInit {
     this.communityFundService
       .updatePaymentRequestVote(hash, vote)
       .then(() => {
-        this.notificationService.addNotification(
-          new NavDroidNotification(
-            `Successfully voted ${vote} for ${hash}`,
-            NotifType.SUCCESS
-          )
+        this.toastService.show(
+          `Successfully voted ${vote} for ${hash}`,
+          4000,
+          'green'
         );
         this.getData();
       })
       .catch(error => {
         this.notificationService.addError(
-          `Failed to vote ${vote} for ${hash}`,
-          error
+          error,
+          `Failed to vote ${vote} for ${hash}`
         );
       })
       .finally(() => {

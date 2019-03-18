@@ -3,14 +3,7 @@ import { Observable, Subscription } from 'rxjs';
 import 'rxjs/add/observable/interval';
 import { CommunityFundService } from 'src/app/services/community-fund.service';
 import { NotificationService } from 'src/app/notification-bar/notification.service';
-import {
-  NavDroidNotification,
-  NotifType
-} from 'src/app/notification-bar/NavDroidNotification.model';
 import { MzToastService } from 'ngx-materialize';
-import { WalletService } from 'src/app/wallet/wallet.service';
-import { RpcSend } from 'src/app/rpc/rpc-send.model';
-import { RpcReceive } from 'src/app/rpc/rpc-receive.model';
 
 @Component({
   selector: 'app-proposal-list',
@@ -28,11 +21,25 @@ export class ProposalListComponent implements OnInit {
   filterBy: Array<string> = [];
   isEncrypted: Boolean;
 
+  proposalFilterValue = 'PENDING';
+
   ngOnInit() {
     this.getData();
     this.dataRefresher = Observable.interval(30000).subscribe(val => {
       this.getData();
     });
+  }
+
+  updateFilter() {
+    if (this.proposalFilterValue === 'ALL') {
+      this.filterBy = [];
+    } else if (this.proposalFilterValue === 'PENDING') {
+      this.filterBy = ['pending'];
+    } else if (this.proposalFilterValue === 'ACCEPTED') {
+      this.filterBy = ['accepted'];
+    } else if (this.proposalFilterValue === 'FAILED') {
+      this.filterBy = ['expired', 'rejected'];
+    }
   }
 
   getData() {

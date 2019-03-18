@@ -17,6 +17,58 @@
       "
       class="proposal-container"
     >
+      <form action="" class="radio-form" (change)="updateFilter()">
+        <mz-radio-button-container class="radio-button-container">
+          <input
+            mz-radio-button
+            [(ngModel)]="proposalFilterValue"
+            name="proposalFilterRadio"
+            [withGap]="true"
+            [label]="'All'"
+            id="ALL"
+            value="ALL"
+            type="radio"
+          />
+        </mz-radio-button-container>
+
+        <mz-radio-button-container class="radio-button-container">
+          <input
+            mz-radio-button
+            [(ngModel)]="proposalFilterValue"
+            name="proposalFilterRadio"
+            [withGap]="true"
+            [label]="'Pending'"
+            id="PENDING"
+            value="PENDING"
+            type="radio"
+          />
+        </mz-radio-button-container>
+
+        <mz-radio-button-container class="radio-button-container">
+          <input
+            mz-radio-button
+            [(ngModel)]="proposalFilterValue"
+            name="proposalFilterRadio"
+            [withGap]="true"
+            [label]="'Accepted'"
+            id="ACCEPTED"
+            value="ACCEPTED"
+            type="radio"
+          />
+        </mz-radio-button-container>
+        <mz-radio-button-container class="radio-button-container">
+          <input
+            mz-radio-button
+            [(ngModel)]="proposalFilterValue"
+            name="proposalFilterRadio"
+            [withGap]="true"
+            [label]="'Rejected/Expired'"
+            id="FAILED"
+            value="FAILED"
+            type="radio"
+          />
+        </mz-radio-button-container>
+      </form>
       <div
         *ngIf="
           communityFundService.getFilteredProposalList(filterBy).length < 1
@@ -24,7 +76,7 @@
         class="proposal-info"
       >
         <div class="description-text">
-          No Proposals
+          No Proposals match current filter
         </div>
       </div>
 

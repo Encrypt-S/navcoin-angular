@@ -31,7 +31,8 @@ import {
   MzModalModule,
   MzToastModule,
   MzDropdownModule,
-  MzTextareaModule
+  MzTextareaModule,
+  MzRadioButtonModule
 } from 'ngx-materialize';
 
 // services
@@ -123,6 +124,7 @@ export function tokenGetter() {
     BrowserAnimationsModule,
     MzSidenavModule,
     MzButtonModule,
+    MzRadioButtonModule,
     MzCardModule,
     MzSelectModule,
     MzTextareaModule,

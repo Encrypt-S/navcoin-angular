@@ -127,3 +127,12 @@ button.no-btn.selected:hover {
   color: white;
   background: crimson;
 }
+
+.radio-form {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.radio-button-container {
+  margin: 5px;
+}

@@ -49,10 +49,16 @@
       >
         <div>
           <div class="description-text">
-            <h1>
-              {{ paymentRequest.description.slice(0, 55)
-              }}<span *ngIf="paymentRequest.description.length > 55">...</span>
-            </h1>
+            <h1
+              [innerHTML]="paymentRequest.description | linkify"
+              *ngIf="55 >= paymentRequest.description.length"
+            ></h1>
+            <h1
+              [innerHTML]="
+                paymentRequest.description.slice(0, 55) + '...' | linkify
+              "
+              *ngIf="paymentRequest.description.length > 55"
+            ></h1>
           </div>
           <div>Amount: {{ paymentRequest.requestedAmount }} NAV</div>
         </div>

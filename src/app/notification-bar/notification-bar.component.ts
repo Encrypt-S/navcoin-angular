@@ -48,7 +48,7 @@ export class NotificationBarComponent implements OnInit {
           }
         } else {
           this.notificationService.addError(
-            `${receive.message} ${receive.code} ${[...receive.data]}`,
+            `${receive.message} ${receive.code}`,
             'Unable to get wallet encryption status'
           );
         }

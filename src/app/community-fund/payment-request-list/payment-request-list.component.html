@@ -31,7 +31,7 @@
       >
         <div>
           <div class="description-text">
-            <h1>{{ paymentRequest.description }}</h1>
+            <h1 [innerHTML]="paymentRequest.description | linkify"></h1>
           </div>
           <div>
             <span

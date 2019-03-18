@@ -44,10 +44,14 @@
       >
         <div>
           <div class="description-text">
-            <h1>
-              {{ proposal.description.slice(0, 55)
-              }}<span *ngIf="proposal.description.length > 55">...</span>
-            </h1>
+            <h1
+              [innerHTML]="proposal.description | linkify"
+              *ngIf="55 >= proposal.description.length"
+            ></h1>
+            <h1
+              [innerHTML]="proposal.description.slice(0, 55) + '...' | linkify"
+              *ngIf="proposal.description.length > 55"
+            ></h1>
           </div>
           <div>Amount: {{ proposal.requestedAmount }} NAV</div>
         </div>

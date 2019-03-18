@@ -31,7 +31,7 @@
         class="proposal-info"
       >
         <div class="description-text">
-          <h1>{{ proposal.description }}</h1>
+          <h1 [innerHTML]="proposal.description | linkify"></h1>
         </div>
         <div>
           <span

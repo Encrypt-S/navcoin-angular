@@ -74,6 +74,7 @@ import { WalletUtilsComponent } from './settings/wallet-utils/wallet-utils.compo
 import { DeviceUtilsComponent } from './settings/device-utils/device-utils.component';
 import { ChangeRPCAuthComponent } from './settings/change-rpc-auth/change-rpc-auth.component';
 import { SecondsToDays } from './common/pipes/secondsToDays.pipe';
+import { NgxLinkifyjsModule } from 'ngx-linkifyjs';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -116,6 +117,7 @@ export function tokenGetter() {
     SecondsToDays
   ],
   imports: [
+    NgxLinkifyjsModule.forRoot(),
     ReactiveFormsModule,
     BrowserModule,
     BrowserAnimationsModule,

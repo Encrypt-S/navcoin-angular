@@ -8,6 +8,7 @@ import {
   NotifType
 } from 'src/app/notification-bar/NavDroidNotification.model';
 import { FormGroup, FormControl } from '@angular/forms';
+import { MzToastService } from 'ngx-materialize';
 
 @Component({
   selector: 'app-config-edit',
@@ -23,7 +24,8 @@ export class ConfigEditComponent implements OnInit {
 
   constructor(
     private walletService: WalletService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private toastService: MzToastService
   ) {}
 
   ngOnInit() {
@@ -61,11 +63,10 @@ export class ConfigEditComponent implements OnInit {
       .subscribe(
         (response: RpcReceive) => {
           if (response.type === 'SUCCESS') {
-            this.notificationService.addNotification(
-              new NavDroidNotification(
-                `NavCoin config successfully updated, please restart your Stakebox`,
-                NotifType.SUCCESS
-              )
+            this.toastService.show(
+              `NavCoin config successfully updated, please restart your Stakebox`,
+              4000,
+              'green'
             );
             this.originalConfig = this.configForm.value.config;
             return;

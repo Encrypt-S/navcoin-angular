@@ -7,6 +7,10 @@ import {
   NavDroidNotification,
   NotifType
 } from 'src/app/notification-bar/NavDroidNotification.model';
+import { MzToastService } from 'ngx-materialize';
+import { WalletService } from 'src/app/wallet/wallet.service';
+import { RpcSend } from 'src/app/rpc/rpc-send.model';
+import { RpcReceive } from 'src/app/rpc/rpc-receive.model';
 
 @Component({
   selector: 'app-proposal-list',
@@ -16,19 +20,21 @@ import {
 export class ProposalListComponent implements OnInit {
   constructor(
     public communityFundService: CommunityFundService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private toastService: MzToastService
   ) {}
   buttonDebounce: Boolean = false;
   dataRefresher: Subscription;
   filterBy: Array<string> = [];
+  isEncrypted: Boolean;
 
   ngOnInit() {
     this.getData();
-
     this.dataRefresher = Observable.interval(30000).subscribe(val => {
       this.getData();
     });
   }
+
   getData() {
     console.log('ProposalListComponent fetching new Proposal data');
     this.communityFundService
@@ -55,11 +61,10 @@ export class ProposalListComponent implements OnInit {
     this.communityFundService
       .updateProposalVote(proposalHash, vote)
       .then(() => {
-        this.notificationService.addNotification(
-          new NavDroidNotification(
-            `Successfully voted for ${proposalHash}`,
-            NotifType.SUCCESS
-          )
+        this.toastService.show(
+          `Successfully voted for ${proposalHash}`,
+          4000,
+          'green'
         );
         this.getData();
       })

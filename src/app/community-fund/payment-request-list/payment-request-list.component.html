@@ -31,16 +31,9 @@
       >
         <div>
           <div class="description-text">
-            <h1>{{ paymentRequest.description }}</h1>
+            <h1 [innerHTML]="paymentRequest.description | linkify"></h1>
           </div>
-          <div>Amount: {{ paymentRequest.requestedAmount }} NAV</div>
-          <div>Duration: {{ paymentRequest.proposalDuration }} Seconds</div>
           <div>
-            <h2>Votes:</h2>
-            <div>
-              Yes: {{ paymentRequest.votesYes }} - No:
-              {{ paymentRequest.votesNo }}
-            </div>
             <span
               [ngClass]="{
                 status: true,
@@ -59,13 +52,25 @@
               Status: {{ paymentRequest.status }}
             </span>
           </div>
-          <h2>Hash:</h2>
-          <div class="payment-request-hash">
-            <span>{{ paymentRequest.hash.slice(0, 16) }}</span
-            ><span>{{ paymentRequest.hash.slice(16, 32) }}</span
-            ><span>{{ paymentRequest.hash.slice(32, 48) }}</span
-            ><span>{{ paymentRequest.hash.slice(48) }}</span>
-          </div>
+          <table>
+            <tr>
+              <td>Amount</td>
+              <td>{{ paymentRequest.requestedAmount }} NAV</td>
+            </tr>
+            <tr>
+              <td>Yes&nbsp;Votes</td>
+              <td>{{ paymentRequest.votesYes }}</td>
+            </tr>
+            <tr>
+              <td>No&nbsp;Votes</td>
+              <td>{{ paymentRequest.votesNo }}</td>
+            </tr>
+            <tr>
+              <td>Hash</td>
+              <td class="hash">{{ paymentRequest.hash }}</td>
+            </tr>
+          </table>
+
           <div class="flex-center">
             <div
               *ngIf="paymentRequest.status === 'pending'"
@@ -104,11 +109,13 @@
                 'https://www.navexplorer.com/community-fund/paymentRequest/' +
                 paymentRequest.hash
               "
+              target="_blank"
               class="button"
               >View Payment Request</a
             >
           </div>
         </div>
+        <hr />
       </div>
     </div>
   </mz-card-content>

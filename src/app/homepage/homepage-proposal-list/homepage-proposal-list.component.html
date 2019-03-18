@@ -17,6 +17,12 @@
       "
       class="proposal-container"
     >
+      <hr
+        *ngIf="
+          communityFundService.getFilteredProposalList('pending').slice(0, 6)
+            .length < 1
+        "
+      />
       <div
         *ngIf="
           communityFundService.getFilteredProposalList(['pending']).slice(0, 6)
@@ -38,10 +44,14 @@
       >
         <div>
           <div class="description-text">
-            <div>
-              {{ proposal.description.slice(0, 55)
-              }}<span *ngIf="proposal.description.length > 55">...</span>
-            </div>
+            <h1
+              [innerHTML]="proposal.description | linkify"
+              *ngIf="55 >= proposal.description.length"
+            ></h1>
+            <h1
+              [innerHTML]="proposal.description.slice(0, 55) + '...' | linkify"
+              *ngIf="proposal.description.length > 55"
+            ></h1>
           </div>
           <div>Amount: {{ proposal.requestedAmount }} NAV</div>
         </div>
@@ -75,10 +85,12 @@
               'https://www.navexplorer.com/community-fund/proposal/' +
               proposal.hash
             "
+            target="_blank"
             class="button"
             >View Proposal</a
           >
         </div>
+        <hr />
       </div>
     </div>
     <div class="see-all-container">

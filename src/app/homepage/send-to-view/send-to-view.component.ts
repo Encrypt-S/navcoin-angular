@@ -10,6 +10,7 @@ import {
   NavDroidNotification,
   NotifType
 } from 'src/app/notification-bar/NavDroidNotification.model';
+import { MzToastService } from 'ngx-materialize';
 
 export interface SendToAddressModel {
   amount: Number;
@@ -39,14 +40,15 @@ export class SendToViewComponent implements OnInit {
 
   constructor(
     private walletService: WalletService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private toastService: MzToastService
   ) {}
 
   ngOnInit() {
     this.walletService.sendAPI('get-wallet-overview', {}).subscribe(
       (receive: RpcReceive) => {
         if (receive.type === 'SUCCESS') {
-          this.isEncrypted = receive.data;
+          this.isEncrypted = receive.data.isEncrypted;
         } else {
           this.notificationService.addError(
             `${receive.message} ${receive.code} ${[...receive.data]}`,
@@ -77,11 +79,10 @@ export class SendToViewComponent implements OnInit {
       this.walletService.sendRPC(rpcData).subscribe(
         (receive: RpcReceive) => {
           if (receive.type === 'SUCCESS') {
-            this.notificationService.addNotification(
-              new NavDroidNotification(
-                `Wallet unlocked, preparing to send`,
-                NotifType.SUCCESS
-              )
+            this.toastService.show(
+              `Wallet unlocked, preparing to send`,
+              4000,
+              'green'
             );
             this.sendCoins(destinationAddress, amount, feeIncluded);
           } else {
@@ -93,7 +94,6 @@ export class SendToViewComponent implements OnInit {
           }
         },
         error => {
-          console.log('error: ', error);
           this.notificationService.addError(
             error,
             'Failed to unlock wallet to send coins'
@@ -117,9 +117,7 @@ export class SendToViewComponent implements OnInit {
       (receive: RpcReceive) => {
         if (receive.type === 'SUCCESS') {
           this.buttonDebounce = false;
-          this.notificationService.addNotification(
-            new NavDroidNotification(`Sent`, NotifType.SUCCESS)
-          );
+          this.toastService.show(`Transaction Successful`, 4000, 'green');
         } else {
           this.notificationService.addError(
             receive.data,

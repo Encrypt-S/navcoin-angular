@@ -1,0 +1,93 @@
+<mz-card class="overview-card grey lighten-5" [horizontal]="true">
+  <mz-card-title>
+    Change Wallet RPC Auth
+  </mz-card-title>
+  <mz-card-content>
+    <form [formGroup]="rpcForm" (ngSubmit)="confirmModal.openModal()">
+      <div class="input-field col s12">
+        <input
+          id="currentUser"
+          type="text"
+          class="validate"
+          formControlName="currentUser"
+          required
+          name="currentUser"
+        />
+        <label for="currentUser">Current RPC Username</label>
+      </div>
+      <div class="input-field col s12">
+        <input
+          id="currentPassword"
+          type="password"
+          class="validate"
+          formControlName="currentPass"
+          required
+          name="currentPassword"
+        />
+        <label for="currentPassword">Current RPC Password</label>
+      </div>
+      <div class="input-field col s12">
+        <input
+          id="newUser"
+          type="text"
+          class="validate"
+          formControlName="newUser"
+          required
+          name="newUser"
+        />
+        <label for="newUser">New RPC Username</label>
+      </div>
+      <div class="input-field col s12">
+        <input
+          id="newPassword"
+          type="password"
+          class="validate"
+          formControlName="newPass"
+          required
+          name="newPassword"
+        />
+        <label for="newPassword">New RPC Password</label>
+      </div>
+
+      <div class="input-field col s12">
+        <input
+          id="confirmNewPassword"
+          type="password"
+          class="validate"
+          formControlName="confirmNewPass"
+          required
+          name="confirmNewPassword"
+        />
+        <label for="confirmNewPassword">Confirm New RPC Password</label>
+      </div>
+
+      <div class="input-field col s12">
+        <button
+          mz-button
+          type="submit"
+          class="waves-effect waves-light btn right blue lighten-2"
+          [disabled]="!rpcForm.valid"
+        >
+          Update
+        </button>
+      </div>
+    </form>
+  </mz-card-content>
+</mz-card>
+
+<mz-modal #confirmModal>
+  <mz-modal-header>
+    <h4>Confirm</h4>
+  </mz-modal-header>
+  <mz-modal-content>
+    <p>
+      You are about to update the username and password used to login to the
+      NavCoin&nbsp;StakeBox interface. If lose this password you will lose
+      access to the wallet so make sure you keep it in a safe place.
+    </p>
+  </mz-modal-content>
+  <mz-modal-footer>
+    <button mz-button [flat]="true" mz-modal-close>Cancel</button>
+    <button mz-button mz-modal-close (click)="onSubmit()">Update</button>
+  </mz-modal-footer>
+</mz-modal>

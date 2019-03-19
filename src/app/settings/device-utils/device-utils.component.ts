@@ -46,9 +46,9 @@ export class DeviceUtilsComponent implements OnInit {
 
         const newNotif = new NavDroidNotification(
           'UI Updated, please restart the device for the changes to take effect',
-          NotifType.WARNING
+          NotifType.SUCCESS
         );
-        
+
         this.notificationService.addNotification(newNotif);
 
         return;

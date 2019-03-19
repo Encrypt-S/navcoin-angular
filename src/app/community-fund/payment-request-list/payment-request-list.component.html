@@ -102,7 +102,11 @@
                   paymentRequest.status === 'accepted' ||
                   paymentRequest.status ===
                     'accepted waiting for end of voting period',
-                rejected: paymentRequest.status === 'rejected',
+                rejected:
+                  paymentRequest.status === 'rejected' ||
+                  paymentRequest.status ===
+                    'rejected waiting for end of voting period
+                ',
                 expired:
                   paymentRequest.status === 'expired' ||
                   paymentRequest.status ===

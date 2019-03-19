@@ -42,6 +42,8 @@ import { AuthService } from './auth/auth.service';
 import { UiPasswordService } from './settings/ui-password/ui-password.service';
 import { NotificationService } from './notification-bar/notification.service';
 import { CommunityFundService } from './services/community-fund.service';
+import { DeviceUtilsService } from './settings/device-utils/device-utils.service';
+import { WalletUtilsService } from './settings/wallet-utils/wallet-utils.service';
 
 // tools
 import { QRCodeModule } from 'angular2-qrcode';
@@ -153,7 +155,9 @@ export function tokenGetter() {
     CommunityFundService,
     UiPasswordService,
     NotificationService,
-    CommunityFundService
+    CommunityFundService,
+    DeviceUtilsService,
+    WalletUtilsService
   ],
   bootstrap: [AppComponent]
 })

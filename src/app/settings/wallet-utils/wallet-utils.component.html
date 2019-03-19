@@ -45,23 +45,37 @@
       We will need your web interface password in order to import a new wallet.
     </p>
 
-    <form [formGroup]="">
+    <form #importWalletForm="ngForm" (ngSubmit)="onSubmitImport()">
       <label>
         Web interface Password:
-        <input type="password" required />
+        <input
+        type="password"
+        id="importPassword"
+        name="password"
+        class="validate"
+        required
+        [(ngModel)]="walletUtils.password"
+        />
       </label>
-
-      <label>
-        Wallet file
-        <input type="number" required />
+      <label class="file-upload">
+        Wallet file:
+        <input
+        type="file"
+        id="wallet"
+        name="wallet"
+        class="validate"
+        required
+        [(ngModel)]="walletUtils.wallet"
+        />
       </label>
       <button
         mz-button
         mz-modal-close
         class="waves-effect waves-light btn blue lighten-2"
         type="submit"
+        [disabled]="!walletUtils.password || !walletUtils.wallet"
       >
-        Unlock Wallet
+        Import Wallet
       </button>
     </form>
   </mz-modal-content>
@@ -80,19 +94,26 @@
       Daemon to the latest version
     </p>
 
-    <form [formGroup]="">
+    <form #updateDaemonForm="ngForm" (ngSubmit)="onSubmitUpdate()">
       <label>
         Web interface Password:
-        <input type="password" required />
+        <input
+        type="password"
+        id="updateDaemonPassword"
+        name="password"
+        class="validate"
+        required
+        [(ngModel)]="walletUtils.password"
+        />
       </label>
-
       <button
         mz-button
         mz-modal-close
         class="waves-effect waves-light btn blue lighten-2"
         type="submit"
+        [disabled]="!walletUtils.password"
       >
-        Update NavCoin
+        Update Daemon
       </button>
     </form>
   </mz-modal-content>
@@ -111,19 +132,26 @@
       After submitting this form your wallet download will begin.
     </p>
 
-    <form [formGroup]="">
+    <form #backupWalletForm="ngForm" (ngSubmit)="onSubmitBackup()">
       <label>
         Web interface Password:
-        <input type="password" required />
+        <input
+        type="password"
+        id="backupPassword"
+        name="password"
+        class="validate"
+        required
+        [(ngModel)]="walletUtils.password"
+        />
       </label>
-
       <button
         mz-button
         mz-modal-close
         class="waves-effect waves-light btn blue lighten-2"
         type="submit"
+        [disabled]="!walletUtils.password"
       >
-        Download Wallet
+        Backup Wallet
       </button>
     </form>
   </mz-modal-content>

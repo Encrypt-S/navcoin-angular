@@ -41,6 +41,36 @@ export class DeviceUtilsComponent implements OnInit {
       },
       error => {
         console.log('error: ', error);
+        this.deviceUtils = new DeviceUtilsModel();
+        this.toastService.show(
+          error.error.message,
+          4000,
+          'red'
+        );
+      }
+    );
+  }
+
+  onSubmitRestart() {
+
+    this.deviceUtilsService.restart(this.deviceUtils).subscribe(
+      (response: DeviceUtilsResponse) => {
+        if (response.type != 'SUCCESS') {
+          this.toastService.show(
+            response.message,
+            4000,
+            'red'
+          );
+          return;
+        }
+
+        this.deviceUtils = new DeviceUtilsModel();
+        this.toastService.show('StakeBox Restarting', 4000, 'green');
+        return;
+      },
+      error => {
+        console.log('error: ', error);
+        this.deviceUtils = new DeviceUtilsModel();
         this.toastService.show(
           error.error.message,
           4000,

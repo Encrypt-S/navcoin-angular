@@ -35,14 +35,28 @@
       You are about to restart your Stakebox, are you sure?
     </p>
 
-    <button
-      mz-button
-      mz-modal-close
-      type="submit"
-      class="waves-effect waves-light btn blue lighten-2"
-    >
-      Yes
-    </button>
+    <form #restartStakeBoxForm="ngForm" (ngSubmit)="onSubmitRestart()">
+      <label>
+        Web interface Password:
+        <input
+          type="password"
+          id="restartPassword"
+          name="password"
+          class="validate"
+          required
+          [(ngModel)]="deviceUtils.password"
+          />
+      </label>
+      <button
+        mz-button
+        mz-modal-close
+        class="waves-effect waves-light btn blue lighten-2"
+        type="submit"
+        [disabled]="!deviceUtils.password"
+      >
+        Restart StakeBox
+      </button>
+      </form>
   </mz-modal-content>
   <mz-modal-footer>
     <button mz-button [flat]="true" mz-modal-close>Cancel</button>
@@ -64,7 +78,7 @@
         Web interface Password:
         <input
           type="password"
-          id="password"
+          id="updatePassword"
           name="password"
           class="validate"
           required

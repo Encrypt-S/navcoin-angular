@@ -8,11 +8,9 @@ export class DeviceUtilsService {
   ) {}
 
   updateUiEndpoint = '/util/update-ui';
+  rebootEndpoint = '/util/reboot';
 
   update(uIPasswordForm){
-
-    console.log('DeviceUtilsService.update uIPasswordForm', uIPasswordForm)
-
 
     const token = localStorage.getItem('token');
 
@@ -24,6 +22,20 @@ export class DeviceUtilsService {
     };
 
     return this.http.post(this.updateUiEndpoint, uIPasswordForm, httpOptions);
+  }
+
+  restart(uIPasswordForm){
+
+    const token = localStorage.getItem('token');
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'x-access-token': token,
+      })
+    };
+
+    return this.http.post(this.rebootEndpoint, uIPasswordForm, httpOptions);
   }
 
 }

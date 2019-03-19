@@ -52,19 +52,20 @@ export class HomepageProposalListComponent implements OnInit {
     this.buttonDebounce = true;
 
     this.communityFundService
-      .updatePaymentRequestVote(hash, vote)
+      .updateProposalVote(hash, vote)
       .then(() => {
         this.toastService.show(
-          `Successfully voted ${vote} for ${hash}`,
+          `Successfully updated vote for ${hash}`,
           4000,
           'green'
         );
         this.getData();
       })
       .catch(error => {
-        this.notificationService.addError(
-          error,
-          `Failed to vote ${vote} for ${hash}`
+        this.toastService.show(
+          `Failed to updated vote for ${hash}`,
+          4000,
+          'red'
         );
       })
       .finally(() => {

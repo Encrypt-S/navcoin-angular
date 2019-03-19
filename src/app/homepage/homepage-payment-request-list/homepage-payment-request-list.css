@@ -54,6 +54,9 @@ h2 {
 .flex-center h2 {
   margin: 0 auto;
 }
+hr {
+  width: 100%;
+}
 
 button,
 .button {

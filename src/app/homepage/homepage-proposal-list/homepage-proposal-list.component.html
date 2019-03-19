@@ -44,14 +44,7 @@
       >
         <div>
           <div class="description-text">
-            <h1
-              [innerHTML]="proposal.description | linkify"
-              *ngIf="55 >= proposal.description.length"
-            ></h1>
-            <h1
-              [innerHTML]="proposal.description.slice(0, 55) + '...' | linkify"
-              *ngIf="proposal.description.length > 55"
-            ></h1>
+            <h1 [innerHTML]="proposal.description | linkify"></h1>
           </div>
           <div>Amount: {{ proposal.requestedAmount }} NAV</div>
         </div>
@@ -73,9 +66,7 @@
                 selected: communityFundService.proposalVotingNo(proposal.hash)
               }"
               [disabled]="buttonDebounce"
-              (click)="
-                communityFundService.updateProposalVote(proposal.hash, 'no')
-              "
+              (click)="voteForProposal(proposal.hash, 'no')"
             >
               No
             </button>

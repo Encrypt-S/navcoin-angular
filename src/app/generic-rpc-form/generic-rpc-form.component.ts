@@ -15,6 +15,7 @@ import { WalletService } from 'src/app/wallet/wallet.service';
 export class GenericRpcFormComponent implements OnInit {
   rpcCommand: String;
   rpcResult: any;
+  debounce = false;
 
   constructor(
     private walletService: WalletService,
@@ -24,7 +25,9 @@ export class GenericRpcFormComponent implements OnInit {
   ngOnInit() {}
 
   onSubmit() {
+    this.debounce = true;
     console.log('RPC Command: ', this.rpcCommand);
+    this.toastService.show(`Your RPC is running, please wait`, 4000, 'green');
     const splitCommand = this.rpcCommand.split(' ');
     const rpcData = new RpcSend(splitCommand[0], [...splitCommand.slice(1)]);
 
@@ -38,6 +41,8 @@ export class GenericRpcFormComponent implements OnInit {
               4000,
               'red'
             );
+            this.debounce = false;
+
             return;
           }
           if (response.code === 'RPC_003') {
@@ -46,7 +51,12 @@ export class GenericRpcFormComponent implements OnInit {
               4000,
               'red'
             );
-            this.rpcResult = response.data['message'];
+            if (typeof response.data['message'] === 'object') {
+              this.rpcResult = JSON.stringify(response.data['message']);
+            } else {
+              this.rpcResult = response.data['message'];
+            }
+            this.debounce = false;
             return;
           }
           this.toastService.show(
@@ -54,15 +64,22 @@ export class GenericRpcFormComponent implements OnInit {
             4000,
             'red'
           );
+          this.debounce = false;
           return;
         }
 
-        this.rpcResult = response.data;
+        if (typeof response.data === 'object') {
+          this.rpcResult = JSON.stringify(response.data);
+        } else {
+          this.rpcResult = response.data;
+        }
+        this.debounce = false;
         return;
       },
       error => {
         console.log('error: ', error);
         this.toastService.show('Something went wrong, try again', 4000, 'red');
+        this.debounce = false;
       }
     );
   }

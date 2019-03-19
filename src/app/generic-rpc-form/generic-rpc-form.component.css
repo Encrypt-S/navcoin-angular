@@ -10,6 +10,8 @@
   max-width: 294px;
   min-width: 100%;
   min-height: 80px;
+  max-height: 300px;
+  overflow-y: scroll;
 }
 
 .title {

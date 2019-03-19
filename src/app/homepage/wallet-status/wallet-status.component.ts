@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { WalletOverview } from './WalletOverview.model';
 import { WalletService } from '../../wallet/wallet.service';
 import { RpcSend } from '../../rpc/rpc-send.model';
@@ -17,7 +17,7 @@ import { MzToastService } from 'ngx-materialize';
   templateUrl: './wallet-status.component.html',
   styleUrls: ['../homepage.component.css', './wallet-status.component.css']
 })
-export class WalletStatusComponent implements OnInit {
+export class WalletStatusComponent implements OnInit, OnDestroy {
   wallet: WalletOverview;
   rpcReceive: RpcReceive;
   dataRefresher: Subscription;
@@ -53,6 +53,10 @@ export class WalletStatusComponent implements OnInit {
     this.dataRefresher = Observable.interval(30000).subscribe(val => {
       this.getWalletOverview();
     });
+  }
+
+  ngOnDestroy() {
+    this.dataRefresher.unsubscribe();
   }
 
   getWalletOverview() {

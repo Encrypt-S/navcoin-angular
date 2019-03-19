@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NavDroidNotification, NotifType } from './NavDroidNotification.model';
 import { NotificationService } from './notification.service';
 import { AuthService } from '../auth/auth.service';
@@ -13,9 +13,10 @@ import { Subscription, Observable } from 'rxjs';
   templateUrl: './notification-bar.component.html',
   styleUrls: ['./notification-bar.component.css']
 })
-export class NotificationBarComponent implements OnInit {
+export class NotificationBarComponent implements OnInit, OnDestroy {
   notifTypes = NotifType;
   authed: Boolean;
+  encrypted: Boolean;
   dataRefresher: Subscription;
 
   constructor(
@@ -34,7 +35,15 @@ export class NotificationBarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getEncryptionStatus();
+    this.dataRefresher = Observable.interval(8000).subscribe(val => {
+      if (this.authed && !this.encrypted) {
+        this.getEncryptionStatus();
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    this.dataRefresher.unsubscribe();
   }
 
   getEncryptionStatus() {
@@ -45,6 +54,9 @@ export class NotificationBarComponent implements OnInit {
             this.notificationService.addWarning(
               `Your wallet is not encrypted, please use the 'Encrypt Wallet' button on the overview page to secure your wallet.`
             );
+          } else {
+            this.encrypted = true;
+            this.dataRefresher.unsubscribe();
           }
         } else {
           this.notificationService.addError(
@@ -61,6 +73,7 @@ export class NotificationBarComponent implements OnInit {
       }
     );
   }
+
   removeNotification(targetNotif: NavDroidNotification): void {
     this.notificationService.removeNotification(targetNotif);
   }

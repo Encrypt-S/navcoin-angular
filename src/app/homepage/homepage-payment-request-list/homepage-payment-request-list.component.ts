@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Observable, Subscription } from 'rxjs';
 import 'rxjs/add/observable/interval';
@@ -18,7 +18,7 @@ import { MzToastService } from 'ngx-materialize';
     './homepage-payment-request-list.css'
   ]
 })
-export class HomepagePaymentRequestListComponent implements OnInit {
+export class HomepagePaymentRequestListComponent implements OnInit, OnDestroy {
   buttonDebounce: Boolean = false;
   dataRefresher: Subscription;
 
@@ -34,6 +34,10 @@ export class HomepagePaymentRequestListComponent implements OnInit {
     this.dataRefresher = Observable.interval(30000).subscribe(val => {
       this.getData();
     });
+  }
+
+  ngOnDestroy() {
+    this.dataRefresher.unsubscribe();
   }
 
   getData() {

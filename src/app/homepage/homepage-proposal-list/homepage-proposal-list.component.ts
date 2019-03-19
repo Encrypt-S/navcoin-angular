@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import 'rxjs/add/observable/interval';
 import { CommunityFundService } from 'src/app/services/community-fund.service';
@@ -17,7 +17,7 @@ import { MzToastService } from 'ngx-materialize';
     './homepage-proposal-list.component.css'
   ]
 })
-export class HomepageProposalListComponent implements OnInit {
+export class HomepageProposalListComponent implements OnInit, OnDestroy {
   constructor(
     public communityFundService: CommunityFundService,
     private toastService: MzToastService,
@@ -32,6 +32,10 @@ export class HomepageProposalListComponent implements OnInit {
     this.dataRefresher = Observable.interval(30000).subscribe(val => {
       this.getData();
     });
+  }
+
+  ngOnDestroy() {
+    this.dataRefresher.unsubscribe();
   }
 
   getData() {

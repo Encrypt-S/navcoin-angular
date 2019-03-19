@@ -59,12 +59,13 @@
       UI to the latest version
     </p>
 
-    <form #updateUiForm="ngForm">
+    <form #updateUiForm="ngForm" (ngSubmit)="onSubmitUpdate()">
       <label>
         Web interface Password:
         <input
           type="password"
           id="password"
+          class="validate"
           required
           [(ngModel)]="deviceUtils.password" />
       </label>
@@ -74,7 +75,7 @@
         mz-modal-close
         class="waves-effect waves-light btn blue lighten-2"
         type="submit"
-        (click)="onSubmitUpdate()"
+        [disabled]="!deviceUtils.password"
       >
         Update Stakebox UI
       </button>

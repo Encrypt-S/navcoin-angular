@@ -25,13 +25,13 @@ export class DeviceUtilsComponent implements OnInit {
 
   onSubmitUpdate() {
 
-    console.log('this.deviceUtils', this.deviceUtils)
+    console.log('this.deviceUtils', this.deviceUtils);
 
     this.deviceUtilsService.update(this.deviceUtils).subscribe(
       (response: DeviceUtilsResponse) => {
         if (response.type != 'SUCCESS') {
           this.toastService.show(
-            'Something went wrong, try again',
+            response.message,
             4000,
             'red'
           );

@@ -3,7 +3,7 @@
     Balance Overview
   </mz-card-title>
   <mz-card-content
-    *ngIf="!wallet || !explorer.tickerUSD || !explorer.tickerBTC"
+    *ngIf="!wallet || !explorer || !explorer.tickerUSD || !explorer.tickerBTC"
   >
     <p>Wallet Balance loading...</p>
   </mz-card-content>

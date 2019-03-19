@@ -18,7 +18,7 @@ export class ProposalListComponent implements OnInit {
   ) {}
   buttonDebounce: Boolean = false;
   dataRefresher: Subscription;
-  filterBy: Array<string> = [];
+  filterBy: Array<string> = ['pending'];
   isEncrypted: Boolean;
 
   proposalFilterValue = 'PENDING';

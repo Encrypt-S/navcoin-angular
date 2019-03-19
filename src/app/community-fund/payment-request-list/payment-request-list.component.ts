@@ -19,8 +19,8 @@ export class PaymentRequestListComponent implements OnInit {
   buttonDebounce: Boolean = false;
   dataRefresher: Subscription;
 
-  filterBy: Array<string> = [];
-  payReqfilterValue = 'PENDING';
+  filterBy: Array<string> = ['pending'];
+  payReqfilterValue = 'PR-PENDING';
 
   ngOnInit() {
     this.getData();
@@ -51,13 +51,13 @@ export class PaymentRequestListComponent implements OnInit {
   }
 
   updateFilter() {
-    if (this.payReqfilterValue === 'ALL') {
+    if (this.payReqfilterValue === 'PR-ALL') {
       this.filterBy = [];
-    } else if (this.payReqfilterValue === 'PENDING') {
+    } else if (this.payReqfilterValue === 'PR-PENDING') {
       this.filterBy = ['pending'];
-    } else if (this.payReqfilterValue === 'ACCEPTED') {
+    } else if (this.payReqfilterValue === 'PR-ACCEPTED') {
       this.filterBy = ['accepted'];
-    } else if (this.payReqfilterValue === 'FAILED') {
+    } else if (this.payReqfilterValue === 'PR-FAILED') {
       this.filterBy = ['expired', 'rejected'];
     }
   }

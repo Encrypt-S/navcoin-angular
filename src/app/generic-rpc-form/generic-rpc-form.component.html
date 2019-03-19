@@ -18,7 +18,7 @@
         <button
           mz-button
           (click)="bottomSheetModal.openModal()"
-          [disabled]="!rpcCommand"
+          [disabled]="!rpcCommand || debounce"
           class="waves-effect waves-light btn right blue lighten-2"
         >
           Run command
@@ -61,6 +61,13 @@
   </mz-modal-content>
   <mz-modal-footer>
     <button mz-button [flat]="true" mz-modal-close>Cancel</button>
-    <button mz-button mz-modal-close (click)="onSubmit()">Run command</button>
+    <button
+      mz-button
+      mz-modal-close
+      (click)="onSubmit()"
+      class="blue lighten-2"
+    >
+      Run command
+    </button>
   </mz-modal-footer>
 </mz-modal>

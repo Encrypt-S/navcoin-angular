@@ -20,12 +20,9 @@ export class DeviceUtilsComponent implements OnInit {
     private toastService: MzToastService
   ) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   onSubmitUpdate() {
-
-    console.log('this.deviceUtils', this.deviceUtils);
 
     this.deviceUtilsService.update(this.deviceUtils).subscribe(
       (response: DeviceUtilsResponse) => {
@@ -45,7 +42,7 @@ export class DeviceUtilsComponent implements OnInit {
       error => {
         console.log('error: ', error);
         this.toastService.show(
-          'Something went wrong, try again',
+          error.error.message,
           4000,
           'red'
         );

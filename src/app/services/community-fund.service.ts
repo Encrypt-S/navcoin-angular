@@ -43,12 +43,15 @@ export class CommunityFundService implements OnInit {
   }
 
   getFilteredPaymentRequestList(statusFilter): Array<CFPaymentRequest> {
-    if (statusFilter) {
-      return this._paymentRequestList.filter(paymentRequest => {
-        return paymentRequest.status === statusFilter;
-      });
+    if (!statusFilter) {
+      return new Array<CFPaymentRequest>();
+    } else if (statusFilter.length > 0) {
+      return this._paymentRequestList.filter(payReq =>
+        statusFilter.includes(payReq.status)
+      );
+    } else {
+      return this._paymentRequestList;
     }
-    return new Array<CFPaymentRequest>();
   }
 
   get paymentRequestList(): Array<CFPaymentRequest> {

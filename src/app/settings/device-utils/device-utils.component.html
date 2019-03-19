@@ -32,10 +32,15 @@
   </mz-modal-header>
   <mz-modal-content>
     <p>
-      You are about to restart your Stakevbox, are you sure?
+      You are about to restart your Stakebox, are you sure?
     </p>
 
-    <button mz-button mz-modal-close type="submit">
+    <button
+      mz-button
+      mz-modal-close
+      type="submit"
+      class="waves-effect waves-light btn blue lighten-2"
+    >
       Yes
     </button>
   </mz-modal-content>
@@ -64,8 +69,14 @@
           [(ngModel)]="deviceUtils.password" />
       </label>
 
-      <button mz-button mz-modal-close (click)="onSubmitUpdate()">Update</button>
-
+      <button
+        mz-button
+        mz-modal-close
+        class="waves-effect waves-light btn blue lighten-2"
+        type="submit"
+      >
+        Update Stakebox UI
+      </button>
     </form>
   </mz-modal-content>
   <mz-modal-footer>

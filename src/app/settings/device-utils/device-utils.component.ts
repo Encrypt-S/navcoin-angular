@@ -25,6 +25,8 @@ export class DeviceUtilsComponent implements OnInit {
 
   onSubmitUpdate() {
 
+    console.log('this.deviceUtils', this.deviceUtils)
+
     this.deviceUtilsService.update(this.deviceUtils).subscribe(
       (response: DeviceUtilsResponse) => {
         if (response.type != 'SUCCESS') {

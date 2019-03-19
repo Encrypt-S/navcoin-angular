@@ -11,6 +11,9 @@ export class DeviceUtilsService {
 
   update(uIPasswordForm){
 
+    console.log('DeviceUtilsService.update uIPasswordForm', uIPasswordForm)
+
+
     const token = localStorage.getItem('token');
 
     const httpOptions = {

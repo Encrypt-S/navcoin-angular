@@ -96,7 +96,9 @@
               pending: proposal.status === 'pending',
               accepted:
                 proposal.status === 'accepted' ||
-                proposal.status === 'accepted waiting for enough coins in fund',
+                proposal.status ===
+                  'accepted waiting for enough coins in fund' ||
+                proposal.status === 'accepted waiting for end of voting period',
               rejected: proposal.status === 'rejected',
               expired:
                 proposal.status === 'expired' ||

@@ -101,7 +101,7 @@
                 accepted:
                   paymentRequest.status === 'accepted' ||
                   paymentRequest.status ===
-                    'accepted waiting for enough coins in fund',
+                    'accepted waiting for end of voting period',
                 rejected: paymentRequest.status === 'rejected',
                 expired:
                   paymentRequest.status === 'expired' ||

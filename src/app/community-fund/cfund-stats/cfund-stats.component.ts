@@ -19,11 +19,9 @@ export class CfundStatsComponent implements OnInit {
 
   ngOnInit() {
     this.communityFundService.fetchCfundStats().catch(error => {
-      this.notificationService.addNotification(
-        new NavDroidNotification(
-          `Failed to get Comnity Fund Stats: ${error}`,
-          NotifType.ERROR
-        )
+      this.notificationService.addError(
+        error,
+        `Failed to get Community Fund Stats`
       );
     });
   }

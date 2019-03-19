@@ -9,6 +9,7 @@ import {
   NavDroidNotification,
   NotifType
 } from 'src/app/notification-bar/NavDroidNotification.model';
+import { MzToastService } from 'ngx-materialize';
 
 @Component({
   selector: 'app-set-main-address',
@@ -23,6 +24,7 @@ export class SetMainAddressComponent implements OnInit {
 
   constructor(
     private walletService: WalletService,
+    private toastService: MzToastService,
     private notificationService: NotificationService
   ) {}
 
@@ -35,9 +37,7 @@ export class SetMainAddressComponent implements OnInit {
       .subscribe(
         (receive: RpcReceive) => {
           if (receive.type === 'SUCCESS') {
-            this.notificationService.addNotification(
-              new NavDroidNotification(`${receive.data}`, NotifType.SUCCESS)
-            );
+            this.toastService.show(receive.data, 4000, 'green');
           } else {
             this.notificationService.addError(receive.data, receive.message);
           }
@@ -59,9 +59,7 @@ export class SetMainAddressComponent implements OnInit {
     this.walletService.sendAPI('generate-main-address').subscribe(
       (receive: RpcReceive) => {
         if (receive.type === 'SUCCESS') {
-          this.notificationService.addNotification(
-            new NavDroidNotification(`${receive.data}`, NotifType.SUCCESS)
-          );
+          this.toastService.show(receive.data, 4000, 'green');
         } else {
           this.notificationService.addError(receive.data, receive.message);
         }

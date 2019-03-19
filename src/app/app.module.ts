@@ -19,7 +19,6 @@ import { SettingsComponent } from './settings/settings.component';
 import { PageNotFoundComponent } from './not-found/not-found.component';
 
 // modules
-import { UiPasswordComponent } from './settings/ui-password/ui-password.component';
 
 // materialize
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -31,8 +30,9 @@ import {
   MzNavbarModule,
   MzModalModule,
   MzToastModule,
-  MzToastService,
-  MzTextareaModule
+  MzDropdownModule,
+  MzTextareaModule,
+  MzRadioButtonModule
 } from 'ngx-materialize';
 
 // services
@@ -48,6 +48,8 @@ import { QRCodeModule } from 'angular2-qrcode';
 import { ClipboardModule } from 'ngx-clipboard';
 
 // partials
+import { UiPasswordComponent } from './settings/ui-password/ui-password.component';
+import { ChangeWalletPasswordComponent } from './settings/change-wallet-password/change-wallet-password.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HomepagePaymentRequestListComponent } from './homepage/homepage-payment-request-list/homepage-payment-request-list.component';
 import { CommunityFundComponent } from './community-fund/community-fund.component';
@@ -71,6 +73,9 @@ import { SetMainAddressComponent } from './settings/set-main-address/set-main-ad
 import { ConfigEditComponent } from './settings/config-edit/config-edit.component';
 import { WalletUtilsComponent } from './settings/wallet-utils/wallet-utils.component';
 import { DeviceUtilsComponent } from './settings/device-utils/device-utils.component';
+import { ChangeRPCAuthComponent } from './settings/change-rpc-auth/change-rpc-auth.component';
+import { SecondsToDays } from './common/pipes/secondsToDays.pipe';
+import { NgxLinkifyjsModule } from 'ngx-linkifyjs';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -107,14 +112,19 @@ export function tokenGetter() {
     SetMainAddressComponent,
     ConfigEditComponent,
     WalletUtilsComponent,
-    DeviceUtilsComponent
+    DeviceUtilsComponent,
+    ChangeWalletPasswordComponent,
+    ChangeRPCAuthComponent,
+    SecondsToDays
   ],
   imports: [
+    NgxLinkifyjsModule.forRoot(),
     ReactiveFormsModule,
     BrowserModule,
     BrowserAnimationsModule,
     MzSidenavModule,
     MzButtonModule,
+    MzRadioButtonModule,
     MzCardModule,
     MzSelectModule,
     MzTextareaModule,
@@ -125,6 +135,7 @@ export function tokenGetter() {
     HttpClientModule,
     FormsModule,
     QRCodeModule,
+    MzDropdownModule,
     ClipboardModule,
     JwtModule.forRoot({
       config: {

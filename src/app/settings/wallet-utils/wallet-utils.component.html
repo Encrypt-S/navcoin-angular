@@ -4,28 +4,31 @@
   </mz-card-title>
 
   <mz-card-content>
-    <div class="row" (click)="updateModal.openModal()">
+    <div class="row">
       <button
         [disabled]=""
         class="waves-effect waves-light btn left blue lighten-2"
+        (click)="updateModal.openModal()"
       >
         Update NavCoin Daemon
       </button>
     </div>
 
-    <div class="row" (click)="backUpModal.openModal()">
+    <div class="row">
       <button
         [disabled]=""
         class="waves-effect waves-light btn left blue lighten-2"
+        (click)="backUpModal.openModal()"
       >
         Back Up Wallet
       </button>
     </div>
 
-    <div class="row" (click)="importModal.openModal()">
+    <div class="row">
       <button
         [disabled]=""
         class="waves-effect waves-light btn left blue lighten-2"
+        (click)="importModal.openModal()"
       >
         Import Existing Wallet
       </button>
@@ -45,7 +48,7 @@
     <form [formGroup]="">
       <label>
         Web interface Password:
-        <input type="text" required />
+        <input type="password" required />
       </label>
 
       <label>
@@ -75,7 +78,7 @@
     <form [formGroup]="">
       <label>
         Web interface Password:
-        <input type="text" required />
+        <input type="password" required />
       </label>
 
       <button mz-button mz-modal-close type="submit">
@@ -101,7 +104,7 @@
     <form [formGroup]="">
       <label>
         Web interface Password:
-        <input type="text" required />
+        <input type="password" required />
       </label>
 
       <button mz-button mz-modal-close type="submit">

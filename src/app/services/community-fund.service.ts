@@ -30,13 +30,16 @@ export class CommunityFundService implements OnInit {
     return this._proposalList;
   }
 
-  getFilteredProposalList(statusFilter): Array<CFProposal> {
-    if (statusFilter) {
-      return this._proposalList.filter(proposal => {
-        return proposal.status === statusFilter;
-      });
+  getFilteredProposalList(statusFilter: Array<string>): Array<CFProposal> {
+    if (!statusFilter) {
+      return new Array<CFProposal>();
+    } else if (statusFilter.length > 0) {
+      return this._proposalList.filter(proposal =>
+        statusFilter.includes(proposal.status)
+      );
+    } else {
+      return this._proposalList;
     }
-    return new Array<CFProposal>();
   }
 
   getFilteredPaymentRequestList(statusFilter): Array<CFPaymentRequest> {

@@ -2,21 +2,14 @@
   height: 100%;
 }
 .proposal-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  grid-gap: 12px;
-  justify-content: space-between;
+  display: flex;
+  flex-direction: column;
 }
+
 .proposal-info {
   line-height: 30px;
-  color: white;
-  background: #7d59b5;
-  border-radius: 10px;
   padding: 15px 30px;
   margin: 10px 0;
-
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
-    0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
 
   display: flex;
   flex-direction: column;
@@ -24,12 +17,10 @@
 }
 
 h1 {
-  color: #fcfcfc;
   font-size: 1.4em;
   margin: 0;
 }
 h2 {
-  color: #fcfcfc;
   font-size: 1.2em;
   margin: 5px 0 0 0;
 }
@@ -41,6 +32,11 @@ h2 {
   justify-content: center;
   max-width: 150px;
   width: 100%;
+}
+
+.hash,
+.description-text {
+  word-break: break-all;
 }
 
 .button-container {
@@ -107,4 +103,9 @@ button.no-btn:hover {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+button.yes-btn.selected:hover,
+button.no-btn.selected:hover {
+  background: #f0f0f0;
 }

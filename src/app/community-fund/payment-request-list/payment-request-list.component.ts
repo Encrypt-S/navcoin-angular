@@ -3,10 +3,7 @@ import { Observable, Subscription } from 'rxjs';
 import 'rxjs/add/observable/interval';
 import { CommunityFundService } from 'src/app/services/community-fund.service';
 import { NotificationService } from 'src/app/notification-bar/notification.service';
-import {
-  NavDroidNotification,
-  NotifType
-} from 'src/app/notification-bar/NavDroidNotification.model';
+import { MzToastService } from 'ngx-materialize';
 
 @Component({
   selector: 'app-payment-request-list',
@@ -16,10 +13,14 @@ import {
 export class PaymentRequestListComponent implements OnInit {
   constructor(
     public communityFundService: CommunityFundService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private toastService: MzToastService
   ) {}
   buttonDebounce: Boolean = false;
   dataRefresher: Subscription;
+
+  filterBy: Array<string> = [];
+  payReqfilterValue = 'PENDING';
 
   ngOnInit() {
     this.getData();
@@ -49,17 +50,28 @@ export class PaymentRequestListComponent implements OnInit {
       );
   }
 
+  updateFilter() {
+    if (this.payReqfilterValue === 'ALL') {
+      this.filterBy = [];
+    } else if (this.payReqfilterValue === 'PENDING') {
+      this.filterBy = ['pending'];
+    } else if (this.payReqfilterValue === 'ACCEPTED') {
+      this.filterBy = ['accepted'];
+    } else if (this.payReqfilterValue === 'FAILED') {
+      this.filterBy = ['expired', 'rejected'];
+    }
+  }
+
   voteOnPaymentRequest(paymentReqHash: string, vote: string) {
     this.buttonDebounce = true;
 
     this.communityFundService
       .updatePaymentRequestVote(paymentReqHash, vote)
       .then(() => {
-        this.notificationService.addNotification(
-          new NavDroidNotification(
-            `Successfully voted for ${paymentReqHash}`,
-            NotifType.SUCCESS
-          )
+        this.toastService.show(
+          `Successfully voted for ${paymentReqHash}`,
+          4000,
+          'green'
         );
         this.getData();
       })

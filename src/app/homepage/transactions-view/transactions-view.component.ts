@@ -36,23 +36,14 @@ export class TransactionsViewComponent implements OnInit {
         if (receieve.type === 'SUCCESS') {
           this.transactions = receieve.data.reverse();
         } else {
-          this.notificationService.addNotification(
-            new NavDroidNotification(
-              `Unable to get transactions ${receieve.data}. ${
-                receieve.message
-              }`,
-              NotifType.ERROR
-            )
+          this.notificationService.addError(
+            `${receieve.data}. ${receieve.message}`,
+            `Unable to get transactions`
           );
         }
       },
       error => {
-        this.notificationService.addNotification(
-          new NavDroidNotification(
-            `Unable to get transactions ${error}`,
-            NotifType.ERROR
-          )
-        );
+        this.notificationService.addError(error, `Unable to get transactions`);
       }
     );
   }

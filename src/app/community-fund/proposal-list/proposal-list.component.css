@@ -3,30 +3,20 @@
 }
 
 .proposal-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
-  grid-gap: 15px;
-  justify-content: space-between;
+  display: flex;
+  flex-direction: column;
 }
 .proposal-info {
   line-height: 30px;
-  color: white;
-  background: #7d59b5;
-  border-radius: 10px;
   padding: 15px 30px;
   margin: 10px 0;
-
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
-    0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
 }
 
 h1 {
-  color: #fcfcfc;
   font-size: 1.4em;
   margin: 0;
 }
 h2 {
-  color: #fcfcfc;
   font-size: 1.2em;
   margin: 5px 0 0 0;
 }
@@ -52,8 +42,14 @@ h2 {
   flex-direction: column;
   align-items: center;
 }
+
 .flex-center h2 {
   margin: 0 auto;
+}
+
+.hash,
+.description-text {
+  word-break: break-all;
 }
 
 button,
@@ -100,6 +96,11 @@ button.no-btn:hover {
   background: lightcoral;
 }
 
+button.yes-btn.selected:hover,
+button.no-btn.selected:hover {
+  background: #f0f0f0;
+}
+
 .status {
   padding: 3px 6px;
   border-radius: 5px;
@@ -107,16 +108,29 @@ button.no-btn:hover {
 }
 .pending {
   background: gray;
+  color: white;
 }
 
 .accepted {
   background: darkgreen;
+  color: white;
 }
 
 .expired {
   background: palevioletred;
+  color: white;
 }
 
 .rejected {
+  color: white;
   background: crimson;
+}
+
+.radio-form {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.radio-button-container {
+  margin: 5px;
 }

@@ -4,6 +4,11 @@ import { DeviceUtilsModel } from './device-utils.model';
 import { DeviceUtilsResponse } from './device-utils.response.model';
 import { DeviceUtilsService } from './device-utils.service';
 import { MzToastService } from 'ngx-materialize';
+import { NotificationService } from 'src/app/notification-bar/notification.service';
+import {
+  NavDroidNotification,
+  NotifType
+} from 'src/app/notification-bar/NavDroidNotification.model';
 
 @Component({
   selector: 'app-device-utils',
@@ -17,6 +22,7 @@ export class DeviceUtilsComponent implements OnInit {
 
   constructor(
     private deviceUtilsService: DeviceUtilsService,
+    private notificationService: NotificationService,
     private toastService: MzToastService
   ) { }
 
@@ -36,7 +42,15 @@ export class DeviceUtilsComponent implements OnInit {
         }
 
         this.deviceUtils = new DeviceUtilsModel();
-        this.toastService.show('User Interface Updated', 4000, 'green');
+
+
+        const newNotif = new NavDroidNotification(
+          'UI Updated, please restart the device for the changes to take effect',
+          NotifType.WARNING
+        );
+        
+        this.notificationService.addNotification(newNotif);
+
         return;
       },
       error => {

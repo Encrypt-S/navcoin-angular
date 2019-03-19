@@ -46,7 +46,7 @@
 
 <mz-modal #updateModal>
   <mz-modal-header>
-    <h4>Update NavCoin Daemon</h4>
+    <h4>Update Stakebox UI</h4>
   </mz-modal-header>
   <mz-modal-content>
     <p>
@@ -57,12 +57,15 @@
     <form [formGroup]="">
       <label>
         Web interface Password:
-        <input type="password" required />
+        <input
+          type="password"
+          id="password"
+          required
+          [(ngModel)]="deviceUtils.password" />
       </label>
 
-      <button mz-button mz-modal-close type="submit">
-        Update Stakebox UI
-      </button>
+      <button mz-button mz-modal-close (click)="onSubmitUpdate()">Update</button>
+
     </form>
   </mz-modal-content>
   <mz-modal-footer>

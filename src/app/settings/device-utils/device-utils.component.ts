@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
+import { DeviceUtilsModel } from './device-utils.model';
+import { DeviceUtilsResponse } from './device-utils.response.model';
+import { DeviceUtilsService } from './device-utils.service';
+import { MzToastService } from 'ngx-materialize';
+
 @Component({
   selector: 'app-device-utils',
   templateUrl: './device-utils.component.html',
@@ -7,9 +12,43 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DeviceUtilsComponent implements OnInit {
 
-  constructor() { }
+  deviceUtils = new DeviceUtilsModel();
+  deviceUtilsResponse: DeviceUtilsResponse;
+
+  constructor(
+    private deviceUtilsService: DeviceUtilsService,
+    private toastService: MzToastService
+  ) { }
 
   ngOnInit() {
+  }
+
+  onSubmitUpdate() {
+
+    this.deviceUtilsService.update(this.deviceUtils).subscribe(
+      (response: DeviceUtilsResponse) => {
+        if (response.type != 'SUCCESS') {
+          this.toastService.show(
+            'Something went wrong, try again',
+            4000,
+            'red'
+          );
+          return;
+        }
+
+        this.deviceUtils = new DeviceUtilsModel();
+        this.toastService.show('User Interface Updated', 4000, 'green');
+        return;
+      },
+      error => {
+        console.log('error: ', error);
+        this.toastService.show(
+          'Something went wrong, try again',
+          4000,
+          'red'
+        );
+      }
+    );
   }
 
 }

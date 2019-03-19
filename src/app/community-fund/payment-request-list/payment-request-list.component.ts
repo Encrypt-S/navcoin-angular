@@ -80,9 +80,10 @@ export class PaymentRequestListComponent implements OnInit, OnDestroy {
         this.getData();
       })
       .catch(error => {
-        this.notificationService.addError(
-          error,
-          `Failed to vote for ${paymentReqHash}`
+        this.toastService.show(
+          `Failed to vote for ${paymentReqHash}`,
+          4000,
+          'red'
         );
       })
       .finally(() => {

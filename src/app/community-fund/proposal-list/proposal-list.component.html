@@ -147,9 +147,7 @@
                   )
                 }"
                 [disabled]="buttonDebounce"
-                (click)="
-                  communityFundService.updateProposalVote(proposal.hash, 'yes')
-                "
+                (click)="voteOnProposal(proposal.hash, 'yes')"
               >
                 Yes
               </button>
@@ -159,9 +157,7 @@
                   selected: communityFundService.proposalVotingNo(proposal.hash)
                 }"
                 [disabled]="buttonDebounce"
-                (click)="
-                  communityFundService.updateProposalVote(proposal.hash, 'no')
-                "
+                (click)="voteOnProposal(proposal.hash, 'no')"
               >
                 No
               </button>

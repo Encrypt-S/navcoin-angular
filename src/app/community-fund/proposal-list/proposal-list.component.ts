@@ -80,9 +80,10 @@ export class ProposalListComponent implements OnInit, OnDestroy {
         this.getData();
       })
       .catch(error => {
-        this.notificationService.addError(
-          error,
-          `Failed to vote for ${proposalHash}`
+        this.toastService.show(
+          `Failed to vote for ${proposalHash}`,
+          4000,
+          'red'
         );
       })
       .finally(() => {

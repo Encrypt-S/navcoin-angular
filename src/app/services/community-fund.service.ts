@@ -11,7 +11,7 @@ import RPCCFundVoteContainer from '../models/RPCCFundVotes.model';
 
 @Injectable()
 export class CommunityFundService implements OnInit {
-  private _proposalVotes: RPCCFundVoteContainer;
+  private _proposalVotes = new RPCCFundVoteContainer();
 
   private _paymentRequestList: Array<CFPaymentRequest>;
   private _proposalList: Array<CFProposal>;
@@ -229,14 +229,20 @@ export class CommunityFundService implements OnInit {
   }
 
   proposalVotingNo(proposalHash: string) {
-    const vote = this.proposalVotes.no.filter((proposalVoteString: string) =>
+    if (!this._proposalVotes.no) {
+      return false;
+    }
+    const vote = this._proposalVotes.no.filter((proposalVoteString: string) =>
       proposalVoteString.includes(proposalHash)
     );
     return vote.length === 1 ? true : false;
   }
 
   proposalVotingYes(proposalHash: string) {
-    const vote = this.proposalVotes.yes.filter((proposalVoteString: string) =>
+    if (!this._proposalVotes.yes) {
+      return false;
+    }
+    const vote = this._proposalVotes.yes.filter((proposalVoteString: string) =>
       proposalVoteString.includes(proposalHash)
     );
     return vote.length === 1 ? true : false;

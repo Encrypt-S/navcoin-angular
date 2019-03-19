@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Observable, Subscription } from 'rxjs';
 import 'rxjs/add/observable/interval';
@@ -18,7 +18,7 @@ import { MzToastService } from 'ngx-materialize';
     './homepage-payment-request-list.css'
   ]
 })
-export class HomepagePaymentRequestListComponent implements OnInit {
+export class HomepagePaymentRequestListComponent implements OnInit, OnDestroy {
   buttonDebounce: Boolean = false;
   dataRefresher: Subscription;
 
@@ -34,6 +34,10 @@ export class HomepagePaymentRequestListComponent implements OnInit {
     this.dataRefresher = Observable.interval(30000).subscribe(val => {
       this.getData();
     });
+  }
+
+  ngOnDestroy() {
+    this.dataRefresher.unsubscribe();
   }
 
   getData() {
@@ -65,16 +69,17 @@ export class HomepagePaymentRequestListComponent implements OnInit {
       .updatePaymentRequestVote(hash, vote)
       .then(() => {
         this.toastService.show(
-          `Successfully voted ${vote} for ${hash}`,
+          `Successfully updated vote for ${hash}`,
           4000,
           'green'
         );
         this.getData();
       })
       .catch(error => {
-        this.notificationService.addError(
-          error,
-          `Failed to vote ${vote} for ${hash}`
+        this.toastService.show(
+          `Failed to update vote for ${hash}`,
+          4000,
+          'red'
         );
       })
       .finally(() => {

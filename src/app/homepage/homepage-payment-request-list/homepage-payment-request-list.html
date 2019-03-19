@@ -49,16 +49,7 @@
       >
         <div>
           <div class="description-text">
-            <h1
-              [innerHTML]="paymentRequest.description | linkify"
-              *ngIf="55 >= paymentRequest.description.length"
-            ></h1>
-            <h1
-              [innerHTML]="
-                paymentRequest.description.slice(0, 55) + '...' | linkify
-              "
-              *ngIf="paymentRequest.description.length > 55"
-            ></h1>
+            <h1 [innerHTML]="paymentRequest.description | linkify"></h1>
           </div>
           <div>Amount: {{ paymentRequest.requestedAmount }} NAV</div>
         </div>
@@ -99,8 +90,8 @@
             >View Proposal</a
           >
         </div>
+        <hr />
       </div>
-      <hr />
     </div>
     <div class="see-all-container">
       <a routerLink="/community-fund" class="button"

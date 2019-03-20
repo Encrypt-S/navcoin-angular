@@ -23,7 +23,7 @@ export class UiPasswordComponent implements OnInit {
   onSubmit() {
     if (this.uiPassword.password !== this.uiPassword.confirmPassword) {
       this.toastService.show(
-        'Your new password do not match the confirm field, please check you typed it correctly in both fields',
+        'Your new password does not match the confirm field, please check you typed it correctly in both fields',
         5000,
         'red'
       );

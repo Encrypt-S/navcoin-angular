@@ -58,7 +58,6 @@ export class DeviceUtilsComponent implements OnInit {
         );
 
         this.notificationService.addNotification(newNotif);
-
         return;
       },
       error => {
@@ -84,8 +83,8 @@ export class DeviceUtilsComponent implements OnInit {
             4000,
             'red'
           );
-          return;
           this.disableRestartButton = false;
+          return;
         }
 
         this.deviceUtils = new DeviceUtilsModel();

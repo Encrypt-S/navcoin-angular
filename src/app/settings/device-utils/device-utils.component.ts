@@ -19,6 +19,9 @@ export class DeviceUtilsComponent implements OnInit {
 
   deviceUtils = new DeviceUtilsModel();
   deviceUtilsResponse: DeviceUtilsResponse;
+  disableUiButton = false;
+  disableRestartButton = false;
+  loginRedirect;
 
   constructor(
     private deviceUtilsService: DeviceUtilsService,
@@ -26,10 +29,14 @@ export class DeviceUtilsComponent implements OnInit {
     private toastService: MzToastService
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    const url = window.location.href;
+    const parts = url.split(':');
+    this.loginRedirect = parts[0] + parts[1] + '/login';
+  }
 
   onSubmitUpdate() {
-
+    this.disableUiButton = true;
     this.deviceUtilsService.update(this.deviceUtils).subscribe(
       (response: DeviceUtilsResponse) => {
         if (response.type != 'SUCCESS') {
@@ -38,15 +45,16 @@ export class DeviceUtilsComponent implements OnInit {
             4000,
             'red'
           );
+          this.disableUiButton = false;
           return;
         }
 
         this.deviceUtils = new DeviceUtilsModel();
 
         const newNotif = new NavDroidNotification(
-          'UI Updated, device is now rebooting. ',
+          'The web service is now restarting, please reauthenticate when it\'s online.',
           NotifType.SUCCESS,
-          '/login'
+          this.loginRedirect
         );
 
         this.notificationService.addNotification(newNotif);
@@ -61,12 +69,13 @@ export class DeviceUtilsComponent implements OnInit {
           4000,
           'red'
         );
+        this.disableUiButton = false;
       }
     );
   }
 
   onSubmitRestart() {
-
+    this.disableRestartButton = true;
     this.deviceUtilsService.restart(this.deviceUtils).subscribe(
       (response: DeviceUtilsResponse) => {
         if (response.type != 'SUCCESS') {
@@ -76,11 +85,17 @@ export class DeviceUtilsComponent implements OnInit {
             'red'
           );
           return;
+          this.disableRestartButton = false;
         }
 
         this.deviceUtils = new DeviceUtilsModel();
-        this.toastService.show('StakeBox Restarting', 4000, 'green');
-        return;
+        const newNotif = new NavDroidNotification(
+          'The device is now rebooting, please reauthenticate when it\'s powered up.',
+          NotifType.SUCCESS,
+          this.loginRedirect
+        );
+
+        this.notificationService.addNotification(newNotif);
       },
       error => {
         console.log('error: ', error);
@@ -90,6 +105,7 @@ export class DeviceUtilsComponent implements OnInit {
           4000,
           'red'
         );
+        this.disableRestartButton = false;
       }
     );
   }

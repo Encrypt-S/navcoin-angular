@@ -5,18 +5,21 @@ import { OnInit, Injectable } from '@angular/core';
 import CFProposal from '../models/CFProposal.model';
 import RPCDataCFundStats from '../models/RPCCommunityFundStats.model';
 import CFPaymentRequest from '../models/CFPaymentRequest.model';
-import RPCCFundVoteContainer from '../models/RPCCFundVotes.model';
+import RPCCFundProposalVoteContainer from '../models/RPCCFundProposalVotes.model';
+import RPCCFundPaymentRequestVote from '../models/RPCCFundPaymentRequestVote.model';
+import RPCCFundPaymentRequestVoteContainer from '../models/RPCCFundPaymentRequestVoteContainer.model';
+import RPCCFundProposalVote from '../models/RPCCFundProposalVote.model';
 
 // TODO Add Caching ?
 
 @Injectable()
 export class CommunityFundService implements OnInit {
-  private _proposalVotes: RPCCFundVoteContainer;
+  private _proposalVotes: RPCCFundProposalVoteContainer;
 
   private _paymentRequestList: Array<CFPaymentRequest>;
   private _proposalList: Array<CFProposal>;
   private _communityFundStats: RPCDataCFundStats;
-  private _paymentRequestVotes: RPCCFundVoteContainer;
+  private _paymentRequestVotes: RPCCFundPaymentRequestVoteContainer;
 
   get proposalVotes(): any {
     return this._proposalVotes;
@@ -229,31 +232,31 @@ export class CommunityFundService implements OnInit {
   }
 
   proposalVotingNo(proposalHash: string) {
-    const vote = this._proposalVotes.no.filter((proposalVoteString: string) =>
-      proposalVoteString.includes(proposalHash)
+    const vote = this._proposalVotes.no.filter(
+      (proposalVote: RPCCFundProposalVote) => proposalVote.hash === proposalHash
     );
     return vote.length === 1 ? true : false;
   }
 
   proposalVotingYes(proposalHash: string) {
-    const vote = this._proposalVotes.yes.filter((proposalVoteString: string) =>
-      proposalVoteString.includes(proposalHash)
+    const vote = this._proposalVotes.yes.filter(
+      (proposalVote: RPCCFundProposalVote) => proposalVote.hash === proposalHash
     );
     return vote.length === 1 ? true : false;
   }
 
   paymentRequestVotingNo(paymentRequestHash: string) {
     const vote = this._paymentRequestVotes.no.filter(
-      (paymentRequestVoteString: string) =>
-        paymentRequestVoteString.includes(paymentRequestHash)
+      (paymentRequestVote: RPCCFundPaymentRequestVote) =>
+        paymentRequestVote.hash === paymentRequestHash
     );
     return vote.length === 1 ? true : false;
   }
 
   paymentRequestVotingYes(paymentRequestHash: string) {
     const vote = this._paymentRequestVotes.yes.filter(
-      (paymentRequestVoteString: string) =>
-        paymentRequestVoteString.includes(paymentRequestHash)
+      (paymentRequestVote: RPCCFundPaymentRequestVote) =>
+        paymentRequestVote.hash === paymentRequestHash
     );
     return vote.length === 1 ? true : false;
   }

@@ -32,7 +32,7 @@ export class DeviceUtilsComponent implements OnInit {
   ngOnInit() {
     const url = window.location.href;
     const parts = url.split(':');
-    this.loginRedirect = parts[0] + parts[1] + '/login';
+    this.loginRedirect = parts[0] + ':' + parts[1] + '/login';
   }
 
   onSubmitUpdate() {

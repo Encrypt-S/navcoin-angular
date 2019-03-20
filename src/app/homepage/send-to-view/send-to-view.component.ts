@@ -91,6 +91,7 @@ export class SendToViewComponent implements OnInit {
               'Failed to unlock wallet to send coins'
             );
             this.buttonDebounce = false;
+            this.passwordForm.reset();
           }
         },
         error => {
@@ -99,6 +100,7 @@ export class SendToViewComponent implements OnInit {
             'Failed to unlock wallet to send coins'
           );
           this.buttonDebounce = false;
+          this.passwordForm.reset();
         }
       );
     } else {

@@ -24,16 +24,17 @@
         />
         <label for="amount">Amount</label>
       </div>
-      <label>
+      <mz-checkbox-container>
         <input
+          mz-checkbox
           type="checkbox"
           id="fee-included"
+          [label]="'Fee included in amount'"
           class="filled-in validate"
           [(ngModel)]="transaction.feeIncluded"
           name="fee-included"
         />
-        <span>Fee included in amount</span>
-      </label>
+      </mz-checkbox-container>
       <div class="input-field">
         <button
           class="waves-effect waves-light btn right"
@@ -106,6 +107,13 @@
     </button>
   </mz-modal-content>
   <mz-modal-footer>
-    <button mz-button [flat]="true" mz-modal-close>Cancel</button>
+    <button
+      mz-button
+      [flat]="true"
+      mz-modal-close
+      (click)="passwordForm.reset()"
+    >
+      Cancel
+    </button>
   </mz-modal-footer>
 </mz-modal>

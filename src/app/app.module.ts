@@ -32,6 +32,7 @@ import {
   MzToastModule,
   MzDropdownModule,
   MzTextareaModule,
+  MzCheckboxModule,
   MzRadioButtonModule
 } from 'ngx-materialize';
 
@@ -123,6 +124,7 @@ export function tokenGetter() {
     NgxLinkifyjsModule.forRoot(),
     ReactiveFormsModule,
     BrowserModule,
+    MzCheckboxModule,
     BrowserAnimationsModule,
     MzSidenavModule,
     MzButtonModule,

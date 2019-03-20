@@ -43,10 +43,10 @@ export class DeviceUtilsComponent implements OnInit {
 
         this.deviceUtils = new DeviceUtilsModel();
 
-
         const newNotif = new NavDroidNotification(
-          'UI Updated, device is now rebooting',
-          NotifType.SUCCESS
+          'UI Updated, device is now rebooting. ',
+          NotifType.SUCCESS,
+          '/login'
         );
 
         this.notificationService.addNotification(newNotif);

@@ -10,7 +10,7 @@
         class="waves-effect waves-light btn left blue lighten-2"
         (click)="restartModal.openModal()"
       >
-        Restart Stakebox
+        Restart NavDroid
       </button>
     </div>
 
@@ -20,7 +20,7 @@
         class="waves-effect waves-light btn left blue lighten-2"
         (click)="updateModal.openModal()"
       >
-        Update Stakebox UI
+        Update NavDroid
       </button>
     </div>
   </mz-card-content>
@@ -28,11 +28,11 @@
 
 <mz-modal #restartModal>
   <mz-modal-header>
-    <h4>Restart Stakebox</h4>
+    <h4>Restart NavDroid</h4>
   </mz-modal-header>
   <mz-modal-content>
     <p>
-      You are about to restart your Stakebox, are you sure?
+      Please enter your NavDroid user password to restart your NavDroid.
     </p>
 
     <form #restartStakeBoxForm="ngForm" (ngSubmit)="onSubmitRestart()">
@@ -54,7 +54,7 @@
         type="submit"
         [disabled]="!deviceUtils.password"
       >
-        Restart StakeBox
+        Submit
       </button>
       </form>
   </mz-modal-content>
@@ -65,12 +65,11 @@
 
 <mz-modal #updateModal>
   <mz-modal-header>
-    <h4>Update Stakebox UI</h4>
+    <h4>Update NavDroid Interface</h4>
   </mz-modal-header>
   <mz-modal-content>
     <p>
-      We will need your web interface password in order to upate the a Stakebox
-      UI to the latest version
+      Please enter your NavDroid user password to update the NavDroid web interface.
     </p>
 
     <form #updateUiForm="ngForm" (ngSubmit)="onSubmitUpdate()">
@@ -92,7 +91,7 @@
         type="submit"
         [disabled]="!deviceUtils.password"
       >
-        Update Stakebox UI
+        Submit
       </button>
     </form>
   </mz-modal-content>

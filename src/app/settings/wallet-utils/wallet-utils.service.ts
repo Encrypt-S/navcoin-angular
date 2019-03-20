@@ -10,6 +10,7 @@ export class WalletUtilsService {
   updateDaemonEndpoint = '/util/update-daemon';
   backupEndpoint = '/util/backup-wallet';
   importEndpoint = '/util/import-wallet';
+  restartEndpoint = '/util/restart-daemon';
 
   update(walletUtilsForm){
 
@@ -23,6 +24,20 @@ export class WalletUtilsService {
     };
 
     return this.http.post(this.updateDaemonEndpoint, walletUtilsForm, httpOptions);
+  }
+
+  restart(walletUtilsForm){
+
+    const token = localStorage.getItem('token');
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'x-access-token': token,
+      })
+    };
+
+    return this.http.post(this.restartEndpoint, walletUtilsForm, httpOptions);
   }
 
   backup(walletUtilsForm){

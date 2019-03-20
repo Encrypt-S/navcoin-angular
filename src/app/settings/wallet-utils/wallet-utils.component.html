@@ -10,7 +10,17 @@
         class="waves-effect waves-light btn left blue lighten-2"
         (click)="updateModal.openModal()"
       >
-        Update NavCoin Daemon
+        Update NavCoin
+      </button>
+    </div>
+
+    <div class="row">
+      <button
+        [disabled]=""
+        class="waves-effect waves-light btn left blue lighten-2"
+        (click)="restartModal.openModal()"
+      >
+        Restart NavCoin
       </button>
     </div>
 
@@ -20,7 +30,7 @@
         class="waves-effect waves-light btn left blue lighten-2"
         (click)="backUpModal.openModal()"
       >
-        Back Up Wallet
+        Backup Wallet
       </button>
     </div>
 
@@ -30,7 +40,7 @@
         class="waves-effect waves-light btn left blue lighten-2"
         (click)="importModal.openModal()"
       >
-        Import Existing Wallet
+        Import Wallet
       </button>
     </div>
   </mz-card-content>
@@ -42,7 +52,7 @@
   </mz-modal-header>
   <mz-modal-content>
     <p>
-      We will need your web interface password in order to import a new wallet.
+      Please enter your NavDroid user password to import your NavCoin wallet.
     </p>
 
     <form #importWalletForm="ngForm" (ngSubmit)="onSubmitImport()">
@@ -84,14 +94,50 @@
   </mz-modal-footer>
 </mz-modal>
 
-<mz-modal #updateModal>
+<mz-modal #restartModal>
   <mz-modal-header>
-    <h4>Update NavCoin Daemon</h4>
+    <h4>Restart NavCoin</h4>
   </mz-modal-header>
   <mz-modal-content>
     <p>
-      We will need your web interface password in order to upate the a NavCoin
-      Daemon to the latest version
+      Please enter your NavDroid user password to restart the NavCoin Daemon.
+    </p>
+
+    <form #updateDaemonForm="ngForm" (ngSubmit)="onSubmitRestart()">
+      <label>
+        Web interface Password:
+        <input
+        type="password"
+        id="updateDaemonPassword"
+        name="password"
+        class="validate"
+        required
+        [(ngModel)]="walletUtils.password"
+        />
+      </label>
+      <button
+        mz-button
+        mz-modal-close
+        class="waves-effect waves-light btn blue lighten-2"
+        type="submit"
+        [disabled]="!walletUtils.password"
+      >
+        Update Daemon
+      </button>
+    </form>
+  </mz-modal-content>
+  <mz-modal-footer>
+    <button mz-button [flat]="true" mz-modal-close>Cancel</button>
+  </mz-modal-footer>
+</mz-modal>
+
+<mz-modal #updateModal>
+  <mz-modal-header>
+    <h4>Update NavCoin</h4>
+  </mz-modal-header>
+  <mz-modal-content>
+    <p>
+      Please enter your NavDroid user password to update NavCoin.
     </p>
 
     <form #updateDaemonForm="ngForm" (ngSubmit)="onSubmitUpdate()">
@@ -124,12 +170,11 @@
 
 <mz-modal #backUpModal>
   <mz-modal-header>
-    <h4>Back Up wallet</h4>
+    <h4>Backup wallet</h4>
   </mz-modal-header>
   <mz-modal-content>
     <p>
-      We will need your web interface password in order to back up your wallet.
-      After submitting this form your wallet download will begin.
+      Please enter your NavDroid user password to backup your NavCoin wallet.
     </p>
 
     <form #backupWalletForm="ngForm" (ngSubmit)="onSubmitBackup()">

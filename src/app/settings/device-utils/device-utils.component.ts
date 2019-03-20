@@ -52,7 +52,7 @@ export class DeviceUtilsComponent implements OnInit {
         this.deviceUtils = new DeviceUtilsModel();
 
         const newNotif = new NavDroidNotification(
-          'The web service is now restarting, please reauthenticate when it\'s online.',
+          'The web service is now restarting, please reauthenticate in a few minutes.',
           NotifType.SUCCESS,
           this.loginRedirect
         );
@@ -89,7 +89,7 @@ export class DeviceUtilsComponent implements OnInit {
 
         this.deviceUtils = new DeviceUtilsModel();
         const newNotif = new NavDroidNotification(
-          'The device is now rebooting, please reauthenticate when it\'s powered up.',
+          'The device is now rebooting, please reauthenticate in a few minutes.',
           NotifType.SUCCESS,
           this.loginRedirect
         );

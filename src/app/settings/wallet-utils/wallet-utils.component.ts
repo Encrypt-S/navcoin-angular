@@ -51,6 +51,35 @@ export class WalletUtilsComponent implements OnInit {
     );
   }
 
+  onSubmitRestart() {
+
+    this.walletUtilsService.restart(this.walletUtils).subscribe(
+      (response: WalletUtilsResponse) => {
+        if (response.type != 'SUCCESS') {
+          this.toastService.show(
+            response.message,
+            4000,
+            'red'
+          );
+          return;
+        }
+
+        this.walletUtils = new WalletUtilsModel();
+        this.toastService.show('Daemon Restarted', 4000, 'green');
+        return;
+      },
+      error => {
+        console.log('error: ', error);
+        this.walletUtils = new WalletUtilsModel();
+        this.toastService.show(
+          error.error.message,
+          4000,
+          'red'
+        );
+      }
+    );
+  }
+
   onSubmitBackup() {
 
     this.walletUtilsService.backup(this.walletUtils).subscribe(

@@ -16,7 +16,7 @@ import { EventEmitter } from '@angular/core';
 })
 export class AppComponent implements OnInit {
   error: any;
-  title = 'NavDroid Angular';
+  title = 'NavDroid';
 
   ngOnInit() {}
 }

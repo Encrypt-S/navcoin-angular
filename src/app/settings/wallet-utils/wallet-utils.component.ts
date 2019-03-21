@@ -36,7 +36,7 @@ export class WalletUtilsComponent implements OnInit {
     this.disableUpdateButton = true;
     this.walletUtilsService.update(this.walletUtils).subscribe(
       (response: WalletUtilsResponse) => {
-        if (response.type != 'SUCCESS') {
+        if (response.type != 'SUCCESS' || response.data.code !== 0) {
           this.toastService.show(
             response.message,
             4000,
@@ -71,7 +71,7 @@ export class WalletUtilsComponent implements OnInit {
     this.disableRestartButton = true;
     this.walletUtilsService.restart(this.walletUtils).subscribe(
       (response: WalletUtilsResponse) => {
-        if (response.type != 'SUCCESS') {
+        if (response.type != 'SUCCESS' || response.data.code !== 0) {
           this.toastService.show(
             response.message,
             4000,

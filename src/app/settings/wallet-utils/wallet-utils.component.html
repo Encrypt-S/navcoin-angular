@@ -6,7 +6,7 @@
   <mz-card-content>
     <div class="row">
       <button
-        [disabled]=""
+        [disabled]="disableUpdateButton"
         class="waves-effect waves-light btn left blue lighten-2"
         (click)="updateModal.openModal()"
       >
@@ -16,7 +16,7 @@
 
     <div class="row">
       <button
-        [disabled]=""
+        [disabled]="disableRestartButton"
         class="waves-effect waves-light btn left blue lighten-2"
         (click)="restartModal.openModal()"
       >
@@ -26,7 +26,7 @@
 
     <div class="row">
       <button
-        [disabled]=""
+        [disabled]="disableBackupButton"
         class="waves-effect waves-light btn left blue lighten-2"
         (click)="backUpModal.openModal()"
       >
@@ -36,7 +36,7 @@
 
     <div class="row">
       <button
-        [disabled]=""
+        [disabled]="disableImportButton"
         class="waves-effect waves-light btn left blue lighten-2"
         (click)="importModal.openModal()"
       >

@@ -36,7 +36,7 @@ export class WalletUtilsComponent implements OnInit {
     this.disableUpdateButton = true;
     this.walletUtilsService.update(this.walletUtils).subscribe(
       (response: WalletUtilsResponse) => {
-        console.log('TEST_002', response)
+        console.log('TEST_002A', response)
         if (response.type != 'SUCCESS' || response.data.code !== 0) {
           this.toastService.show(
             response.message,
@@ -56,7 +56,7 @@ export class WalletUtilsComponent implements OnInit {
         return;
       },
       error => {
-        console.log('error: ', error);
+        console.log('error: ', error, 'TEST_003A');
         this.walletUtils = new WalletUtilsModel();
         this.toastService.show(
           error.error.message,

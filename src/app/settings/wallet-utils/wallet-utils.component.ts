@@ -125,13 +125,13 @@ export class WalletUtilsComponent implements OnInit {
   onSubmitBackup() {
     this.disableBackupButton = true;
     this.walletUtilsService.backup(this.walletUtils).subscribe(
-      (data) => {
+      (data: Response) => {
         console.log(data);
 
         const blob = new Blob([data], { type: 'text/csv' });
         const url= window.URL.createObjectURL(blob);
         window.open(url);
-  
+
         this.walletUtils = new WalletUtilsModel();
         this.toastService.show('Wallet Backup Complete', 4000, 'green');
         this.disableBackupButton = false;

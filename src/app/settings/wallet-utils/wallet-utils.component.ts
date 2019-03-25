@@ -10,6 +10,9 @@ import {
   NotifType
 } from 'src/app/notification-bar/NavDroidNotification.model';
 
+import { saveAs } from 'file-saver';
+import * as moment from 'moment';
+
 @Component({
   selector: 'app-wallet-utils',
   templateUrl: './wallet-utils.component.html',
@@ -125,12 +128,10 @@ export class WalletUtilsComponent implements OnInit {
   onSubmitBackup() {
     this.disableBackupButton = true;
     this.walletUtilsService.backup(this.walletUtils).subscribe(
-      (data: Response) => {
-        console.log(data);
+      (data) => {
 
-        const blob = new Blob([data], { type: 'text/csv' });
-        const url= window.URL.createObjectURL(blob);
-        window.open(url);
+        let today = moment().format('YYYY-MM-DD');
+        saveAs(data, today+'-wallet.dat');
 
         this.walletUtils = new WalletUtilsModel();
         this.toastService.show('Wallet Backup Complete', 4000, 'green');

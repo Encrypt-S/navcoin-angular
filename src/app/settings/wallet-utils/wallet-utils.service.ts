@@ -48,10 +48,10 @@ export class WalletUtilsService {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
         'x-access-token': token,
-      })
+      }),
     };
 
-    return this.http.post(this.backupEndpoint, walletUtilsForm, httpOptions);
+    return this.http.post(this.backupEndpoint, walletUtilsForm, {...httpOptions, responseType: 'blob'});
   }
 
   import(walletUtilsForm){

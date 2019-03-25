@@ -23,6 +23,7 @@ export class WalletUtilsComponent implements OnInit {
   disableRestartButton = false;
   disableBackupButton = false;
   disableImportButton = false;
+  loginRedirect;
 
   constructor(
     private walletUtilsService: WalletUtilsService,
@@ -30,7 +31,11 @@ export class WalletUtilsComponent implements OnInit {
     private toastService: MzToastService
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    const url = window.location.href;
+    const parts = url.split(':');
+    this.loginRedirect = parts[0] + ':' + parts[1] + '/login';
+  }
 
   onSubmitUpdate() {
     this.disableUpdateButton = true;
@@ -62,8 +67,9 @@ export class WalletUtilsComponent implements OnInit {
         }
 
         const newNotif = new NavDroidNotification(
-          'NavCoin is now restarting, please refresh the page in a few minutes.',
+          'The web service is now restarting, please reauthenticate in a few minutes.',
           NotifType.SUCCESS,
+          loginRedirect
         );
         this.notificationService.addNotification(newNotif);
         return;

@@ -38,6 +38,11 @@ export class DeviceUtilsComponent implements OnInit {
 
   onSubmitUpdate() {
     this.disableUiButton = true;
+    this.toastService.show(
+      'NavDroid is attempting to update, please be patient',
+      4000,
+      'green'
+    );
     this.deviceUtilsService.update(this.deviceUtils).subscribe(
       (response: DeviceUtilsResponse) => {
         console.log('TEST_003A', response)

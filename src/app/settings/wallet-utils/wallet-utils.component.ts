@@ -69,7 +69,7 @@ export class WalletUtilsComponent implements OnInit {
         const newNotif = new NavDroidNotification(
           'The web service is now restarting, please reauthenticate in a few minutes.',
           NotifType.SUCCESS,
-          loginRedirect
+          this.loginRedirect
         );
         this.notificationService.addNotification(newNotif);
         return;

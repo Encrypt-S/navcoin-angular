@@ -50,6 +50,8 @@ export class DeviceUtilsComponent implements OnInit {
           return;
         }
 
+        this.deviceUtils = new DeviceUtilsModel();
+
         if (response.code == 'UPDATE_UI_001A') {
           this.toastService.show(
             response.message,
@@ -59,8 +61,6 @@ export class DeviceUtilsComponent implements OnInit {
           this.disableUiButton = false;
           return;
         }
-
-        this.deviceUtils = new DeviceUtilsModel();
 
         const newNotif = new NavDroidNotification(
           'The web service is now restarting, please reauthenticate in a few minutes.',

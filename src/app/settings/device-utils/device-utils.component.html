@@ -23,6 +23,16 @@
         Update NavDroid
       </button>
     </div>
+
+    <div class="row">
+      <button
+        [disabled]="disableRestartWebButton"
+        class="waves-effect waves-light btn left blue lighten-2"
+        (click)="restartWeb.openModal()"
+      >
+        Reload NavDroid
+      </button>
+    </div>
   </mz-card-content>
 </mz-card>
 
@@ -41,6 +51,43 @@
         <input
           type="password"
           id="restartPassword"
+          name="password"
+          class="validate"
+          required
+          [(ngModel)]="deviceUtils.password"
+          />
+      </label>
+      <button
+        mz-button
+        mz-modal-close
+        class="waves-effect waves-light btn blue lighten-2"
+        type="submit"
+        [disabled]="!deviceUtils.password"
+      >
+        Submit
+      </button>
+      </form>
+  </mz-modal-content>
+  <mz-modal-footer>
+    <button mz-button [flat]="true" mz-modal-close>Cancel</button>
+  </mz-modal-footer>
+</mz-modal>
+
+<mz-modal #restartWebModal>
+  <mz-modal-header>
+    <h4>Reload NavDroid</h4>
+  </mz-modal-header>
+  <mz-modal-content>
+    <p>
+      Please enter your NavDroid user password to reload the NavDroid web services.
+    </p>
+
+    <form #restartStakeBoxForm="ngForm" (ngSubmit)="onSubmitRestartWeb()">
+      <label>
+        Web interface Password:
+        <input
+          type="password"
+          id="restartWebPassword"
           name="password"
           class="validate"
           required

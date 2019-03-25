@@ -21,6 +21,7 @@ export class DeviceUtilsComponent implements OnInit {
   deviceUtilsResponse: DeviceUtilsResponse;
   disableUiButton = false;
   disableRestartButton = false;
+  disableRestartWebButton = false;
   loginRedirect;
 
   constructor(
@@ -80,6 +81,42 @@ export class DeviceUtilsComponent implements OnInit {
           'red'
         );
         this.disableUiButton = false;
+      }
+    );
+  }
+
+  onSubmitRestartWeb() {
+    this.disableRestartWebButton = true;
+    this.deviceUtilsService.restartWeb(this.deviceUtils).subscribe(
+      (response: DeviceUtilsResponse) => {
+        if (response.type != 'SUCCESS') {
+          this.toastService.show(
+            response.message,
+            4000,
+            'red'
+          );
+          this.disableRestartWebButton = false;
+          return;
+        }
+
+        this.deviceUtils = new DeviceUtilsModel();
+        const newNotif = new NavDroidNotification(
+          'The web service is now restarting, please reauthenticate in a few minutes.',
+          NotifType.SUCCESS,
+          this.loginRedirect
+        );
+
+        this.notificationService.addNotification(newNotif);
+      },
+      error => {
+        console.log('error: ', error);
+        this.deviceUtils = new DeviceUtilsModel();
+        this.toastService.show(
+          error.error.message,
+          4000,
+          'red'
+        );
+        this.disableRestartWebButton = false;
       }
     );
   }

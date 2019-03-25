@@ -34,9 +34,13 @@ export class WalletUtilsComponent implements OnInit {
 
   onSubmitUpdate() {
     this.disableUpdateButton = true;
+    this.toastService.show(
+      'NavCoin is attempting to update, please be patient',
+      4000,
+      'green'
+    );
     this.walletUtilsService.update(this.walletUtils).subscribe(
       (response: WalletUtilsResponse) => {
-        console.log('TEST_002A', response)
         if (response.type != 'SUCCESS') {
           this.toastService.show(
             response.message,
@@ -46,7 +50,7 @@ export class WalletUtilsComponent implements OnInit {
           this.disableUpdateButton = false;
           return;
         }
-
+        this.walletUtils = new WalletUtilsModel();
         if (response.data.code == 3) {
           this.toastService.show(
             response.message,
@@ -57,7 +61,6 @@ export class WalletUtilsComponent implements OnInit {
           return;
         }
 
-        this.walletUtils = new WalletUtilsModel();
         const newNotif = new NavDroidNotification(
           'NavCoin is now restarting, please refresh the page in a few minutes.',
           NotifType.SUCCESS,

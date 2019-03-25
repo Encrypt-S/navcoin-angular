@@ -49,7 +49,7 @@ export class DeviceUtilsService {
       })
     };
 
-    return this.http.post(this.rebootEndpoint, uIPasswordForm, httpOptions);
+    return this.http.post(this.restartWebEndpoint, uIPasswordForm, httpOptions);
   }
 
 }

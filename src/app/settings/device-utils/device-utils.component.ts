@@ -50,6 +50,16 @@ export class DeviceUtilsComponent implements OnInit {
           return;
         }
 
+        if (response.code == 'UPDATE_UI_001A') {
+          this.toastService.show(
+            response.message,
+            4000,
+            'green'
+          );
+          this.disableUiButton = false;
+          return;
+        }
+
         this.deviceUtils = new DeviceUtilsModel();
 
         const newNotif = new NavDroidNotification(

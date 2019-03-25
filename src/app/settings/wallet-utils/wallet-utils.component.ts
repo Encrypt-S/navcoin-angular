@@ -37,7 +37,7 @@ export class WalletUtilsComponent implements OnInit {
     this.walletUtilsService.update(this.walletUtils).subscribe(
       (response: WalletUtilsResponse) => {
         console.log('TEST_002A', response)
-        if (response.type != 'SUCCESS' || response.data.code !== 0) {
+        if (response.type != 'SUCCESS') {
           this.toastService.show(
             response.message,
             4000,
@@ -47,9 +47,19 @@ export class WalletUtilsComponent implements OnInit {
           return;
         }
 
+        if (response.data.code == 3) {
+          this.toastService.show(
+            response.message,
+            4000,
+            'green'
+          );
+          this.disableUpdateButton = false;
+          return;
+        }
+
         this.walletUtils = new WalletUtilsModel();
         const newNotif = new NavDroidNotification(
-          'NavCoin is now updating, please refresh the page in a few minutes.',
+          'NavCoin is now restarting, please refresh the page in a few minutes.',
           NotifType.SUCCESS,
         );
         this.notificationService.addNotification(newNotif);

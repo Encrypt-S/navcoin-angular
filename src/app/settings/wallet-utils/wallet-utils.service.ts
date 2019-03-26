@@ -54,18 +54,20 @@ export class WalletUtilsService {
     return this.http.post(this.backupEndpoint, walletUtilsForm, {...httpOptions, responseType: 'blob'});
   }
 
-  import(walletUtilsForm){
+  import(walletUtilsForm, fileToUpload){
 
+    const formData = new FormData();
+    formData.append('fileKey', fileToUpload, fileToUpload.name);
+    formData.append('password', walletUtilsForm.password);
     const token = localStorage.getItem('token');
 
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type':  'application/json',
         'x-access-token': token,
       })
     };
 
-    return this.http.post(this.importEndpoint, walletUtilsForm, httpOptions);
+    return this.http.post(this.importEndpoint, formData, httpOptions);
   }
 
 

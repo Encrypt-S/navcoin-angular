@@ -27,6 +27,7 @@ export class WalletUtilsComponent implements OnInit {
   disableBackupButton = false;
   disableImportButton = false;
   loginRedirect;
+  fileToUpload;
 
   constructor(
     private walletUtilsService: WalletUtilsService,
@@ -151,9 +152,13 @@ export class WalletUtilsComponent implements OnInit {
     );
   }
 
+  handleFileInput(files: FileList) {
+     this.fileToUpload = files.item(0);
+  }
+
   onSubmitImport() {
     this.disableImportButton = true;
-    this.walletUtilsService.import(this.walletUtils).subscribe(
+    this.walletUtilsService.import(this.walletUtils, this.fileToUpload).subscribe(
       (response: WalletUtilsResponse) => {
         if (response.type != 'SUCCESS') {
           this.toastService.show(

@@ -55,6 +55,10 @@
       Please enter your NavDroid user password to import your NavCoin wallet.
     </p>
 
+    <p>
+      Please note this will overwrite your existing wallet file on the device, make sure you have backed up your wallet before performing this operation.
+    </p>
+
     <form #importWalletForm="ngForm" (ngSubmit)="onSubmitImport()">
       <label>
         Web interface Password:
@@ -74,7 +78,9 @@
         id="wallet"
         name="wallet"
         class="validate"
+        accept=".dat"
         required
+        (change)="handleFileInput($event.target.files)"
         [(ngModel)]="walletUtils.wallet"
         />
       </label>

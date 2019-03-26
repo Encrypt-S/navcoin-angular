@@ -1,4 +1,4 @@
 export class WalletUtilsModel {
   password: string;
-  wallet: any;
+  file: any;
 }

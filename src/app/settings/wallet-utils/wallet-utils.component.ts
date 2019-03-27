@@ -109,6 +109,7 @@ export class WalletUtilsComponent implements OnInit {
         const newNotif = new NavDroidNotification(
           'NavCoin is now restarting, please refresh the page in a few minutes.',
           NotifType.SUCCESS,
+          this.loginRedirect
         );
         this.notificationService.addNotification(newNotif);
         return;
@@ -174,6 +175,7 @@ export class WalletUtilsComponent implements OnInit {
         const newNotif = new NavDroidNotification(
           'NavCoin is now restarting, please refresh the page in a few minutes.',
           NotifType.SUCCESS,
+          this.loginRedirect
         );
         this.notificationService.addNotification(newNotif);
         return;

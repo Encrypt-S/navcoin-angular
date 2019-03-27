@@ -15,8 +15,7 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 - Flash the image to a microsd card using a program like [Etcher](https://etcher.io/).
 - Make sure the ODroid is set to SD card mode (there is a small switch you need to flick).
 - Insert the microsd card into your Odroid and boot it up.
-- Connect the stakebox to a monitor and keyboard. 
-- Plug in an ethernet cable for internet access or use the command line to connect to your wifi
+- Plug in an ethernet cable for internet access
 
 ### Find the IP address of the stakebox
 

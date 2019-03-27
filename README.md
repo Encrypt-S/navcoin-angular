@@ -15,6 +15,7 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 stakebox username: `odroid`
 stakebox password: `odroid`
+
 Web interface username: `navdroid`
 Web interface password: `navdroid`
 

@@ -27,13 +27,10 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 ### Log In
 
-On your computer (not the stakebox), open your web browser and visit `/login` at the ip address of the Stakebox, e.g. `192.168.1.99/login`
-
-Accept the security certificates (there will be two of them).
-
-Log in using the default username and password (`navdroid` for both)
-
-After logging in we reccomend that you encrypt your wallet and change the username and password for the web interface
+- On your computer (not the stakebox), open your web browser and visit `/login` at the ip address of the Stakebox, e.g. `https://192.168.1.99/login` (make sure you use `https://` and not `http://`)
+- Accept the security certificates (there will be two of them).
+- Log in using the default username and password (`navdroid` for both)
+- After logging in we reccomend that you encrypt your wallet and change the username and password for the web interface
 
 
 ### How to encrypt your wallet

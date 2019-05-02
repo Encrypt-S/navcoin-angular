@@ -97,7 +97,7 @@ export class WalletStatusComponent implements OnInit, OnDestroy {
     if (this.wallet.isEncrypted && setStaking) {
       command = [
         new RpcSend('walletpassphrase', [
-          this.stakingForm.value.stakingPassword,
+          'this.stakingForm.value.stakingPassword',
           999999999999999999,
           true
         ]),

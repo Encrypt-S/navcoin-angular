@@ -28,8 +28,6 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('login: ', this.login);
-
     this.authService.login(this.login)
       .subscribe(
         (receive: AuthReceive) => {

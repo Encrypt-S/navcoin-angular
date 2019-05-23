@@ -41,9 +41,6 @@ export class HomepagePaymentRequestListComponent implements OnInit, OnDestroy {
   }
 
   getData() {
-    console.log(
-      'HomepagePaymentRequestListComponent fetching new Proposal data'
-    );
     this.communityFundService
       .fetchPaymentRequestVotes()
       .catch(error =>

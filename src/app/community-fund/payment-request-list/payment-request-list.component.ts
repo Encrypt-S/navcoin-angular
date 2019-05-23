@@ -35,7 +35,6 @@ export class PaymentRequestListComponent implements OnInit, OnDestroy {
   }
 
   getData() {
-    console.log('PaymentRequestListComponent fetching new paymentRequest data');
     this.communityFundService
       .fetchPaymentRequestVotes()
       .catch(error =>

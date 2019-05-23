@@ -39,7 +39,6 @@ export class HomepageProposalListComponent implements OnInit, OnDestroy {
   }
 
   getData() {
-    console.log('HomepageProposalListComponent fetching new Proposal data');
     this.communityFundService
       .fetchProposalVotes()
       .catch(error =>

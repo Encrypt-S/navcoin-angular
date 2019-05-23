@@ -79,7 +79,7 @@ export class WalletUtilsComponent implements OnInit {
         return;
       },
       error => {
-        console.log('error: ', error, 'TEST_003A');
+        console.log('error: ', error);
         this.walletUtils = new WalletUtilsModel();
         this.toastService.show(
           error.error.message,

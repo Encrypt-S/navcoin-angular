@@ -45,7 +45,6 @@ export class DeviceUtilsComponent implements OnInit {
     );
     this.deviceUtilsService.update(this.deviceUtils).subscribe(
       (response: DeviceUtilsResponse) => {
-        console.log('TEST_003A', response)
         if (response.type != 'SUCCESS') {
           this.toastService.show(
             response.message,

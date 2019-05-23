@@ -47,7 +47,6 @@ export class ProposalListComponent implements OnInit, OnDestroy {
   }
 
   getData() {
-    console.log('ProposalListComponent fetching new Proposal data');
     this.communityFundService
       .fetchProposalVotes()
       .catch(error =>

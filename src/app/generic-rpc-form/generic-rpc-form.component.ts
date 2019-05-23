@@ -26,7 +26,6 @@ export class GenericRpcFormComponent implements OnInit {
 
   onSubmit() {
     this.debounce = true;
-    console.log('RPC Command: ', this.rpcCommand);
     this.toastService.show(`Your RPC is running, please wait`, 4000, 'green');
     const splitCommand = this.rpcCommand.split(' ');
     const rpcData = new RpcSend(splitCommand[0], [...splitCommand.slice(1)]);
@@ -34,7 +33,6 @@ export class GenericRpcFormComponent implements OnInit {
     this.walletService.sendRPC(rpcData).subscribe(
       (response: RpcReceive) => {
         if (response.type !== 'SUCCESS') {
-          console.log(response);
           if (response.code === 'RPC_001') {
             this.toastService.show(
               `The RPC command you entered is invalid: ${this.rpcCommand}`,

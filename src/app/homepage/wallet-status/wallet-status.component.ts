@@ -98,7 +98,7 @@ export class WalletStatusComponent implements OnInit, OnDestroy {
       command = [
         new RpcSend('walletpassphrase', [
           this.stakingForm.value.stakingPassword,
-          999999999999999999,
+          99999999,
           true
         ]),
         new RpcSend('staking', [setStaking])
